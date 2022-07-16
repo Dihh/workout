@@ -7,7 +7,7 @@
 
 import headComponent from './components/head/head-component.js'
 import indexComponent from './components/index/index-component.js'
-import { getTemplate } from "../../main.js"
+import { getTemplate } from "./main.js"
 
 const { createApp } = Vue
 
