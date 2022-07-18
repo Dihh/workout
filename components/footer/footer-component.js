@@ -1,7 +1,7 @@
 const { createApp } = Vue
 
 export default createApp({
-    template: `#index-template`,
+    template: `#footer-template`,
     data() {
         return {
             page: ''
@@ -12,5 +12,9 @@ export default createApp({
         const params = Object.fromEntries(urlSearchParams.entries());
         this.page = params.page
     },
-    methods: {}
+    methods: {
+        goTo(page) {
+            location.href = `?page=${page}`
+        }
+    }
 })

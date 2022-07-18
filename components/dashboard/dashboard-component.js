@@ -1,12 +1,10 @@
 const { createApp } = Vue
 
 export default createApp({
-    template: `#head-template`,
+    template: `#dashboard-template`,
     data() {
         return {}
     },
     beforeMount() { },
-    methods: {
-        apiKey() { }
-    }
+    methods: {}
 })

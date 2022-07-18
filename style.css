@@ -1,19 +1,26 @@
-.login-login_content{
-  display: flex;
-  height: 100vh;
+:root {
+  --bg-white: #fff;
+  --shadow-bottom: 0px 1px 3px #aaa;
+  --shadow-top: 0px -1px 3px #aaa;
+  --primary: rgb(135, 0, 169);
+}
+
+body{
+  color: #333;
+}
+
+.index{
+  padding: 20px;
+}
+
+#index{
+  height: 700px;
+  padding: 20px;
+}
+
+#footer{
+  position: fixed;
+  bottom: 0;
   width: 100%;
-  align-items: center;
-  justify-content: center;
 }
 
-.pages{
-  display: none
-}
-
-#login-continue{
-  display: none;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100px;
-}

@@ -1,4 +1,16 @@
+<style>
+    .index {
+        color: #fff;
+        font-weight: bold;
+        background: #ccc;
+        height: 100%;
+    }
+</style>
 <script type="text/x-template" id="index-template">
-    <div>{{ message + ' - ' + i }}</div>
-    <button @click="updateTime()"> click</button>
+    <div class="index">
+        <div id="dashboard"  v-if="page=='dashboard'"></div>
+        <div id="treinos" v-if="page=='treinos'"></div>
+        <div id="exercicios" v-if="page=='exercicios'"></div>
+        <div id="categorias" v-if="page=='categorias'"></div>
+    </div>
 </script>
