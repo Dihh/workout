@@ -12,6 +12,7 @@ import dashboardComponent from './components/dashboard/dashboard-component.js'
 import exerciciosComponent from './components/exercicios/exercicios-component.js'
 import treinosComponent from './components/treinos/treinos-component.js'
 import categoriasComponent from './components/categorias/categorias-component.js'
+import datesComponent from './components/dates/dates-component.js'
 import { getTemplate } from "./main.js"
 
 const { createApp } = Vue
@@ -32,6 +33,7 @@ async function getComponents() {
     await getTemplate('exercicios')
     await getTemplate('treinos')
     await getTemplate('categorias')
+    await getTemplate('dates')
 
     headComponent.mount("#head")
     indexComponent.mount("#index")
@@ -40,6 +42,7 @@ async function getComponents() {
     exerciciosComponent.mount("#exercicios")
     treinosComponent.mount("#treinos")
     categoriasComponent.mount("#categorias")
+    datesComponent.mount("#dates")
 
 }
 
