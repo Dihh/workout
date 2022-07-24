@@ -11,9 +11,10 @@ import footerComponent from './components/footer/footer-component.js'
 import dashboardComponent from './components/dashboard/dashboard-component.js'
 import exerciciosComponent from './components/exercicios/exercicios-component.js'
 import treinosComponent from './components/treinos/treinos-component.js'
-import categoriasComponent from './components/categorias/categorias-component.js'
 import datesComponent from './components/dates/dates-component.js'
 import { getTemplate } from "./main.js"
+import categoriasFormComponent from './components/forms/categorias/categorias-form-component.js'
+import categoriasListComponent from './components/list/categorias/categorias-list-component.js'
 
 const { createApp } = Vue
 
@@ -32,8 +33,9 @@ async function getComponents() {
     await getTemplate('dashboard')
     await getTemplate('exercicios')
     await getTemplate('treinos')
-    await getTemplate('categorias')
     await getTemplate('dates')
+    await getTemplate('categorias-form', 'forms/categorias')
+    await getTemplate('categorias-list', 'list/categorias')
 
     headComponent.mount("#head")
     indexComponent.mount("#index")
@@ -41,9 +43,9 @@ async function getComponents() {
     dashboardComponent.mount("#dashboard")
     exerciciosComponent.mount("#exercicios")
     treinosComponent.mount("#treinos")
-    categoriasComponent.mount("#categorias")
     datesComponent.mount("#dates")
-
+    categoriasFormComponent.mount("#categorias-form")
+    categoriasListComponent.mount("#categorias-list")
 }
 
 getComponents()
