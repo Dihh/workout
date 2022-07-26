@@ -6,6 +6,8 @@ export default {
     },
     beforeMount() { },
     methods: {
-        apiKey() { }
+        apiKey() {
+            location.href = '?page=api-key-form'
+        }
     }
 }

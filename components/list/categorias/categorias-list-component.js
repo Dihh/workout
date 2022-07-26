@@ -2,7 +2,7 @@ import { API_URL } from '../../../main.js'
 
 export default {
     template: `#categorias-list-template`,
-    props: [],
+    props: ['API_KEY'],
     data() {
         return {
             categories: [],
@@ -12,16 +12,12 @@ export default {
     mounted() {
         this.getCategories();
     },
-    created() {
-        console.log(this.message)
-    },
     methods: {
         goTo(page) {
             location.href = `?page=${page}`
         },
         async getCategories() {
-            const API_KEY = localStorage.API_KEY
-            this.categories = await (await fetch(`${API_URL}?apiKey=${API_KEY}&route=/get-categories`)).json()
+            this.categories = await (await fetch(`${API_URL}?apiKey=${this.API_KEY}&route=/get-categories`)).json()
         },
         touchstart() {
             console.log('touchstart')

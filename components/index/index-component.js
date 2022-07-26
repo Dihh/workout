@@ -1,4 +1,5 @@
 export default {
+    props: ['API_KEY'],
     template: `#index-template`,
     data() {
         return {
@@ -10,5 +11,9 @@ export default {
         const params = Object.fromEntries(urlSearchParams.entries());
         this.page = params.page
     },
-    methods: {}
+    methods: {
+        setApiKey(API_KEY) {
+            this.$emit("apiKey", API_KEY)
+        }
+    }
 }

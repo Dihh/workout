@@ -1,6 +1,7 @@
 import { API_URL } from '../../../main.js'
 
 export default {
+    props: ['API_KEY'],
     template: `#categorias-form-template`,
     data() {
         return {
@@ -19,7 +20,7 @@ export default {
             const headers = {
                 'Content-Type': "text/plain;charset=utf-8",
             }
-            this.categories = await (await fetch(`${API_URL}?apiKey=${API_KEY}`, { method: "POST", headers, body, redirect: "follow" })).json()
+            this.categories = await (await fetch(`${API_URL}?apiKey=${this.API_KEY}`, { method: "POST", headers, body, redirect: "follow" })).json()
             history.back()
         }
     }
