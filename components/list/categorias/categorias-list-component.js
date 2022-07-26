@@ -13,23 +13,13 @@ export default {
         this.getCategories();
     },
     methods: {
-        goTo(page) {
-            location.href = `?page=${page}`
+        goTo(page, id) {
+            let link = `?page=${page}`
+            if (id) link += `&id=${id}`
+            location.href = link
         },
         async getCategories() {
             this.categories = await (await fetch(`${API_URL}?apiKey=${this.API_KEY}&route=/get-categories`)).json()
         },
-        touchstart() {
-            console.log('touchstart')
-            const touchduration = 500
-            this.timer = setTimeout(this.onlongtouch, touchduration);
-        },
-        touchend() {
-            console.log('touchend')
-            if (this.timer) clearTimeout(this.timer);
-        },
-        onlongtouch() {
-            console.log("onlongtouch")
-        }
     }
 }

@@ -9,6 +9,7 @@ import { getTemplate } from "./main.js"
 import categoriasFormComponent from './components/forms/categorias/categorias-form-component.js'
 import categoriasListComponent from './components/list/categorias/categorias-list-component.js'
 import apiKeyFormComponent from './components/forms/api-key/api-key-form-component.js'
+import categoriaComponent from './components/pages/categoria/categoria-component.js'
 
 const { createApp } = Vue
 
@@ -41,6 +42,7 @@ async function getComponents() {
         { tag: 'app-categorias-form', component: categoriasFormComponent, name: 'categorias-form', path: 'forms/categorias' },
         { tag: 'app-categorias-list', component: categoriasListComponent, name: 'categorias-list', path: 'list/categorias' },
         { tag: 'app-api-key-form', component: apiKeyFormComponent, name: 'api-key-form', path: 'forms/api-key' },
+        { tag: 'app-categoria', component: categoriaComponent, name: 'categoria', path: 'pages/categoria' },
     ]
 
     for (let component of components) {

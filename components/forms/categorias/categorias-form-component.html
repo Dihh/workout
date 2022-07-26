@@ -1,14 +1,19 @@
-<style>
-
-</style>
 <script type="text/x-template" id="categorias-form-template">
-    <form action="">
+    <div class="loading" v-if="loading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <form action="" v-else>
         <div class="mb-3">
             <label for="name" class="form-label">Nome:</label>
-            <input v-model="name" type="text" class="form-control" id="name">
+            <input v-model="category.name" type="text" class="form-control" id="name">
         </div>
-        <div class="form-buttons">
+        <div class="form-buttons" v-if="!id">
             <button type="button" class="btn btn-success" @click="createCategory()">Enviar</button>
+        </div>
+        <div class="form-buttons" v-else>
+            <button type="button" class="btn btn-success" @click="updateCategory()">Enviar</button>
         </div>
     </form>
 </script>

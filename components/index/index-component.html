@@ -4,7 +4,8 @@
         <app-treinos v-if="page=='treinos' && API_KEY" :API_KEY="API_KEY"></app-treinos>
         <app-exercicios v-if="page=='exercicios' && API_KEY" :API_KEY="API_KEY"></app-exercicios>
         <app-categorias-list v-if="page=='categorias' && API_KEY" :API_KEY="API_KEY"></app-categorias-list>
-        <app-categorias-form v-if="page=='categorias-form && API_KEY'" :API_KEY="API_KEY"></app-categorias-form>
+        <app-categorias-form v-if="page=='categorias-form' && API_KEY" :API_KEY="API_KEY"></app-categorias-form>
         <app-api-key-form v-if="page=='api-key-form'" @apiKey="setApiKey"></app-api-key-form>
+        <app-categoria v-if="page=='categoria' && API_KEY" :API_KEY="API_KEY"></app-categoria>
     </div>
 </script>

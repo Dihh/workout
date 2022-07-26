@@ -8,7 +8,7 @@
 .app{
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 95vh;
 }
 
 #head{
@@ -26,6 +26,10 @@
 
 body{
   color: #333;
+}
+
+.text-right{
+  text-align: right;
 }
 
 .bg-light {
@@ -132,6 +136,18 @@ form{
 .loading{
   text-align: center;
   color: #641987;
+}
+
+.button-icon-div{
+  color: #fff;
+  background: #641987;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: var(--shadow-bottom)
+}
+
+.button-icon{
+  font-size: 100%;
 }
 
 .btn-success {
