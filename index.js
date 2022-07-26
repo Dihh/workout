@@ -1,10 +1,3 @@
-// async function main() {
-//     const head = await getComponent('head')
-//     const index = await getComponent('index')
-//     document.querySelector("#head").innerHTML = head
-//     document.querySelector("#index").innerHTML = index
-// }
-
 import headComponent from './components/head/head-component.js'
 import indexComponent from './components/index/index-component.js'
 import footerComponent from './components/footer/footer-component.js'
@@ -18,35 +11,32 @@ import categoriasListComponent from './components/list/categorias/categorias-lis
 
 const { createApp } = Vue
 
-createApp({
+const app = createApp({
     template: `#app-template`,
     data() {
         return {}
     },
     async mounted() { }
-}).mount('#app')
+})
 
 async function getComponents() {
-    await getTemplate('head')
-    await getTemplate('index')
-    await getTemplate('footer')
-    await getTemplate('dashboard')
-    await getTemplate('exercicios')
-    await getTemplate('treinos')
-    await getTemplate('dates')
-    await getTemplate('categorias-form', 'forms/categorias')
-    await getTemplate('categorias-list', 'list/categorias')
+    const components = [
+        { tag: 'app-head', component: headComponent, name: 'head' },
+        { tag: 'app-index', component: indexComponent, name: 'index' },
+        { tag: 'app-footer', component: footerComponent, name: 'footer' },
+        { tag: 'app-dashboard', component: dashboardComponent, name: 'dashboard' },
+        { tag: 'app-exercicios', component: exerciciosComponent, name: 'exercicios' },
+        { tag: 'app-treinos', component: treinosComponent, name: 'treinos' },
+        { tag: 'app-dates', component: datesComponent, name: 'dates' },
+        { tag: 'app-categorias-form', component: categoriasFormComponent, name: 'categorias-form', path: 'forms/categorias' },
+        { tag: 'app-categorias-list', component: categoriasListComponent, name: 'categorias-list', path: 'list/categorias' }
+    ]
 
-    headComponent.mount("#head")
-    indexComponent.mount("#index")
-    footerComponent.mount("#footer")
-    dashboardComponent.mount("#dashboard")
-    exerciciosComponent.mount("#exercicios")
-    treinosComponent.mount("#treinos")
-    datesComponent.mount("#dates")
-    categoriasFormComponent.mount("#categorias-form")
-    categoriasListComponent.mount("#categorias-list")
+    for (let component of components) {
+        await getTemplate(component.name, component.path)
+        app.component(component.tag, component.component)
+    }
+    app.mount('#app')
 }
 
 getComponents()
-

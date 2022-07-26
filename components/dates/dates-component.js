@@ -1,7 +1,5 @@
 import months from '../../month-names.js'
-const { createApp } = Vue
-
-export default createApp({
+export default {
     template: `#dates-template`,
     data() {
         return {
@@ -21,4 +19,4 @@ export default createApp({
         document.querySelector(".dates").scrollLeft = 75 * 4 + 10 * 4
     },
     methods: {}
-})
+}

@@ -1,10 +1,8 @@
-const { createApp } = Vue
-
-export default createApp({
+export default {
     template: `#exercicios-template`,
     data() {
         return {}
     },
     beforeMount() { },
     methods: {}
-})
+}

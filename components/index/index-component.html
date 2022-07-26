@@ -1,11 +1,9 @@
 <script type="text/x-template" id="index-template">
     <div class="index">
-        <div id="dashboard"  v-if="page=='dashboard'"></div>
-        <div id="treinos" v-if="page=='treinos'"></div>
-        <div id="exercicios" v-if="page=='exercicios'"></div>
-        
-        <div id="categorias-list" v-if="page=='categorias'"></div>
-        <div id="categorias-form" v-if="page=='categorias-form'"></div>
-
+        <app-dashboard v-if="page=='dashboard'"></app-dashboard>
+        <app-treinos v-if="page=='treinos'"></app-treinos>
+        <app-exercicios v-if="page=='exercicios'"></app-exercicios>
+        <app-categorias-list v-if="page=='categorias'"></app-categorias-list>
+        <app-categorias-form v-if="page=='categorias-form'"></app-categorias-form>
     </div>
 </script>

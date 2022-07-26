@@ -1,6 +1,5 @@
-const { createApp } = Vue
-
-export default createApp({
+export default {
+    props: [],
     template: `#head-template`,
     data() {
         return {}
@@ -9,4 +8,4 @@ export default createApp({
     methods: {
         apiKey() { }
     }
-})
+}

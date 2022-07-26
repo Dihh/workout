@@ -1,6 +1,5 @@
-const { createApp } = Vue
-
-export default createApp({
+export default {
+    props: [],
     template: `#footer-template`,
     data() {
         return {
@@ -15,6 +14,6 @@ export default createApp({
     methods: {
         goTo(page) {
             location.href = `?page=${page}`
-        }
+        },
     }
-})
+}

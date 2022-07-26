@@ -8,7 +8,7 @@
 .app{
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 90vh;
 }
 
 #head{
@@ -122,11 +122,16 @@ form{
   border-radius: 50%;
   position: fixed;
   right: 20px;
-  bottom: 11vh;
+  bottom: 21vh;
 }
 
 .table{
   padding-bottom: 80px;
+}
+
+.loading{
+  text-align: center;
+  color: #641987;
 }
 
 .btn-success {

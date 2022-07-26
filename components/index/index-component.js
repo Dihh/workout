@@ -1,6 +1,4 @@
-const { createApp } = Vue
-
-export default createApp({
+export default {
     template: `#index-template`,
     data() {
         return {
@@ -13,4 +11,4 @@ export default createApp({
         this.page = params.page
     },
     methods: {}
-})
+}
