@@ -29,7 +29,7 @@ export default {
             }
             this.loading = true
             await requestPost(boddy, `${API_URL}?apiKey=${this.API_KEY}`)
-            history.back()
+            location.href = `?page=categorias`
         },
     }
 }

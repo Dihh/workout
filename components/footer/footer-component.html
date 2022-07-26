@@ -32,16 +32,16 @@
 <script type="text/x-template" id="footer-template">
     <div class="container">
     <div class="row">
-        <div class="menu-item col-3" :class="{ active: page=='dashboard' }" @click="goTo('dashboard')">
+        <div class="menu-item col-3 noselect" :class="{ active: page=='dashboard' }" @click="goTo('dashboard')">
             <i class="fa-solid fa-chart-line menu-icon"></i><div class="menu-text">Dashboard</div>
         </div>
-        <div class="menu-item col-3" :class="{ active: page=='treinos' }" @click="goTo('treinos')">
+        <div class="menu-item col-3 noselect" :class="{ active: page=='treinos' }" @click="goTo('treinos')">
             <i class="fa-solid fa-person-running menu-icon"></i><div class="menu-text">Treinos</div>
         </div>
-        <div class="menu-item col-3" :class="{ active: page=='exercicios' }" @click="goTo('exercicios')">
+        <div class="menu-item col-3 noselect" :class="{ active: page=='exercicios' }" @click="goTo('exercicios')">
             <i class="fa-solid fa-dumbbell menu-icon"></i><div class="menu-text">Exercícios</div>
         </div>
-        <div class="menu-item col-3" :class="{ active: page=='categorias' }" @click="goTo('categorias')">
+        <div class="menu-item col-3 noselect" :class="{ active: page=='categorias' }" @click="goTo('categorias')">
             <i class="fa-solid fa-layer-group menu-icon"></i><div class="menu-text">Categorias</div>
         </div>
     </div>

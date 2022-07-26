@@ -25,8 +25,8 @@ export default {
                 "name": this.category.name
             }
             this.loading = true
-            await requestPost(boddy, `${API_URL}?apiKey=${this.API_KEY}`)
-            history.back()
+            const category = await requestPost(boddy, `${API_URL}?apiKey=${this.API_KEY}`)
+            location.href = `?page=categoria&id=${category.id}`
         },
         async updateCategory() {
             const boddy = {
@@ -35,8 +35,8 @@ export default {
                 "name": this.category.name
             }
             this.loading = true
-            await requestPost(boddy, `${API_URL}?apiKey=${this.API_KEY}`)
-            history.back()
+            const category = await requestPost(boddy, `${API_URL}?apiKey=${this.API_KEY}`)
+            location.href = `?page=categoria&id=${category.id}`
         },
         async getCategory(id) {
             this.category = await (await fetch(`${API_URL}?apiKey=${this.API_KEY}&route=/get-category&id=${id}`)).json()
