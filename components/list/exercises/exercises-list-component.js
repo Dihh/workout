@@ -1,15 +1,15 @@
 import { requests } from '../../../requests.js'
 
 export default {
-    template: `#categorias-list-template`,
+    template: `#exercises-list-template`,
     data() {
         return {
-            categories: [],
+            exercises: [],
             timer: null,
         }
     },
     mounted() {
-        this.getCategories();
+        this.getExercises();
     },
     methods: {
         goTo(page, id) {
@@ -17,8 +17,8 @@ export default {
             if (id) link += `&id=${id}`
             location.href = link
         },
-        async getCategories() {
-            this.categories = await requests.getCategories()
+        async getExercises() {
+            this.exercises = await requests.getExercises()
         },
     }
 }

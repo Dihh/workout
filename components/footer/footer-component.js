@@ -1,5 +1,4 @@
 export default {
-    props: [],
     template: `#footer-template`,
     data() {
         return {

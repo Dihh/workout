@@ -2,30 +2,30 @@ import { getParam } from '../../../main.js'
 import { requests } from '../../../requests.js'
 
 export default {
-    template: `#categoria-template`,
+    template: `#exercises-template`,
     data() {
         return {
-            category: null,
+            exercise: null,
             id: '',
             loading: true
         }
     },
     beforeMount() {
         this.id = getParam('id')
-        this.getCategory(this.id)
+        this.getExercise(this.id)
     },
     methods: {
-        async getCategory(id) {
-            this.category = await requests.getCategory(id)
+        async getExercise() {
+            this.exercise = await requests.getExercise(this.id)
             this.loading = false
         },
         edit() {
-            location.href = `?page=categorias-form&id=${this.id}`
+            location.href = `?page=exercise-form&id=${this.id}`
         },
         async remove() {
             this.loading = true
-            await requests.removeCategory(this.id)
-            location.href = `?page=categorias`
+            await requests.removeExercise(this.id)
+            location.href = `?page=exercises`
         },
     }
 }

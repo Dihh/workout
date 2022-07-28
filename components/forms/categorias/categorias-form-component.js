@@ -1,7 +1,7 @@
-import { API_URL, getParam, requestPost } from '../../../main.js'
+import { getParam } from '../../../main.js'
+import { requests } from '../../../requests.js'
 
 export default {
-    props: ['API_KEY'],
     template: `#categorias-form-template`,
     data() {
         return {
@@ -20,26 +20,17 @@ export default {
     },
     methods: {
         async createCategory() {
-            const boddy = {
-                "route": "/create-category",
-                "name": this.category.name
-            }
             this.loading = true
-            const category = await requestPost(boddy, `${API_URL}?apiKey=${this.API_KEY}`)
+            const category = await requests.createCategory(this.category)
             location.href = `?page=categoria&id=${category.id}`
         },
         async updateCategory() {
-            const boddy = {
-                "route": "/update-category",
-                "id": this.id,
-                "name": this.category.name
-            }
             this.loading = true
-            const category = await requestPost(boddy, `${API_URL}?apiKey=${this.API_KEY}`)
+            const category = await requests.updateCategory(this.id, this.category)
             location.href = `?page=categoria&id=${category.id}`
         },
-        async getCategory(id) {
-            this.category = await (await fetch(`${API_URL}?apiKey=${this.API_KEY}&route=/get-category&id=${id}`)).json()
+        async getCategory() {
+            this.category = await requests.getCategory(this.id)
             this.loading = false
         }
     }

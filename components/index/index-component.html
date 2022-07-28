@@ -1,11 +1,15 @@
 <script type="text/x-template" id="index-template">
     <div class="index">
-        <app-dashboard v-if="page=='dashboard' && API_KEY" :API_KEY="API_KEY"></app-dashboard>
-        <app-treinos v-if="page=='treinos' && API_KEY" :API_KEY="API_KEY"></app-treinos>
-        <app-exercicios v-if="page=='exercicios' && API_KEY" :API_KEY="API_KEY"></app-exercicios>
-        <app-categorias-list v-if="page=='categorias' && API_KEY" :API_KEY="API_KEY"></app-categorias-list>
-        <app-categorias-form v-if="page=='categorias-form' && API_KEY" :API_KEY="API_KEY"></app-categorias-form>
+        <div v-if="API_KEY">
+            <app-dashboard v-if="page=='dashboard'"></app-dashboard>
+            <app-treinos v-if="page=='treinos'"></app-treinos>
+            <app-exercises-list v-if="page=='exercises'"></app-exercises-list>
+            <app-categorias-list v-if="page=='categorias'"></app-categorias-list>
+            <app-categorias-form v-if="page=='categorias-form'"></app-categorias-form>
+            <app-exercise-form v-if="page=='exercise-form'"></app-exercise-form>
+            <app-categoria v-if="page=='categoria'"></app-categoria>
+            <app-exercise v-if="page=='exercise'"></app-exercise>
+        </div>
         <app-api-key-form v-if="page=='api-key-form'" @apiKey="setApiKey"></app-api-key-form>
-        <app-categoria v-if="page=='categoria' && API_KEY" :API_KEY="API_KEY"></app-categoria>
     </div>
 </script>

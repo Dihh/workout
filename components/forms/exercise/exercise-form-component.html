@@ -1,0 +1,22 @@
+<script type="text/x-template" id="exercise-form-template">
+    <div class="loading" v-if="loading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <form action="" v-else>
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome:</label>
+            <input v-model="exercise.name" type="text" class="form-control" id="name">
+        </div>
+        <select class="form-select" v-model="exercise.category_id">
+            <option v-for="category in categories" :value="category.id">{{category.name}}</option>
+          </select>
+        <div class="form-buttons" v-if="!id">
+            <button type="button" class="btn btn-success" @click="createExercise()">Enviar</button>
+        </div>
+        <div class="form-buttons" v-else>
+            <button type="button" class="btn btn-success" @click="updateExercise()">Enviar</button>
+        </div>
+    </form>
+</script>
