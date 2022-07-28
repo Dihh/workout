@@ -16,7 +16,7 @@ export default {
     },
     methods: {
         async getExercise() {
-            this.exercise = await requests.getExercise(this.id)
+            this.exercise = await requests.exercises.getExercise(this.id)
             this.loading = false
         },
         edit() {
@@ -24,7 +24,7 @@ export default {
         },
         async remove() {
             this.loading = true
-            await requests.removeExercise(this.id)
+            await requests.exercises.removeExercise(this.id)
             location.href = `?page=exercises`
         },
     }

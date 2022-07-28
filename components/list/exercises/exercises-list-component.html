@@ -1,28 +1,28 @@
 <script type="text/x-template" id="exercises-list-template">
     <div class="table">
-    <div class="loading" v-if="!exercises.length">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
+      <div class="loading" v-if="!exercises">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
-    </div>
-    <table class="table table-striped" v-else>
-        <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Exercícios</th>
-              <th scope="col">Categoria</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="noselect" v-for="exercise, index in exercises" @click="goTo('exercise',exercise.id)">
-              <th scope="row">{{index + 1}}</th>
-              <td>{{exercise.name}}</td>
-              <td>{{exercise.category_id}}</td>
-            </tr>
+      <table class="table table-striped" v-else>
+          <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Exercícios</th>
+                <th scope="col">Categoria</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="noselect" v-for="exercise, index in exercises" @click="goTo('exercise',exercise.id)">
+                <th scope="row">{{index + 1}}</th>
+                <td>{{exercise.name}}</td>
+                <td>{{exercise.category.name}}</td>
+              </tr>
 
-          </tbody>
-    </table>
-</div>
+            </tbody>
+      </table>
+    </div>
     <div class="add-button" @click="goTo('exercise-form')">
         +
     </div>

@@ -2,7 +2,8 @@
 <script type="text/x-template" id="dates-template">
     <div class="dates">
         <div>
-            <div class="card" v-for="date in dates">
+            <div class="card" v-for="date in dates" @click="setDate(date.stringDate)">
+                <div><b>{{date.weekDay}}</b></div>
                 <div>{{date.day}}</div>
                 <div>{{date.month}}</div>
             </div>

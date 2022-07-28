@@ -18,17 +18,17 @@ export default {
     methods: {
         async createExercise() {
             this.loading = true
-            const exercise = await requests.createExercise(this.exercise)
+            const exercise = await requests.exercises.createExercise(this.exercise)
             location.href = `?page=exercise&id=${exercise.id}`
         },
         async updateExercise() {
             this.loading = true
-            const exercise = await requests.updateExercise(this.id, this.exercise)
+            const exercise = await requests.exercises.updateExercise(this.id, this.exercise)
             location.href = `?page=exercise&id=${exercise.id}`
         },
         async getData() {
-            const getExercisePromise = this.id ? requests.getExercise(this.id) : Promise.resolve({})
-            const [exercises, categories] = await Promise.all([getExercisePromise, requests.getCategories()])
+            const getExercisePromise = this.id ? requests.exercises.getExercise(this.id) : Promise.resolve({})
+            const [exercises, categories] = await Promise.all([getExercisePromise, requests.categories.getCategories()])
             this.exercise = exercises
             this.categories = categories
             this.loading = false

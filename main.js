@@ -2,7 +2,7 @@ export async function getTemplate(name, path = name) {
     document.body.innerHTML += await (await fetch(`components/${path}/${name}-component.html`)).text()
 }
 
-export const API_URL = 'https://script.google.com/macros/s/AKfycbwy28CI-cTLk9CVn885QGynIg7jemhaUsAqY21kr-YRNKyJ4-1FuTfuYgih2izgBjI2/exec'
+export const API_URL = 'https://script.google.com/macros/s/AKfycbzHkXUu3r1-C7PvmvEq2AW-pZMHzqfrXnqamWyoLzj5L80H21C3LgYbZoh4jGwa8qGv/exec'
 
 export function getParam(param) {
     const queryString = window.location.search;

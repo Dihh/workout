@@ -1,0 +1,38 @@
+<style>
+
+</style>
+<script type="text/x-template" id="workout-template">
+
+    <div class="table">
+        <div class="loading" v-if="!workouts">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div v-else>
+            <app-dates @changeDate="changeDate"></app-dates>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Peso</th>
+                    <th scope="col">Exercício</th>
+                    <th scope="col">Categoria</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="noselect" v-for="workout, index in workouts" @click="goTo('workout',workout.id)">
+                    <th scope="row">{{index + 1}}</th>
+                    <td>{{workout.weight}}</td>
+                    <td>{{workout.exercise.name}}</td>
+                    <td>{{workout.exercise.category.name}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+      </div>
+      <div class="add-button" @click="goTo('workout-form')">
+          +
+      </div>
+</script>

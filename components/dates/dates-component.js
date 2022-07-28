@@ -1,4 +1,4 @@
-import months from '../../month-names.js'
+import { months, weekDays } from '../../dates-utils.js'
 export default {
     template: `#dates-template`,
     data() {
@@ -12,11 +12,20 @@ export default {
             const today = new Date()
             const days = today.setDate(today.getDate() + (el - 5))
             const elementDate = new Date(days)
-            return { day: elementDate.getDate(), month: months[elementDate.getMonth() + 1] }
+            return {
+                day: elementDate.getDate(),
+                month: months[elementDate.getMonth() + 1],
+                weekDay: weekDays[elementDate.getDay()],
+                stringDate: elementDate.toISOString().split("T")[0]
+            }
         })
     },
     mounted() {
         document.querySelector(".dates").scrollLeft = 75 * 4 + 10 * 4
     },
-    methods: {}
+    methods: {
+        setDate(date) {
+            this.$emit("changeDate", date)
+        }
+    }
 }

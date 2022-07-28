@@ -21,16 +21,16 @@ export default {
     methods: {
         async createCategory() {
             this.loading = true
-            const category = await requests.createCategory(this.category)
+            const category = await requests.categories.createCategory(this.category)
             location.href = `?page=categoria&id=${category.id}`
         },
         async updateCategory() {
             this.loading = true
-            const category = await requests.updateCategory(this.id, this.category)
+            const category = await requests.categories.updateCategory(this.id, this.category)
             location.href = `?page=categoria&id=${category.id}`
         },
         async getCategory() {
-            this.category = await requests.getCategory(this.id)
+            this.category = await requests.categories.getCategory(this.id)
             this.loading = false
         }
     }

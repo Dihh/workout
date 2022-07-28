@@ -4,8 +4,7 @@ export default {
     template: `#categorias-list-template`,
     data() {
         return {
-            categories: [],
-            timer: null,
+            categories: null,
         }
     },
     mounted() {
@@ -18,7 +17,7 @@ export default {
             location.href = link
         },
         async getCategories() {
-            this.categories = await requests.getCategories()
+            this.categories = await requests.categories.getCategories()
         },
     }
 }

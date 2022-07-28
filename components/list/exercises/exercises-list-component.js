@@ -4,8 +4,7 @@ export default {
     template: `#exercises-list-template`,
     data() {
         return {
-            exercises: [],
-            timer: null,
+            exercises: null,
         }
     },
     mounted() {
@@ -18,7 +17,7 @@ export default {
             location.href = link
         },
         async getExercises() {
-            this.exercises = await requests.getExercises()
+            this.exercises = await requests.exercises.getExercises()
         },
     }
 }
