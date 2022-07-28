@@ -17,7 +17,7 @@
               <tr class="noselect" v-for="exercise, index in exercises" @click="goTo('exercise',exercise.id)">
                 <th scope="row">{{index + 1}}</th>
                 <td>{{exercise.name}}</td>
-                <td>{{exercise.category.name}}</td>
+                <td>{{exercise.category_name}}</td>
               </tr>
 
             </tbody>

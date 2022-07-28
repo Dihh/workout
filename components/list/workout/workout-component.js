@@ -1,4 +1,4 @@
-import { requests } from '../../../requests.js'
+import { workout_table } from '../../../models/workouts.js';
 
 export default {
     template: `#workout-template`,
@@ -19,7 +19,7 @@ export default {
             location.href = link
         },
         async getWorkouts() {
-            this.systemWorkouts = await requests.workouts.getWorkouts()
+            this.systemWorkouts = await workout_table.select()
             this.workouts = this.systemWorkouts.filter(workout => workout.date == this.date)
         },
         changeDate(date) {

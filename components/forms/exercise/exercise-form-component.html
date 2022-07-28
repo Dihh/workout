@@ -4,19 +4,16 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <form action="" v-else>
+    <form action="" v-else @submit="submit()">
         <div class="mb-3">
             <label for="name" class="form-label">Nome:</label>
-            <input v-model="exercise.name" type="text" class="form-control" id="name">
+            <input v-model="exercise.name" type="text" class="form-control" id="name" required>
         </div>
-        <select class="form-select" v-model="exercise.category_id">
+        <select class="form-select" v-model="exercise.category_id" required>
             <option v-for="category in categories" :value="category.id">{{category.name}}</option>
           </select>
-        <div class="form-buttons" v-if="!id">
-            <button type="button" class="btn btn-success" @click="createExercise()">Enviar</button>
-        </div>
-        <div class="form-buttons" v-else>
-            <button type="button" class="btn btn-success" @click="updateExercise()">Enviar</button>
+        <div class="form-buttons">
+            <button class="btn btn-success">Enviar</button>
         </div>
     </form>
 </script>

@@ -7,7 +7,7 @@
     <div v-else>
         <div class="container">
             <div class="row">
-                <div class="col-8"><h3>{{workout.weight + ' Kg'}} <br> {{workout.exercise.name}}</h3></div>
+                <div class="col-8"><h3>{{workout.weight + ' Kg'}} <br> {{workout.exercise_name}}</h3></div>
                 <div class="col-4 text-right">
                     <div class="row">
                         <div class="col-4 button-icon-div" @click="edit()">
@@ -28,7 +28,7 @@
             </div>
             <div class="row">
                 <div class="col-4">Categoria:</div>
-                <div class="col-8">{{workout.exercise.category.name}}</div>
+                <div class="col-8">{{workout.category_name}}</div>
             </div>
         </div>
     </div>

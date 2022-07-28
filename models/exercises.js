@@ -1,35 +1,47 @@
-import { API_URL, requestPost } from '../main.js'
-const API_KEY = localStorage.API_KEY
+import { db } from './index.js'
 
-export const exercises = {
-    removeExercise: async (id) => {
-        const boddy = {
-            "route": "/delete-exercise",
-            "id": id
-        }
-        return await requestPost(boddy, `${API_URL}?apiKey=${API_KEY}`)
+export const exercise_table = {
+    select: () => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`SELECT a.*, b.name as category_name 
+                FROM exercises a 
+                JOIN categories b on a.category_id == b.id`, [], (t, result) => { resolve([...result.rows]) })
+            })
+        })
     },
-    getExercise: async (id) => {
-        return await (await fetch(`${API_URL}?apiKey=${API_KEY}&route=/get-exercise&id=${id}`)).json()
+    select_id: (id) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`SELECT a.*, b.name as category_name 
+                FROM exercises a 
+                JOIN categories b on a.category_id == b.id 
+                WHERE a.id = ?`, [id], (t, result) => { resolve(result.rows[0]) })
+            })
+        })
     },
-    getExercises: async () => {
-        return await (await fetch(`${API_URL}?apiKey=${API_KEY}&route=/get-exercises`)).json()
+    insert: (exercise) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`INSERT INTO exercises (id, name, category_id) VALUES (?, ?, ?)`, [exercise.id, exercise.name, exercise.category_id])
+                resolve()
+            })
+        })
     },
-    createExercise: async (exercise) => {
-        const boddy = {
-            "route": "/create-exercise",
-            "name": exercise.name,
-            "category_id": exercise.category_id
-        }
-        return await requestPost(boddy, `${API_URL}?apiKey=${API_KEY}`)
+    update: (exercise) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`UPDATE exercises SET name = ?, category_id = ? WHERE id = ?`, [exercise.name, exercise.category_id, exercise.id])
+                resolve()
+            })
+        })
     },
-    updateExercise: async (id, exercise) => {
-        const boddy = {
-            "route": "/update-exercise",
-            "id": id,
-            "name": exercise.name,
-            "category_id": exercise.category_id
-        }
-        return await requestPost(boddy, `${API_URL}?apiKey=${API_KEY}`)
-    }
+    delete: (id) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`DELETE FROM exercises WHERE id = ?`, [id])
+                resolve()
+            })
+        })
+    },
 }

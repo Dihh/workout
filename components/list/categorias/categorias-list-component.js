@@ -1,4 +1,4 @@
-import { requests } from '../../../requests.js'
+import { categoria_table } from '../../../models/categories.js'
 
 export default {
     template: `#categorias-list-template`,
@@ -17,7 +17,7 @@ export default {
             location.href = link
         },
         async getCategories() {
-            this.categories = await requests.categories.getCategories()
+            this.categories = await categoria_table.select()
         },
     }
 }

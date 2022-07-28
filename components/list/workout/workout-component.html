@@ -24,8 +24,8 @@
                     <tr class="noselect" v-for="workout, index in workouts" @click="goTo('workout',workout.id)">
                     <th scope="row">{{index + 1}}</th>
                     <td>{{workout.weight}}</td>
-                    <td>{{workout.exercise.name}}</td>
-                    <td>{{workout.exercise.category.name}}</td>
+                    <td>{{workout.exercise_name}}</td>
+                    <td>{{workout.category_name}}</td>
                     </tr>
 
                 </tbody>

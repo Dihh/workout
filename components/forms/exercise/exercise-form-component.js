@@ -1,5 +1,6 @@
-import { getParam } from '../../../main.js'
-import { requests } from '../../../requests.js'
+import { getParam, uuidv4 } from '../../../main.js'
+import { categoria_table } from '../../../models/categories.js'
+import { exercise_table } from '../../../models/exercises.js'
 
 export default {
     template: `#exercise-form-template`,
@@ -18,20 +19,29 @@ export default {
     methods: {
         async createExercise() {
             this.loading = true
-            const exercise = await requests.exercises.createExercise(this.exercise)
-            location.href = `?page=exercise&id=${exercise.id}`
+            this.exercise.id = uuidv4()
+            await exercise_table.insert(this.exercise)
+            location.href = `?page=exercise&id=${this.exercise.id}`
         },
         async updateExercise() {
             this.loading = true
-            const exercise = await requests.exercises.updateExercise(this.id, this.exercise)
-            location.href = `?page=exercise&id=${exercise.id}`
+            await exercise_table.update(this.exercise)
+            location.href = `?page=exercise&id=${this.id}`
         },
         async getData() {
-            const getExercisePromise = this.id ? requests.exercises.getExercise(this.id) : Promise.resolve({})
-            const [exercises, categories] = await Promise.all([getExercisePromise, requests.categories.getCategories()])
+            const getExercisePromise = this.id ? exercise_table.select_id(this.id) : Promise.resolve({})
+            const [exercises, categories] = await Promise.all([getExercisePromise, categoria_table.select()])
             this.exercise = exercises
             this.categories = categories
             this.loading = false
+        },
+        submit() {
+            event.preventDefault()
+            if (this.id) {
+                this.updateExercise()
+            } else {
+                this.createExercise()
+            }
         }
     }
 }

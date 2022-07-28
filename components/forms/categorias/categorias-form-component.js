@@ -1,5 +1,5 @@
-import { getParam } from '../../../main.js'
-import { requests } from '../../../requests.js'
+import { getParam, uuidv4 } from '../../../main.js'
+import { categoria_table } from '../../../models/categories.js'
 
 export default {
     template: `#categorias-form-template`,
@@ -21,16 +21,17 @@ export default {
     methods: {
         async createCategory() {
             this.loading = true
-            const category = await requests.categories.createCategory(this.category)
-            location.href = `?page=categoria&id=${category.id}`
+            this.category.id = uuidv4()
+            await categoria_table.insert(this.category)
+            location.href = `?page=categoria&id=${this.category.id}`
         },
         async updateCategory() {
             this.loading = true
-            const category = await requests.categories.updateCategory(this.id, this.category)
-            location.href = `?page=categoria&id=${category.id}`
+            await categoria_table.update(this.category)
+            location.href = `?page=categoria&id=${this.id}`
         },
         async getCategory() {
-            this.category = await requests.categories.getCategory(this.id)
+            this.category = await categoria_table.select_id(this.id)
             this.loading = false
         }
     }

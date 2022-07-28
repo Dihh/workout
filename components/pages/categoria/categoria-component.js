@@ -1,5 +1,5 @@
 import { getParam } from '../../../main.js'
-import { requests } from '../../../requests.js'
+import { categoria_table } from '../../../models/categories.js'
 
 export default {
     template: `#categoria-template`,
@@ -16,7 +16,7 @@ export default {
     },
     methods: {
         async getCategory(id) {
-            this.category = await requests.categories.getCategory(id)
+            this.category = await categoria_table.select_id(id)
             this.loading = false
         },
         edit() {
@@ -24,7 +24,7 @@ export default {
         },
         async remove() {
             this.loading = true
-            await requests.categories.removeCategory(this.id)
+            await categoria_table.delete(this.id)
             location.href = `?page=categorias`
         },
     }
