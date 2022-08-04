@@ -2,13 +2,32 @@ import { db } from './index.js'
 
 export const workout_table = {
     select: () => {
+        console.log(1)
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`SELECT a.*, b.name as exercise_name, c.name as category_name, c.id as category_id
+                t.executeSql(`SELECT a.*, b.name as exercise_name,  c.name as category_name, c.id as category_id
                 FROM workouts a 
-                JOIN exercises b on a.exercise_id == b.id 
-                JOIN categories c on b.category_id == c.id`, [], (t, result) => { resolve([...result.rows]) })
-            })
+                JOIN exercises b on a.exercise_id == b.id
+                JOIN categories c on b.category_id == c.id
+                `, [], (t, result) => {
+                    resolve([...result.rows])
+                })
+            }, (e) => { })
+        })
+    },
+    select_between_date: (initial_date, final_date) => {
+        console.log(1)
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`SELECT a.*, b.name as exercise_name,  c.name as category_name, c.id as category_id
+                FROM workouts a 
+                JOIN exercises b on a.exercise_id == b.id
+                JOIN categories c on b.category_id == c.id
+                WHERE a.date BETWEEN ? AND ?
+                `, [initial_date, final_date], (t, result) => {
+                    resolve([...result.rows])
+                })
+            }, (e) => { })
         })
     },
     select_id: (id) => {

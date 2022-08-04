@@ -152,6 +152,41 @@ form{
   font-size: 100%;
 }
 
+.day{
+  border: solid 1px #eee;
+  padding: 5px;
+}
+
+.calendar{
+  text-align: center;
+  margin-bottom: 15px;
+  position: relative;
+  font-size: 80%;
+}
+
+.workout{
+  background: #00ff1330;
+}
+
+.calendar-button{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  top: 0;
+  bottom: 0;
+  background: #eeeeee44;
+}
+
+.calendar-button.next{
+  left: 0;
+}
+
+.calendar-button.before{
+  right: 0;
+}
+
 .btn-success {
     --bs-btn-color: #fff;
     --bs-btn-bg: #641987;
