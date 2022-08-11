@@ -12,7 +12,7 @@ export default {
     mounted() {
         const today = new Date()
         this.date = (new Date(
-            Date.UTC(today.getFullYear(), today.getMonth() + 1, today.getDate())
+            Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
         )).toISOString().split("T")[0]
         this.getDaysWorkouts();
     },
@@ -28,7 +28,7 @@ export default {
         },
         changeDate(date) {
             this.date = date
-            this.dayWorkouts = this.systemDaysWorkouts.filter(dayWorkout => dayWorkout.date == this.date)
+            this.daysWorkouts = this.systemDaysWorkouts.filter(dayWorkout => dayWorkout.date == this.date)
         }
     }
 }
