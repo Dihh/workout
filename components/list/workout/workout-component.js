@@ -6,10 +6,14 @@ export default {
         return {
             systemWorkouts: [],
             workouts: null,
-            date: (new Date()).toISOString().split("T")[0]
+            date: ''
         }
     },
     mounted() {
+        const today = new Date()
+        this.date = (new Date(
+            Date.UTC(today.getFullYear(), today.getMonth() + 1, today.getDate())
+        )).toISOString().split("T")[0]
         this.getWorkouts();
     },
     methods: {

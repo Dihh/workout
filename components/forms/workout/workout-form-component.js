@@ -10,7 +10,7 @@ export default {
             loading: true,
             id: '',
             workout: {
-                date: (new Date).toISOString().split("T")[0]
+                date: ''
             },
             categories: [],
             systemExercises: [],
@@ -20,6 +20,10 @@ export default {
     },
     beforeMount() {
         this.id = getParam('id')
+        const today = new Date()
+        this.workout.date = (new Date(
+            Date.UTC(today.getFullYear(), today.getMonth() + 1, today.getDate())
+        )).toISOString().split("T")[0]
         this.getData()
     },
     methods: {
