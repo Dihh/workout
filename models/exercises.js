@@ -1,6 +1,6 @@
 import { db } from './index.js'
 
-export const exercise_table = {
+export const exerciseTable = {
     select: () => {
         return new Promise((resolve) => {
             db.transaction(t => {

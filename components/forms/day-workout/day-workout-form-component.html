@@ -1,4 +1,4 @@
-<script type="text/x-template" id="workout-form-template">
+<script type="text/x-template" id="day-workout-form-template">
     <div class="loading" v-if="loading">
         <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
@@ -7,11 +7,11 @@
     <form action="" v-else>
         <div class="mb-3">
             <label for="date" class="form-label">Data:</label>
-            <input v-model="workout.date" type="date" class="form-control" id="date">
+            <input v-model="dayWorkout.date" type="date" class="form-control" id="date">
         </div>
         <div class="mb-3">
             <label for="weight" class="form-label">Peso:</label>
-            <input v-model="workout.weight" type="number" class="form-control" id="weight">
+            <input v-model="dayWorkout.weight" type="number" class="form-control" id="weight">
         </div>
         <div class="mb-3">
         <select class="form-select" v-model="category_id" @change="changeCategory()">
@@ -19,15 +19,15 @@
         </select>
         </div>
         <div class="mb-3">
-        <select class="form-select" v-model="workout.exercise_id">
+        <select class="form-select" v-model="dayWorkout.exercise_id">
             <option v-for="exercise in exercises" :value="exercise.id">{{exercise.name}}</option>
         </select>
         </div>
         <div class="form-buttons" v-if="!id">
-            <button type="button" class="btn btn-success" @click="createWorkout()">Enviar</button>
+            <button type="button" class="btn btn-success" @click="createDayWorkout()">Enviar</button>
         </div>
         <div class="form-buttons" v-else>
-            <button type="button" class="btn btn-success" @click="updateWorkout()">Enviar</button>
+            <button type="button" class="btn btn-success" @click="updateDayWorkout()">Enviar</button>
         </div>
     </form>
 </script>

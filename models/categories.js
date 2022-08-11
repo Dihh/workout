@@ -1,6 +1,6 @@
 import { db } from './index.js'
 
-export const categoria_table = {
+export const categoryTable = {
     select: () => {
         return new Promise((resolve) => {
             db.transaction(t => {

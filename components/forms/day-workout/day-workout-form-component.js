@@ -1,15 +1,15 @@
 import { getParam, uuidv4 } from '../../../main.js'
-import { categoria_table } from '../../../models/categories.js'
-import { exercise_table } from '../../../models/exercises.js'
-import { workout_table } from '../../../models/workouts.js'
+import { categoryTable } from '../../../models/categories.js'
+import { exerciseTable } from '../../../models/exercises.js'
+import { dayWorkoutTable } from '../../../models/days-workouts.js'
 
 export default {
-    template: `#workout-form-template`,
+    template: `#day-workout-form-template`,
     data() {
         return {
             loading: true,
             id: '',
-            workout: {
+            dayWorkout: {
                 date: ''
             },
             categories: [],
@@ -21,36 +21,36 @@ export default {
     beforeMount() {
         this.id = getParam('id')
         const today = new Date()
-        this.workout.date = (new Date(
+        this.dayWorkout.date = (new Date(
             Date.UTC(today.getFullYear(), today.getMonth() + 1, today.getDate())
         )).toISOString().split("T")[0]
         this.getData()
     },
     methods: {
-        async createWorkout() {
+        async createDayWorkout() {
             this.loading = true
-            this.workout.id = uuidv4()
-            await workout_table.insert(this.workout)
-            location.href = `?page=workouts`
+            this.dayWorkout.id = uuidv4()
+            await dayWorkoutTable.insert(this.dayWorkout)
+            location.href = `?page=days-workouts`
         },
-        async updateWorkout() {
+        async updateDayWorkout() {
             this.loading = true
-            await workout_table.update(this.workout)
-            location.href = `?page=workouts`
+            await dayWorkoutTable.update(this.dayWorkout)
+            location.href = `?page=days-workouts`
         },
         async getData() {
-            const getWorkoutPromise = this.id ? workout_table.select_id(this.id) : Promise.resolve(this.workout)
-            const [workout, categories, exercises] = await Promise.all([
-                getWorkoutPromise,
-                categoria_table.select(),
-                exercise_table.select()
+            const getDayWorkoutPromise = this.id ? dayWorkoutTable.select_id(this.id) : Promise.resolve(this.dayWorkout)
+            const [dayWorkout, categories, exercises] = await Promise.all([
+                getDayWorkoutPromise,
+                categoryTable.select(),
+                exerciseTable.select()
             ])
             this.systemExercises = exercises
             this.categories = categories
             this.exercises = []
-            this.category_id = workout.category_id
+            this.category_id = dayWorkout.category_id
             this.changeCategory()
-            this.workout = workout
+            this.dayWorkout = dayWorkout
             this.loading = false
         },
         changeCategory() {

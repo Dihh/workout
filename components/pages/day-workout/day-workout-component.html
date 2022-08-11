@@ -1,4 +1,4 @@
-<script type="text/x-template" id="workouts-template">
+<script type="text/x-template" id="day-workout-template">
     <div class="loading" v-if="loading">
         <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
@@ -7,7 +7,7 @@
     <div v-else>
         <div class="container">
             <div class="row">
-                <div class="col-8"><h3>{{workout.weight + ' Kg'}} <br> {{workout.exercise_name}}</h3></div>
+                <div class="col-8"><h3>{{dayWorkout.weight + ' Kg'}} <br> {{dayWorkout.exercise_name}}</h3></div>
                 <div class="col-4 text-right">
                     <div class="row">
                         <div class="col-4 button-icon-div" @click="edit()">
@@ -24,11 +24,11 @@
             <br />
             <div class="row">
                 <div class="col-4">Data:</div>
-                <div class="col-8">{{workout.date}}</div>
+                <div class="col-8">{{dayWorkout.date}}</div>
             </div>
             <div class="row">
                 <div class="col-4">Categoria:</div>
-                <div class="col-8">{{workout.category_name}}</div>
+                <div class="col-8">{{dayWorkout.category_name}}</div>
             </div>
         </div>
     </div>

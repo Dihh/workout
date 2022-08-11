@@ -1,4 +1,4 @@
-import { workout_table } from '../../models/workouts.js'
+import { dayWorkoutTable } from '../../models/days-workouts.js'
 import { months } from '../../dates-utils.js'
 
 let elementChart = null
@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         async getWorkouts(initial_date, final_date) {
-            this.workouts = await workout_table.select_between_date(initial_date, final_date)
+            this.workouts = await dayWorkoutTable.select_between_date(initial_date, final_date)
         },
         getCalendar(firstDay, finalDay) {
             const calendar = [[]]

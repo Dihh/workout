@@ -1,5 +1,5 @@
 import { getParam } from '../../../main.js'
-import { exercise_table } from '../../../models/exercises.js'
+import { exerciseTable } from '../../../models/exercises.js'
 
 export default {
     template: `#exercises-template`,
@@ -16,7 +16,7 @@ export default {
     },
     methods: {
         async getExercise() {
-            this.exercise = await exercise_table.select_id(this.id)
+            this.exercise = await exerciseTable.select_id(this.id)
             this.loading = false
         },
         edit() {
@@ -24,7 +24,7 @@ export default {
         },
         async remove() {
             this.loading = true
-            await exercise_table.delete(this.id)
+            await exerciseTable.delete(this.id)
             location.href = `?page=exercises`
         },
     }

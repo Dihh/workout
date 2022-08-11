@@ -1,4 +1,4 @@
-import { exercise_table } from '../../../models/exercises.js';
+import { exerciseTable } from '../../../models/exercises.js';
 
 export default {
     template: `#exercises-list-template`,
@@ -17,7 +17,7 @@ export default {
             location.href = link
         },
         async getExercises() {
-            this.exercises = await exercise_table.select()
+            this.exercises = await exerciseTable.select()
         },
     }
 }

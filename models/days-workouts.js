@@ -1,12 +1,11 @@
 import { db } from './index.js'
 
-export const workout_table = {
+export const dayWorkoutTable = {
     select: () => {
-        console.log(1)
         return new Promise((resolve) => {
             db.transaction(t => {
                 t.executeSql(`SELECT a.*, b.name as exercise_name,  c.name as category_name, c.id as category_id
-                FROM workouts a 
+                FROM days_workouts a 
                 JOIN exercises b on a.exercise_id == b.id
                 JOIN categories c on b.category_id == c.id
                 `, [], (t, result) => {
@@ -16,11 +15,10 @@ export const workout_table = {
         })
     },
     select_between_date: (initial_date, final_date) => {
-        console.log(1)
         return new Promise((resolve) => {
             db.transaction(t => {
                 t.executeSql(`SELECT a.*, b.name as exercise_name,  c.name as category_name, c.id as category_id
-                FROM workouts a 
+                FROM days_workouts a 
                 JOIN exercises b on a.exercise_id == b.id
                 JOIN categories c on b.category_id == c.id
                 WHERE a.date BETWEEN ? AND ?
@@ -34,7 +32,7 @@ export const workout_table = {
         return new Promise((resolve) => {
             db.transaction(t => {
                 t.executeSql(`SELECT a.*, b.name as exercise_name, c.name as category_name, c.id as category_id
-                FROM workouts a 
+                FROM days_workouts a 
                 JOIN exercises b on a.exercise_id == b.id 
                 JOIN categories c on b.category_id == c.id 
                 WHERE a.id = ?`, [id], (t, result) => { resolve(result.rows[0]) })
@@ -44,7 +42,7 @@ export const workout_table = {
     insert: (workout) => {
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`INSERT INTO workouts (id, date, exercise_id, weight) VALUES (?, ?, ?, ?)`, [workout.id, workout.date, workout.exercise_id, workout.weight])
+                t.executeSql(`INSERT INTO days_workouts (id, date, exercise_id, weight) VALUES (?, ?, ?, ?)`, [workout.id, workout.date, workout.exercise_id, workout.weight])
                 resolve()
             })
         })
@@ -52,7 +50,7 @@ export const workout_table = {
     update: (workout) => {
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`UPDATE workouts SET date = ?, exercise_id = ?, weight = ? WHERE id = ?`, [workout.date, workout.exercise_id, workout.weight, workout.id])
+                t.executeSql(`UPDATE days_workouts SET date = ?, exercise_id = ?, weight = ? WHERE id = ?`, [workout.date, workout.exercise_id, workout.weight, workout.id])
                 resolve()
             })
         })
@@ -60,7 +58,7 @@ export const workout_table = {
     delete: (id) => {
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`DELETE FROM workouts WHERE id = ?`, [id])
+                t.executeSql(`DELETE FROM days_workouts WHERE id = ?`, [id])
                 resolve()
             })
         })
