@@ -29,6 +29,12 @@ export default {
         changeDate(date) {
             this.date = date
             this.daysWorkouts = this.systemDaysWorkouts.filter(dayWorkout => dayWorkout.date == this.date)
+        },
+        weightUp(dayWorkout) {
+            dayWorkout.weight++
+        },
+        weightDown(dayWorkout) {
+            dayWorkout.weight--
         }
     }
 }

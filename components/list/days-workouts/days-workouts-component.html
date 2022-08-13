@@ -14,20 +14,21 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Peso</th>
-                    <th scope="col">Exercício</th>
-                    <th scope="col">Categoria</th>
+                        <th scope="col">Exercício</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Peso</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="noselect" v-for="dayWorkout, index in daysWorkouts" @click="goTo('day-workout',dayWorkout.id)">
-                    <th scope="row">{{index + 1}}</th>
-                    <td>{{dayWorkout.weight}}</td>
-                    <td>{{dayWorkout.exercise_name}}</td>
-                    <td>{{dayWorkout.category_name}}</td>
+                    <tr class="noselect" v-for="dayWorkout, index in daysWorkouts" >
+                        <td @click="goTo('day-workout',dayWorkout.id)">{{dayWorkout.exercise_name}}</td>
+                        <td>{{dayWorkout.category_name}}</td>
+                        <td>{{dayWorkout.weight}}</td>
+                        <td><div @click="weightUp(dayWorkout)"><i class="fa-solid fa-sort-up"></i></div><div @click="weightDown(dayWorkout)"><i class="fa-solid fa-sort-down"></i></div></td>
+                        <td><input type="checkbox" name="" id=""></td>
                     </tr>
-
                 </tbody>
             </table>
         </div>

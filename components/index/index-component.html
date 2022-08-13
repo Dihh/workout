@@ -1,17 +1,15 @@
 <script type="text/x-template" id="index-template">
     <div class="index">
-        <div v-if="API_KEY">
-            <app-dashboard v-if="page=='dashboard'"></app-dashboard>
-            <app-day-workout-list v-if="page=='days-workouts'"></app-day-workout-list>
-            <app-exercises-list v-if="page=='exercises'"></app-exercises-list>
-            <app-categorias-list v-if="page=='categorias'"></app-categorias-list>
-            <app-categorias-form v-if="page=='categorias-form'"></app-categorias-form>
-            <app-exercise-form v-if="page=='exercise-form'"></app-exercise-form>
-            <app-day-workout-form v-if="page=='day-workout-form'"></app-day-workout-form>
-            <app-categoria v-if="page=='categoria'"></app-categoria>
-            <app-exercise v-if="page=='exercise'"></app-exercise>
-            <app-day-workout v-if="page=='day-workout'"></app-day-workout>
-        </div>
+        <app-dashboard v-if="page=='dashboard'"></app-dashboard>
+        <app-day-workout-list v-if="page=='days-workouts'"></app-day-workout-list>
+        <app-exercises-list v-if="page=='exercises'"></app-exercises-list>
+        <app-categorias-list v-if="page=='categorias'"></app-categorias-list>
+        <app-categorias-form v-if="page=='categorias-form'"></app-categorias-form>
+        <app-exercise-form v-if="page=='exercise-form'"></app-exercise-form>
+        <app-day-workout-form v-if="page=='day-workout-form'"></app-day-workout-form>
+        <app-categoria v-if="page=='categoria'"></app-categoria>
+        <app-exercise v-if="page=='exercise'"></app-exercise>
+        <app-day-workout v-if="page=='day-workout'"></app-day-workout>
         <app-api-key-form v-if="page=='api-key-form'" @apiKey="setApiKey"></app-api-key-form>
     </div>
 </script>

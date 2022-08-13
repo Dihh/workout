@@ -10,18 +10,20 @@
             <input v-model="dayWorkout.date" type="date" class="form-control" id="date">
         </div>
         <div class="mb-3">
-            <label for="weight" class="form-label">Peso:</label>
-            <input v-model="dayWorkout.weight" type="number" class="form-control" id="weight">
-        </div>
-        <div class="mb-3">
+        <label for="weight" class="form-label">Categoria:</label>
         <select class="form-select" v-model="category_id" @change="changeCategory()">
             <option v-for="category in categories" :value="category.id">{{category.name}}</option>
         </select>
         </div>
         <div class="mb-3">
+        <label for="weight" class="form-label">Exercício:</label>
         <select class="form-select" v-model="dayWorkout.exercise_id">
             <option v-for="exercise in exercises" :value="exercise.id">{{exercise.name}}</option>
         </select>
+        </div>
+        <div class="mb-3">
+            <label for="weight" class="form-label">Peso:</label>
+            <input v-model="dayWorkout.weight" type="number" class="form-control" id="weight">
         </div>
         <div class="form-buttons" v-if="!id">
             <button type="button" class="btn btn-success" @click="createDayWorkout()">Enviar</button>
