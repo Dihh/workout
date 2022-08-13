@@ -12,9 +12,31 @@ const migrations = [
         version: 1,
         migration: (db) => {
             db.transaction(t => {
-                t.executeSql('ALTER TABLE workouts RENAME TO days_workouts', [], (t, r) => { }, (t, e) => { })
+                t.executeSql('ALTER TABLE workouts RENAME TO days_workouts', [], (t, r) => {
+                    localStorage.migrationVersion = 1
+                }, (t, e) => {
+                    console.log(e)
+                })
             })
-            localStorage.migrationVersion = 1
+        }
+    },
+    {
+        version: 2,
+        migration: (db) => {
+            db.transaction(t => {
+                t.executeSql('ALTER TABLE days_workouts ADD COLUMN executed BOOLEAN', [], (t, r) => {
+                    localStorage.migrationVersion = 2
+                }, (t, e) => {
+                    console.log(e)
+                })
+            })
+            db.transaction(t => {
+                t.executeSql('UPDATE days_workouts SET executed = true', [], (t, r) => {
+                    localStorage.migrationVersion = 2
+                }, (t, e) => {
+                    console.log(e)
+                })
+            })
         }
     }
 ]

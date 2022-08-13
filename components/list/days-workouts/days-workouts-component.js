@@ -32,9 +32,15 @@ export default {
         },
         weightUp(dayWorkout) {
             dayWorkout.weight++
+            dayWorkoutTable.update(dayWorkout)
         },
         weightDown(dayWorkout) {
             dayWorkout.weight--
+            dayWorkoutTable.update(dayWorkout)
+        },
+        update(dayWorkout) {
+            dayWorkout.executed = !dayWorkout.executed ? 1 : 0
+            dayWorkoutTable.update(dayWorkout)
         }
     }
 }

@@ -50,7 +50,7 @@ export const dayWorkoutTable = {
     update: (workout) => {
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`UPDATE days_workouts SET date = ?, exercise_id = ?, weight = ? WHERE id = ?`, [workout.date, workout.exercise_id, workout.weight, workout.id])
+                t.executeSql(`UPDATE days_workouts SET date = ?, exercise_id = ?, weight = ?, executed = ? WHERE id = ?`, [workout.date, workout.exercise_id, workout.weight, workout.executed, workout.id])
                 resolve()
             })
         })
