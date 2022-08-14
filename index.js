@@ -14,6 +14,10 @@ import exercisesListComponent from './components/list/exercises/exercises-list-c
 import exerciseFormComponent from './components/forms/exercise/exercise-form-component.js'
 import dayWorkoutFormComponent from './components/forms/day-workout/day-workout-form-component.js'
 import dayWorkoutComponent from './components/pages/day-workout/day-workout-component.js'
+import workoutsListComponent from './components/list/workouts/workouts-list-component.js'
+import workoutFormComponent from './components/forms/workout/workout-form-component.js'
+import workoutComponent from './components/pages/workout/workout-component.js'
+import workoutExerciseFormComponent from './components/forms/workout-exercise/workout-exercise-form-component.js'
 
 const { createApp } = Vue
 
@@ -41,15 +45,19 @@ async function getComponents() {
         { tag: 'app-footer', component: footerComponent, name: 'footer' },
         { tag: 'app-dashboard', component: dashboardComponent, name: 'dashboard' },
         { tag: 'app-dates', component: datesComponent, name: 'dates' },
-        { tag: 'app-day-workout-list', component: dayWorkoutListComponent, name: 'days-workouts', path: 'list/days-workouts' },
         { tag: 'app-categorias-form', component: categoriasFormComponent, name: 'categorias-form', path: 'forms/categorias' },
         { tag: 'app-exercise-form', component: exerciseFormComponent, name: 'exercise-form', path: 'forms/exercise' },
         { tag: 'app-day-workout-form', component: dayWorkoutFormComponent, name: 'day-workout-form', path: 'forms/day-workout' },
+        { tag: 'app-workout-form', component: workoutFormComponent, name: 'workout-form', path: 'forms/workout' },
+        { tag: 'app-day-workout-list', component: dayWorkoutListComponent, name: 'days-workouts', path: 'list/days-workouts' },
         { tag: 'app-categorias-list', component: categoriasListComponent, name: 'categorias-list', path: 'list/categorias' },
         { tag: 'app-exercises-list', component: exercisesListComponent, name: 'exercises-list', path: 'list/exercises' },
+        { tag: 'app-workouts-list', component: workoutsListComponent, name: 'workouts-list', path: 'list/workouts' },
         { tag: 'app-api-key-form', component: apiKeyFormComponent, name: 'api-key-form', path: 'forms/api-key' },
+        { tag: 'app-workout-exercise-form', component: workoutExerciseFormComponent, name: 'workout-exercise-form', path: 'forms/workout-exercise' },
         { tag: 'app-categoria', component: categoriaComponent, name: 'categoria', path: 'pages/categoria' },
         { tag: 'app-exercise', component: exerciseComponent, name: 'exercise', path: 'pages/exercise' },
+        { tag: 'app-workout', component: workoutComponent, name: 'workout', path: 'pages/workout' },
         { tag: 'app-day-workout', component: dayWorkoutComponent, name: 'day-workout', path: 'pages/day-workout' },
     ]
 

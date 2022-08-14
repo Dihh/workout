@@ -28,6 +28,19 @@ export const dayWorkoutTable = {
             }, (e) => { })
         })
     },
+    select_last_weight: (exercise_id) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`SELECT a.*
+                FROM days_workouts a 
+                WHERE a.exercise_id = ?
+                ORDER BY a.date DESC
+                `, [exercise_id], (t, result) => {
+                    resolve(result.rows[0])
+                })
+            }, (e) => { })
+        })
+    },
     select_id: (id) => {
         return new Promise((resolve) => {
             db.transaction(t => {
@@ -42,7 +55,7 @@ export const dayWorkoutTable = {
     insert: (workout) => {
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`INSERT INTO days_workouts (id, date, exercise_id, weight) VALUES (?, ?, ?, ?)`, [workout.id, workout.date, workout.exercise_id, workout.weight])
+                t.executeSql(`INSERT INTO days_workouts (id, date, exercise_id, weight, executed) VALUES (?, ?, ?, ?, ?)`, [workout.id, workout.date, workout.exercise_id, workout.weight, workout.executed])
                 resolve()
             })
         })

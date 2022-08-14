@@ -1,0 +1,16 @@
+<script type="text/x-template" id="workout-form-template">
+    <div class="loading" v-if="loading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <form action="" v-else @submit="submit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome:</label>
+            <input v-model="workout.name" type="text" class="form-control" id="name" required>
+        </div>
+        <div class="form-buttons">
+            <button class="btn btn-success">Enviar</button>
+        </div>
+    </form>
+</script>

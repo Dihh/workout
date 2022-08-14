@@ -38,6 +38,30 @@ const migrations = [
                 })
             })
         }
+    },
+    {
+        version: 3,
+        migration: (db) => {
+            db.transaction(t => {
+                t.executeSql('CREATE TABLE workouts (id TEXT, name TEXT)', [], (t, r) => {
+                    localStorage.migrationVersion = 3
+                }, (t, e) => {
+                    console.log(e)
+                })
+            })
+        }
+    },
+    {
+        version: 4,
+        migration: (db) => {
+            db.transaction(t => {
+                t.executeSql('CREATE TABLE workouts_exercises (id TEXT, workout_id TEXT, exercise_id TEXT)', [], (t, r) => {
+                    localStorage.migrationVersion = 4
+                }, (t, e) => {
+                    console.log(e)
+                })
+            })
+        }
     }
 ]
 

@@ -96,8 +96,8 @@ body{
   height: 50px;
   width: 40vw;
   position: absolute;
-  bottom: 10px;
-  right: 20px;
+  bottom: 0px;
+  right: 0px;
 }
 
 .form-buttons button{
@@ -107,6 +107,7 @@ body{
 
 form{
   padding-bottom: 50px;
+  position: relative;
 }
 
 .form-buttons button {
@@ -189,6 +190,10 @@ form{
 
 td{
   vertical-align: middle
+}
+
+.navs{
+  margin-bottom: 15px;
 }
 
 .btn-success {

@@ -24,7 +24,7 @@
                 <tbody>
                     <tr class="noselect" v-for="dayWorkout, index in daysWorkouts" >
                         <td><input v-bind:checked="dayWorkout.executed" type="checkbox" @change="update(dayWorkout)"></td>
-                        <td @click="goTo('day-workout',dayWorkout.id)">{{dayWorkout.exercise_name}} - {{dayWorkout.executed == 1}}</td>
+                        <td @click="goTo('day-workout',dayWorkout.id)">{{dayWorkout.exercise_name}}</td>
                         <td>{{dayWorkout.category_name}}</td>
                         <td>{{dayWorkout.weight}}</td>
                         <td><div @click="weightUp(dayWorkout)"><i class="fa-solid fa-sort-up"></i></div><div @click="weightDown(dayWorkout)"><i class="fa-solid fa-sort-down"></i></div></td>
