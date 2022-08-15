@@ -12,12 +12,12 @@
     }
 
     .menu-text {
-        font-size: 70%;
+        font-size: 50%;
         margin-top: 5px;
     }
 
     .menu-icon {
-        font-size: 120%;
+        font-size: 100%;
 
     }
 
@@ -32,16 +32,19 @@
 <script type="text/x-template" id="footer-template">
     <div class="container">
     <div class="row">
-        <div class="menu-item col-3 noselect" :class="{ active: page=='dashboard' }" @click="goTo('dashboard')">
+        <div class="menu-item col-2 offset-1 noselect" :class="{ active: page=='dashboard' }" @click="goTo('dashboard')">
             <i class="fa-solid fa-chart-line menu-icon"></i><div class="menu-text">Dashboard</div>
         </div>
-        <div class="menu-item col-3 noselect" :class="{ active: page=='workouts' }" @click="goTo('workouts')">
+        <div class="menu-item col-2 noselect" :class="{ active: page=='days-workouts' }" @click="goTo('days-workouts')">
+            <i class="fa-solid fa-calendar-day menu-icon"></i><div class="menu-text">Dias</div>
+        </div>
+        <div class="menu-item col-2 noselect" :class="{ active: page=='workouts' }" @click="goTo('workouts')">
             <i class="fa-solid fa-person-running menu-icon"></i><div class="menu-text">Treinos</div>
         </div>
-        <div class="menu-item col-3 noselect" :class="{ active: page=='exercicios' }" @click="goTo('exercises')">
+        <div class="menu-item col-2 noselect" :class="{ active: page=='exercises' }" @click="goTo('exercises')">
             <i class="fa-solid fa-dumbbell menu-icon"></i><div class="menu-text">Exercícios</div>
         </div>
-        <div class="menu-item col-3 noselect" :class="{ active: page=='categorias' }" @click="goTo('categorias')">
+        <div class="menu-item col-2 noselect" :class="{ active: page=='categorias' }" @click="goTo('categorias')">
             <i class="fa-solid fa-layer-group menu-icon"></i><div class="menu-text">Categorias</div>
         </div>
     </div>

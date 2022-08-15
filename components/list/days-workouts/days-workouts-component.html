@@ -1,0 +1,39 @@
+<style>
+
+</style>
+<script type="text/x-template" id="days-workouts-template">
+
+    <div class="table">
+        <div class="loading" v-if="!daysWorkouts">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        <div v-else>
+            <app-dates @changeDate="changeDate"></app-dates>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th scope="col">Exercício</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Peso</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="noselect" v-for="dayWorkout, index in daysWorkouts" >
+                        <td><input v-bind:checked="dayWorkout.executed" type="checkbox" @change="update(dayWorkout)"></td>
+                        <td @click="goTo('day-workout',dayWorkout.id)">{{dayWorkout.exercise_name}}</td>
+                        <td>{{dayWorkout.category_name}}</td>
+                        <td>{{dayWorkout.weight}}</td>
+                        <td><div @click="weightUp(dayWorkout)"><i class="fa-solid fa-sort-up"></i></div><div @click="weightDown(dayWorkout)"><i class="fa-solid fa-sort-down"></i></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+      <div class="add-button" @click="goTo('day-workout-form')">
+          +
+      </div>
+</script>

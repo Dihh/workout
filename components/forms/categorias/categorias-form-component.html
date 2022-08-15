@@ -4,16 +4,13 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <form action="" v-else>
+    <form action="" v-else @submit="submit()">
         <div class="mb-3">
             <label for="name" class="form-label">Nome:</label>
-            <input v-model="category.name" type="text" class="form-control" id="name">
+            <input v-model="category.name" type="text" class="form-control" id="name" required>
         </div>
-        <div class="form-buttons" v-if="!id">
-            <button type="button" class="btn btn-success" @click="createCategory()">Enviar</button>
-        </div>
-        <div class="form-buttons" v-else>
-            <button type="button" class="btn btn-success" @click="updateCategory()">Enviar</button>
+        <div class="form-buttons">
+            <button class="btn btn-success">Enviar</button>
         </div>
     </form>
 </script>

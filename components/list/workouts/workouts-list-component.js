@@ -1,14 +1,14 @@
-import { categoryTable } from '../../../models/categories.js'
+import { workoutTable } from "../../../models/workouts.js"
 
 export default {
-    template: `#categorias-list-template`,
+    template: `#workouts-list-template`,
     data() {
         return {
-            categories: null,
+            workouts: [],
         }
     },
     mounted() {
-        this.getCategories();
+        this.getWorkouts()
     },
     methods: {
         goTo(page, id) {
@@ -16,8 +16,8 @@ export default {
             if (id) link += `&id=${id}`
             location.href = link
         },
-        async getCategories() {
-            this.categories = await categoryTable.select()
+        async getWorkouts() {
+            this.workouts = await workoutTable.select()
         },
     }
 }

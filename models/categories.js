@@ -1,37 +1,42 @@
-import { API_URL, requestPost } from '../main.js'
-const API_KEY = localStorage.API_KEY
+import { db } from './index.js'
 
-export const categories = {
-    removeCategory: async (id) => {
-        const boddy = {
-            "route": "/delete-category",
-            "id": id
-        }
-        return await requestPost(boddy, `${API_URL}?apiKey=${API_KEY}`)
+export const categoryTable = {
+    select: () => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql('SELECT * FROM categories', [], (t, result) => { resolve([...result.rows]) })
+            })
+        })
     },
-
-    getCategory: async (id) => {
-        return await (await fetch(`${API_URL}?apiKey=${API_KEY}&route=/get-category&id=${id}`)).json()
+    select_id: (id) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql('SELECT * FROM categories WHERE id = ?', [id], (t, result) => { resolve(result.rows[0]) })
+            })
+        })
     },
-
-    getCategories: async () => {
-        return await (await fetch(`${API_URL}?apiKey=${API_KEY}&route=/get-categories`)).json()
+    insert: (category) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`INSERT INTO categories (id, name) VALUES (?, ?)`, [category.id, category.name])
+                resolve()
+            })
+        })
     },
-
-    createCategory: async (category) => {
-        const boddy = {
-            "route": "/create-category",
-            "name": category.name
-        }
-        return await requestPost(boddy, `${API_URL}?apiKey=${API_KEY}`)
+    update: (category) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`UPDATE categories SET name = ? WHERE id = ?`, [category.name, category.id])
+                resolve()
+            })
+        })
     },
-
-    updateCategory: async (id, category) => {
-        const boddy = {
-            "route": "/update-category",
-            "id": id,
-            "name": category.name
-        }
-        return await requestPost(boddy, `${API_URL}?apiKey=${API_KEY}`)
-    }
+    delete: (id) => {
+        return new Promise((resolve) => {
+            db.transaction(t => {
+                t.executeSql(`DELETE FROM categories WHERE id = ?`, [id])
+                resolve()
+            })
+        })
+    },
 }

@@ -4,30 +4,13 @@
             <span class="sr-only">Loading...</span>
         </div>
     </div>
-    <form action="" v-else>
+    <form action="" v-else @submit="submit()">
         <div class="mb-3">
-            <label for="date" class="form-label">Data:</label>
-            <input v-model="workout.date" type="date" class="form-control" id="date">
+            <label for="name" class="form-label">Nome:</label>
+            <input v-model="workout.name" type="text" class="form-control" id="name" required>
         </div>
-        <div class="mb-3">
-            <label for="weight" class="form-label">Peso:</label>
-            <input v-model="workout.weight" type="number" class="form-control" id="weight">
-        </div>
-        <div class="mb-3">
-        <select class="form-select" v-model="category_id" @change="changeCategory()">
-            <option v-for="category in categories" :value="category.id">{{category.name}}</option>
-        </select>
-        </div>
-        <div class="mb-3">
-        <select class="form-select" v-model="workout.exercise_id">
-            <option v-for="exercise in exercises" :value="exercise.id">{{exercise.name}}</option>
-        </select>
-        </div>
-        <div class="form-buttons" v-if="!id">
-            <button type="button" class="btn btn-success" @click="createWorkout()">Enviar</button>
-        </div>
-        <div class="form-buttons" v-else>
-            <button type="button" class="btn btn-success" @click="updateWorkout()">Enviar</button>
+        <div class="form-buttons">
+            <button class="btn btn-success">Enviar</button>
         </div>
     </form>
 </script>

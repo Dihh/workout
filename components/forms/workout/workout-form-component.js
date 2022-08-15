@@ -1,5 +1,5 @@
-import { getParam } from '../../../main.js'
-import { requests } from '../../../requests.js'
+import { getParam, uuidv4 } from '../../../main.js'
+import { workoutTable } from '../../../models/workouts.js'
 
 export default {
     template: `#workout-form-template`,
@@ -7,13 +7,7 @@ export default {
         return {
             loading: true,
             id: '',
-            workout: {
-                date: (new Date).toISOString().split("T")[0]
-            },
-            categories: [],
-            systemExercises: [],
-            exercises: [],
-            category_id: null
+            workout: {}
         }
     },
     beforeMount() {
@@ -23,31 +17,28 @@ export default {
     methods: {
         async createWorkout() {
             this.loading = true
-            const workout = await requests.workouts.createWorkout(this.workout)
-            location.href = `?page=workouts`
+            this.workout.id = uuidv4()
+            await workoutTable.insert(this.workout)
+            location.href = `?page=workout&id=${this.workout.id}`
         },
         async updateWorkout() {
             this.loading = true
-            const workout = await requests.workouts.updateWorkout(this.id, this.workout)
-            location.href = `?page=workouts`
+            await workoutTable.update(this.workout)
+            location.href = `?page=workout&id=${this.id}`
         },
         async getData() {
-            const getWorkoutPromise = this.id ? requests.workouts.getWorkout(this.id) : Promise.resolve(this.workout)
-            const [workout, categories, exercises] = await Promise.all([
-                getWorkoutPromise,
-                requests.categories.getCategories(),
-                requests.exercises.getExercises()
-            ])
-            this.systemExercises = exercises
-            this.categories = categories
-            this.exercises = []
-            this.category_id = workout.exercise?.category_id
-            this.changeCategory()
+            const getWorkoutPromise = this.id ? workoutTable.select_id(this.id) : Promise.resolve({})
+            const [workout] = await Promise.all([getWorkoutPromise])
             this.workout = workout
             this.loading = false
         },
-        changeCategory() {
-            this.exercises = this.systemExercises.filter(exercise => exercise.category_id == this.category_id)
+        submit() {
+            event.preventDefault()
+            if (this.id) {
+                this.updateWorkout()
+            } else {
+                this.createWorkout()
+            }
         }
     }
 }

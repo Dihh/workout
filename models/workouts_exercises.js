@@ -1,22 +1,12 @@
 import { db } from './index.js'
 
-export const workoutTable = {
+export const workoutExerciseTable = {
     select: () => {
         return new Promise((resolve) => {
             db.transaction(t => {
                 t.executeSql(`SELECT a.*
-                FROM workouts a 
+                FROM workouts_exercises a 
                 `, [], (t, result) => { resolve([...result.rows]) })
-            })
-        })
-    },
-    selectWorkoutExercises: (id) => {
-        return new Promise((resolve) => {
-            db.transaction(t => {
-                t.executeSql(`SELECT a.id, b.name, b.id as exercise_id
-                FROM workouts_exercises a
-                JOIN exercises b on a.exercise_id == b.id 
-                WHERE a.workout_id = ?`, [id], (t, result) => { resolve([...result.rows]) }, (t, e) => console.log(e))
             })
         })
     },
@@ -24,23 +14,23 @@ export const workoutTable = {
         return new Promise((resolve) => {
             db.transaction(t => {
                 t.executeSql(`SELECT a.*
-                FROM workouts a 
+                FROM workouts_exercises a 
                 WHERE a.id = ?`, [id], (t, result) => { resolve(result.rows[0]) })
             })
         })
     },
-    insert: (workout) => {
+    insert: (workout_exercise) => {
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`INSERT INTO workouts (id, name) VALUES (?, ?)`, [workout.id, workout.name])
+                t.executeSql(`INSERT INTO workouts_exercises (id, exercise_id, workout_id) VALUES (?, ?, ?)`, [workout_exercise.id, workout_exercise.exercise_id, workout_exercise.workout_id])
                 resolve()
             })
         })
     },
-    update: (workout) => {
+    update: (workout_exercise) => {
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`UPDATE workouts SET name = ? WHERE id = ?`, [workout.name, workout.id])
+                t.executeSql(`UPDATE workouts_exercises SET exercise_id = ?, workout_id = ? WHERE id = ?`, [workout_exercise.exercise_id, workout_exercise.workout_id, workout_exercise.id])
                 resolve()
             })
         })
@@ -48,7 +38,7 @@ export const workoutTable = {
     delete: (id) => {
         return new Promise((resolve) => {
             db.transaction(t => {
-                t.executeSql(`DELETE FROM workouts WHERE id = ?`, [id])
+                t.executeSql(`DELETE FROM workouts_exercises WHERE id = ?`, [id])
                 resolve()
             })
         })

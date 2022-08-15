@@ -9,6 +9,10 @@ export default {
         async send() {
             localStorage.API_KEY = this.API_KEY
             this.$emit("apiKey", this.API_KEY)
+        },
+        submit() {
+            event.preventDefault()
+            this.send()
         }
     }
 }

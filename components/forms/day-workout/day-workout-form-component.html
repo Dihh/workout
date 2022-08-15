@@ -1,0 +1,61 @@
+<script type="text/x-template" id="day-workout-form-template">
+    <div class="loading" v-if="loading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div v-else>
+        <div class="row navs">
+            <div class="col-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                    <a class="nav-link" :class="{ active: form=='workout' }" href="?page=day-workout-form&form=workout">Treino</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" :class="{ active: form=='exercise' }" href="?page=day-workout-form&form=exercise">Exercício</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form action="" v-if="form=='exercise'" @submit="submit()">
+            <div class="mb-3">
+                <label for="date" class="form-label">Data:</label>
+                <input v-model="dayWorkout.date" type="date" class="form-control" id="date" required>
+            </div>
+            <div class="mb-3">
+            <label for="weight" class="form-label">Categoria:</label>
+            <select class="form-select" v-model="category_id" @change="changeCategory()" required>
+                <option v-for="category in categories" :value="category.id">{{category.name}}</option>
+            </select>
+            </div>
+            <div class="mb-3">
+            <label for="weight" class="form-label">Exercício:</label>
+            <select class="form-select" v-model="dayWorkout.exercise_id" @change="setLastWeight()" required>
+                <option v-for="exercise in exercises" :value="exercise.id">{{exercise.name}}</option>
+            </select>
+            </div>
+            <div class="mb-3">
+                <label for="weight" class="form-label">Peso:</label>
+                <input v-model="dayWorkout.weight" type="number" class="form-control" id="weight" required>
+            </div>
+            <div class="form-buttons">
+                <button class="btn btn-success">Enviar</button>
+            </div>
+        </form>
+        <form action="" v-if="form=='workout'" @submit="submit()">
+            <div class="mb-3">
+                <label for="date" class="form-label">Data:</label>
+                <input v-model="dayWorkout.date" type="date" class="form-control" id="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="weight" class="form-label">Treinos:</label>
+                <select class="form-select" v-model="workout_id" required>
+                    <option v-for="workout in workouts" :value="workout.id">{{workout.name}}</option>
+                </select>
+            </div>
+            <div class="form-buttons">
+                <button class="btn btn-success">Enviar</button>
+            </div>
+        </form>
+    </div>
+</script>

@@ -96,8 +96,8 @@ body{
   height: 50px;
   width: 40vw;
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 0px;
+  right: 0px;
 }
 
 .form-buttons button{
@@ -107,6 +107,7 @@ body{
 
 form{
   padding-bottom: 50px;
+  position: relative;
 }
 
 .form-buttons button {
@@ -150,6 +151,49 @@ form{
 
 .button-icon{
   font-size: 100%;
+}
+
+.day{
+  border: solid 1px #eee;
+  padding: 5px;
+}
+
+.calendar{
+  text-align: center;
+  margin-bottom: 15px;
+  position: relative;
+  font-size: 80%;
+}
+
+.workout{
+  background: #00ff1330;
+}
+
+.calendar-button{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  top: 0;
+  bottom: 0;
+  background: #eeeeee44;
+}
+
+.calendar-button.next{
+  left: 0;
+}
+
+.calendar-button.before{
+  right: 0;
+}
+
+td{
+  vertical-align: middle
+}
+
+.navs{
+  margin-bottom: 15px;
 }
 
 .btn-success {
