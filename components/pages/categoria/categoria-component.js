@@ -20,12 +20,14 @@ export default {
             this.loading = false
         },
         edit() {
-            location.href = `?page=categorias-form&id=${this.id}`
+            const link = `page=categorias-form&id=${this.id}`
+            this.$emit("changeRoute", link)
         },
         async remove() {
             this.loading = true
             await categoryTable.delete(this.id)
-            location.href = `?page=categorias`
+            const link = `page=categorias`
+            this.$emit("changeRoute", link)
         },
     }
 }

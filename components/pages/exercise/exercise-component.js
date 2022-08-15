@@ -20,12 +20,14 @@ export default {
             this.loading = false
         },
         edit() {
-            location.href = `?page=exercise-form&id=${this.id}`
+            const link = `page=exercise-form&id=${this.id}`
+            this.$emit("changeRoute", link)
         },
         async remove() {
             this.loading = true
             await exerciseTable.delete(this.id)
-            location.href = `?page=exercises`
+            const link = `page=exercises`
+            this.$emit("changeRoute", link)
         },
     }
 }

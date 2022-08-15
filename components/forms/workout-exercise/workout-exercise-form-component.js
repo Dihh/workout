@@ -28,7 +28,8 @@ export default {
             this.loading = true
             this.workoutExercise.id = uuidv4()
             await workoutExerciseTable.insert(this.workoutExercise)
-            location.href = `?page=workout&id=${this.workoutExercise.workout_id}`
+            const link = `page=workout&id=${this.workoutExercise.workout_id}`
+            this.$emit("changeRoute", link)
         },
         async getData() {
             const [categories, exercises] = await Promise.all([

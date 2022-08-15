@@ -2,6 +2,7 @@ import { workoutTable } from "../../../models/workouts.js"
 
 export default {
     template: `#workouts-list-template`,
+    emits: ['changeRoute'],
     data() {
         return {
             workouts: [],
@@ -12,9 +13,9 @@ export default {
     },
     methods: {
         goTo(page, id) {
-            let link = `?page=${page}`
+            let link = `page=${page}`
             if (id) link += `&id=${id}`
-            location.href = link
+            this.$emit("changeRoute", link)
         },
         async getWorkouts() {
             this.workouts = await workoutTable.select()

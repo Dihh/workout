@@ -19,12 +19,14 @@ export default {
             this.loading = true
             this.workout.id = uuidv4()
             await workoutTable.insert(this.workout)
-            location.href = `?page=workout&id=${this.workout.id}`
+            const link = `page=workout&id=${this.workout.id}`
+            this.$emit("changeRoute", link)
         },
         async updateWorkout() {
             this.loading = true
             await workoutTable.update(this.workout)
-            location.href = `?page=workout&id=${this.id}`
+            const link = `page=workout&id=${this.id}`
+            this.$emit("changeRoute", link)
         },
         async getData() {
             const getWorkoutPromise = this.id ? workoutTable.select_id(this.id) : Promise.resolve({})

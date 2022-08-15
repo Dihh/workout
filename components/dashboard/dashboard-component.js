@@ -5,6 +5,7 @@ let elementChart = null
 
 export default {
     template: `#dashboard-template`,
+    emits: ['changeRoute'],
     data() {
         return {
             calendar: [],
@@ -20,6 +21,7 @@ export default {
 
     },
     mounted() {
+        elementChart = null
         this.getDashboard()
 
     },
@@ -118,6 +120,9 @@ export default {
         changeMonth(value) {
             this.month += value
             this.getDashboard()
+        },
+        goTo(page) {
+            this.$emit("changeRoute", page)
         }
     }
 }

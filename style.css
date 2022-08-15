@@ -16,12 +16,12 @@
 }
 
 #index{
-  flex: 17;
+  flex: 8;
   overflow-x: auto;
 }
 
 #footer{
-  flex: 3
+  flex: 1
 }
 
 body{
@@ -108,6 +108,7 @@ body{
 form{
   padding-bottom: 50px;
   position: relative;
+  min-height: 100%;
 }
 
 .form-buttons button {

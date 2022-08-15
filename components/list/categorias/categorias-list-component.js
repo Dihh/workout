@@ -2,6 +2,7 @@ import { categoryTable } from '../../../models/categories.js'
 
 export default {
     template: `#categorias-list-template`,
+    emits: ['changeRoute'],
     data() {
         return {
             categories: null,
@@ -12,9 +13,9 @@ export default {
     },
     methods: {
         goTo(page, id) {
-            let link = `?page=${page}`
+            let link = `page=${page}`
             if (id) link += `&id=${id}`
-            location.href = link
+            this.$emit("changeRoute", link)
         },
         async getCategories() {
             this.categories = await categoryTable.select()

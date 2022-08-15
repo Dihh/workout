@@ -6,6 +6,7 @@ import { workoutTable } from '../../../models/workouts.js'
 
 export default {
     template: `#day-workout-form-template`,
+    emits: ['changeRoute'],
     data() {
         return {
             loading: true,
@@ -25,7 +26,7 @@ export default {
     },
     beforeMount() {
         this.id = getParam('id')
-        this.form = getParam('form') || 'workout'
+        this.changeForm()
         const today = new Date()
         this.dayWorkout.date = (new Date(
             Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
@@ -33,11 +34,8 @@ export default {
         this.getData()
     },
     methods: {
-        async createDayWorkout() {
-            this.loading = true
-            this.dayWorkout.id = uuidv4()
-            await dayWorkoutTable.insert(this.dayWorkout)
-            location.href = `?page=days-workouts`
+        changeForm() {
+            this.form = getParam('form') || 'workout'
         },
         async setLastWeight() {
             const lastWeight = await dayWorkoutTable.select_last_weight(this.dayWorkout.exercise_id)
@@ -57,12 +55,21 @@ export default {
                 }
                 return dayWorkoutTable.insert(dayWorkout)
             }))
-            location.href = `?page=days-workouts`
+            const link = `page=days-workouts`
+            this.$emit("changeRoute", link)
+        },
+        async createDayWorkout() {
+            this.loading = true
+            this.dayWorkout.id = uuidv4()
+            await dayWorkoutTable.insert(this.dayWorkout)
+            const link = `page=days-workouts`
+            this.$emit("changeRoute", link)
         },
         async updateDayWorkout() {
             this.loading = true
             await dayWorkoutTable.update(this.dayWorkout)
-            location.href = `?page=days-workouts`
+            const link = `page=days-workouts`
+            this.$emit("changeRoute", link)
         },
         async getData() {
             const getDayWorkoutPromise = this.id ? dayWorkoutTable.select_id(this.id) : Promise.resolve(this.dayWorkout)
@@ -87,10 +94,15 @@ export default {
         submit() {
             event.preventDefault()
             if (this.id) {
-                this.updateCategory()
+                this.updateDayWorkout()
             } else {
-                this.createCategory()
+                this.createDayWorkout()
             }
+        },
+        goTo(link) {
+            event.preventDefault()
+            this.$emit("changeRoute", link)
+            this.changeForm()
         }
     }
 }

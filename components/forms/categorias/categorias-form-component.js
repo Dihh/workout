@@ -23,12 +23,14 @@ export default {
             this.loading = true
             this.category.id = uuidv4()
             await categoryTable.insert(this.category)
-            location.href = `?page=categoria&id=${this.category.id}`
+            const link = `page=categoria&id=${this.category.id}`
+            this.$emit("changeRoute", link)
         },
         async updateCategory() {
             this.loading = true
             await categoryTable.update(this.category)
-            location.href = `?page=categoria&id=${this.id}`
+            const link = `page=categoria&id=${this.id}`
+            this.$emit("changeRoute", link)
         },
         async getCategory() {
             this.category = await categoryTable.select_id(this.id)

@@ -4,6 +4,7 @@ import { workoutExerciseTable } from '../../../models/workouts_exercises.js'
 
 export default {
     template: `#workout-template`,
+    emits: ['changeRoute'],
     data() {
         return {
             workout: null,
@@ -27,17 +28,13 @@ export default {
             this.loading = false
         },
         edit() {
-            location.href = `?page=workout-form&id=${this.id}`
-        },
-        async remove() {
-            this.loading = true
-            await workoutTable.delete(this.id)
-            location.href = `?page=workouts`
+            const link = `page=workout-form&id=${this.id}`
+            this.$emit("changeRoute", link)
         },
         goTo(page, id) {
-            let link = `?page=${page}`
+            let link = `page=${page}`
             if (id) link += `&id=${id}`
-            location.href = link
+            this.$emit("changeRoute", link)
         },
         async remove() {
             this.loading = true
@@ -45,7 +42,8 @@ export default {
             await Promise.all(this.exercises.map(exercise => {
                 return workoutExerciseTable.delete(exercise.id)
             }))
-            location.href = `?page=workouts`
+            const link = `page=workouts`
+            this.$emit("changeRoute", link)
         },
         remove_exercise(id) {
             if (confirm("Confirmar?")) {

@@ -25,15 +25,28 @@ const app = createApp({
     template: `#app-template`,
     data() {
         return {
-            API_KEY: ''
+            API_KEY: '',
+            page: ''
         }
     },
     async mounted() {
         this.API_KEY = localStorage.API_KEY || ''
+        this.changeRoute()
+        window.onpopstate = () => {
+            this.changeRoute()
+        }
     },
     methods: {
         setApiKey(API_KEY) {
             this.API_KEY = API_KEY
+        },
+        changeRoute(page) {
+            if (page) {
+                history.pushState({}, "", `?${page}`)
+            }
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            this.page = params.page
         }
     }
 })

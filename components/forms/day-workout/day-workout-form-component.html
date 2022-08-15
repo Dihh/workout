@@ -9,10 +9,10 @@
             <div class="col-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                    <a class="nav-link" :class="{ active: form=='workout' }" href="?page=day-workout-form&form=workout">Treino</a>
+                    <a class="nav-link" :class="{ active: form=='workout' }" @click="goTo('page=day-workout-form&form=workout')">Treino</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" :class="{ active: form=='exercise' }" href="?page=day-workout-form&form=exercise">Exercício</a>
+                    <a class="nav-link" :class="{ active: form=='exercise' }" @click="goTo('page=day-workout-form&form=exercise')">Exercício</a>
                     </li>
                 </ul>
             </div>
@@ -42,7 +42,7 @@
                 <button class="btn btn-success">Enviar</button>
             </div>
         </form>
-        <form action="" v-if="form=='workout'" @submit="submit()">
+        <form action="" v-if="form=='workout'" @submit="createDayByWorkouts()">
             <div class="mb-3">
                 <label for="date" class="form-label">Data:</label>
                 <input v-model="dayWorkout.date" type="date" class="form-control" id="date" required>

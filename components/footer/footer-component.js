@@ -1,18 +1,13 @@
 export default {
+    props: ['page'],
     template: `#footer-template`,
     data() {
-        return {
-            page: ''
-        }
+        return {}
     },
-    created() {
-        const urlSearchParams = new URLSearchParams(window.location.search);
-        const params = Object.fromEntries(urlSearchParams.entries());
-        this.page = params.page
-    },
+    maounted() { },
     methods: {
         goTo(page) {
-            location.href = `?page=${page}`
+            this.$emit("changeRoute", `page=${page}`)
         },
     }
 }
