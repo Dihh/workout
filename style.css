@@ -16,12 +16,17 @@
 }
 
 #index{
-  flex: 8;
+  flex: 18;
   overflow-x: auto;
 }
 
 #footer{
-  flex: 1
+  flex: 1;
+  box-shadow: var(--shadow-top)
+}
+
+#footer div{
+  padding-top: 6px;
 }
 
 body{
