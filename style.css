@@ -12,7 +12,9 @@
 }
 
 #head{
-  flex: 1
+  flex: 1;
+  background: var(--primary);
+  box-shadow: var(--shadow-bottom)
 }
 
 #index{
