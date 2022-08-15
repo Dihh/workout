@@ -7,7 +7,7 @@
     <form action="" v-else @submit="submit()">
         <div class="mb-3">
             <label for="weight" class="form-label">Categoria:</label>
-            <select class="form-select" v-model="categoryId" @change="changeCategory()">
+            <select class="form-select" v-model="categoryId" @change="changeCategory()" required>
                 <option v-for="category in categories" :value="category.id">{{category.name}}</option>
             </select>
         </div>

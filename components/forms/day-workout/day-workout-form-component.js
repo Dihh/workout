@@ -83,6 +83,14 @@ export default {
         },
         changeCategory() {
             this.exercises = this.systemExercises.filter(exercise => exercise.category_id == this.category_id)
+        },
+        submit() {
+            event.preventDefault()
+            if (this.id) {
+                this.updateCategory()
+            } else {
+                this.createCategory()
+            }
         }
     }
 }

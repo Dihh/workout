@@ -1,11 +1,11 @@
 <script type="text/x-template" id="api-key-form-template">
-    <form action="">
+    <form action="" @submit="submit()">
         <div class="mb-3">
             <label for="api-key" class="form-label">API_KEY:</label>
-            <input v-model="API_KEY" type="text" class="form-control" id="api-key">
+            <input v-model="API_KEY" type="text" class="form-control" id="api-key" required>
         </div>
         <div class="form-buttons">
-            <button type="button" class="btn btn-success" @click="send()">Enviar</button>
+            <button class="btn btn-success">Enviar</button>
         </div>
     </form>
 </script>

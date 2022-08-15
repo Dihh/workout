@@ -33,6 +33,14 @@ export default {
         async getCategory() {
             this.category = await categoryTable.select_id(this.id)
             this.loading = false
+        },
+        submit() {
+            event.preventDefault()
+            if (this.id) {
+                this.updateCategory()
+            } else {
+                this.createCategory()
+            }
         }
     }
 }

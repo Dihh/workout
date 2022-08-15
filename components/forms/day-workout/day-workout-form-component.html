@@ -17,47 +17,44 @@
                 </ul>
             </div>
         </div>
-        <form action="" v-if="form=='exercise'" >
+        <form action="" v-if="form=='exercise'" @submit="submit()">
             <div class="mb-3">
                 <label for="date" class="form-label">Data:</label>
-                <input v-model="dayWorkout.date" type="date" class="form-control" id="date">
+                <input v-model="dayWorkout.date" type="date" class="form-control" id="date" required>
             </div>
             <div class="mb-3">
             <label for="weight" class="form-label">Categoria:</label>
-            <select class="form-select" v-model="category_id" @change="changeCategory()">
+            <select class="form-select" v-model="category_id" @change="changeCategory()" required>
                 <option v-for="category in categories" :value="category.id">{{category.name}}</option>
             </select>
             </div>
             <div class="mb-3">
             <label for="weight" class="form-label">Exercício:</label>
-            <select class="form-select" v-model="dayWorkout.exercise_id" @change="setLastWeight()">
+            <select class="form-select" v-model="dayWorkout.exercise_id" @change="setLastWeight()" required>
                 <option v-for="exercise in exercises" :value="exercise.id">{{exercise.name}}</option>
             </select>
             </div>
             <div class="mb-3">
                 <label for="weight" class="form-label">Peso:</label>
-                <input v-model="dayWorkout.weight" type="number" class="form-control" id="weight">
+                <input v-model="dayWorkout.weight" type="number" class="form-control" id="weight" required>
             </div>
-            <div class="form-buttons" v-if="!id">
-                <button type="button" class="btn btn-success" @click="createDayWorkout()">Enviar</button>
-            </div>
-            <div class="form-buttons" v-else>
-                <button type="button" class="btn btn-success" @click="updateDayWorkout()">Enviar</button>
+            <div class="form-buttons">
+                <button class="btn btn-success">Enviar</button>
             </div>
         </form>
-        <form action="" v-if="form=='workout'">
+        <form action="" v-if="form=='workout'" @submit="submit()">
             <div class="mb-3">
                 <label for="date" class="form-label">Data:</label>
-                <input v-model="dayWorkout.date" type="date" class="form-control" id="date">
+                <input v-model="dayWorkout.date" type="date" class="form-control" id="date" required>
             </div>
             <div class="mb-3">
                 <label for="weight" class="form-label">Treinos:</label>
-                <select class="form-select" v-model="workout_id">
+                <select class="form-select" v-model="workout_id" required>
                     <option v-for="workout in workouts" :value="workout.id">{{workout.name}}</option>
                 </select>
             </div>
             <div class="form-buttons">
-                <button type="button" class="btn btn-success" @click="createDayByWorkouts()">Enviar</button>
+                <button class="btn btn-success">Enviar</button>
             </div>
         </form>
     </div>
