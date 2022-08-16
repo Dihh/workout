@@ -7,7 +7,8 @@ export default {
         return {
             systemDaysWorkouts: [],
             daysWorkouts: null,
-            date: ''
+            date: '',
+            loading: true
         }
     },
     mounted() {
@@ -26,6 +27,7 @@ export default {
         async getDaysWorkouts() {
             this.systemDaysWorkouts = await dayWorkoutTable.select()
             this.daysWorkouts = this.systemDaysWorkouts.filter(dayWorkout => dayWorkout.date == this.date)
+            this.loading = false
         },
         changeDate(date) {
             this.date = date

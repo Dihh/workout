@@ -1,29 +1,6 @@
 <style>
 </style>
 <script type="text/x-template" id="dashboard-template">
-    <div class="calendar">
-        <div class="calendar-button next noselect" @click="changeMonth(-1)"><i class="fa-solid fa-angle-left"></i></div>
-        <div class="calendar-button before noselect" @click="changeMonth(1)"><i class="fa-solid fa-angle-right"></i></div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-7 day noselect">{{monthsName}}</div>
-        </div>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-1 noselect day">S</div>
-            <div class="col-1 noselect day">T</div>
-            <div class="col-1 noselect day">Q</div>
-            <div class="col-1 noselect day">Q</div>
-            <div class="col-1 noselect day">S</div>
-            <div class="col-1 noselect day">S</div>
-            <div class="col-1 noselect day">D</div>
-        </div>
-        <div class="row" v-for="line in calendar">
-            <div class="col-2"></div>
-            <div class="col-1 noselect day" v-for="day in line" :class="{ workout: day.workout }">{{day.day}}</div>
-        </div>
-    </div>
-    <div>
-        <canvas id="chart"></canvas>
-    </div>
+    <app-calendar @changeMonth="onchangeMonth" :workouts=workouts :calendar=calendar :monthsName=monthsName></app-calendar>
+    <div><canvas id="chart"></canvas></div>
 </script>

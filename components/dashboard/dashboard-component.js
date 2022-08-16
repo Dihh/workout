@@ -8,17 +8,15 @@ export default {
     emits: ['changeRoute'],
     data() {
         return {
-            calendar: [],
             workouts: [],
+            firstDay: null,
+            finalDay: null,
+            calendar: [],
             calendarData: [],
             month: (new Date()).getMonth() + 1,
             year: (new Date()).getFullYear(),
             monthsName: ''
         }
-    },
-    beforeMount() {
-
-
     },
     mounted() {
         elementChart = null
@@ -29,13 +27,36 @@ export default {
         async getWorkouts(initial_date, final_date) {
             this.workouts = await dayWorkoutTable.select_between_date(initial_date, final_date)
         },
-        getCalendar(firstDay, finalDay) {
+        getDates() {
+            this.monthsName = months[this.month]
+            const month = this.month
+            const year = this.year
+            const dia = new Date(`${year}-${month}-01 00:00:000`)
+            const diaArr = dia.toISOString().split("T")[0].split("-")
+            diaArr[2] = "01"
+            const firstDayMonthDay = new Date(`${diaArr.join("-")} 00:00:000`)
+            const firstDayWeekDay = firstDayMonthDay.getDay()
+            this.firstDay = new Date(firstDayMonthDay.setDate(firstDayMonthDay.getDate() - firstDayWeekDay))
+            const nextMont = parseInt(diaArr[1]) + 1
+            diaArr[1] = nextMont
+            const nextMonthFirstDay = new Date(`${diaArr.join("-")} 00:00:000`)
+            const lasttDay = new Date(nextMonthFirstDay.setDate(nextMonthFirstDay.getDate() - 1))
+            const lastDayWeekDay = lasttDay.getDay()
+            this.finalDay = new Date(lasttDay.setDate(lasttDay.getDate() + (7 - lastDayWeekDay)))
+        },
+        async getDashboard() {
+            this.getDates()
+            await this.getWorkouts(this.firstDay.toISOString().split("T")[0], this.finalDay.toISOString().split("T")[0])
+            this.getCalendar()
+            this.getChart()
+        },
+        getCalendar() {
             const calendar = [[]]
-            let calendarDay = new Date(firstDay.getTime() + 100)
+            let calendarDay = new Date(this.firstDay.getTime() + 100)
             let cont = 0
             let index = 0
             this.calendarData = []
-            while (calendarDay <= finalDay && cont < 50) {
+            while (calendarDay <= this.finalDay && cont < 50) {
                 index = calendar[index].length >= 7 ? index + 1 : index
                 if (!calendar[index]) calendar[index] = [];
                 const date = calendarDay.toISOString().split("T")[0]
@@ -55,27 +76,6 @@ export default {
             }
             this.calendar = calendar
 
-        },
-        async getDashboard() {
-            this.monthsName = months[this.month]
-            const month = this.month
-            const year = this.year
-            const dia = new Date(`${year}-${month}-01 00:00:000`)
-            const diaArr = dia.toISOString().split("T")[0].split("-")
-            diaArr[2] = "01"
-            const firstDayMonthDay = new Date(`${diaArr.join("-")} 00:00:000`)
-            const firstDayWeekDay = firstDayMonthDay.getDay()
-            const firstDay = new Date(firstDayMonthDay.setDate(firstDayMonthDay.getDate() - firstDayWeekDay))
-            const nextMont = parseInt(diaArr[1]) + 1
-            diaArr[1] = nextMont
-            const nextMonthFirstDay = new Date(`${diaArr.join("-")} 00:00:000`)
-            const lasttDay = new Date(nextMonthFirstDay.setDate(nextMonthFirstDay.getDate() - 1))
-            const lastDayWeekDay = lasttDay.getDay()
-            const finalDay = new Date(lasttDay.setDate(lasttDay.getDate() + (7 - lastDayWeekDay)))
-
-            await this.getWorkouts(firstDay.toISOString().split("T")[0], finalDay.toISOString().split("T")[0])
-            this.getCalendar(firstDay, finalDay)
-            this.getChart()
         },
         getChart() {
             const labels = []
@@ -117,7 +117,7 @@ export default {
                 elementChart.update()
             }
         },
-        changeMonth(value) {
+        onchangeMonth(value) {
             this.month += value
             this.getDashboard()
         },

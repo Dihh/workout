@@ -1,9 +1,5 @@
 <script type="text/x-template" id="workout-exercise-form-template">
-    <div class="loading" v-if="loading">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
+    <app-loading v-if="loading"></app-loading>
     <form action="" v-else @submit="submit()">
         <div class="mb-3">
             <label for="weight" class="form-label">Categoria:</label>

@@ -18,6 +18,8 @@ import workoutsListComponent from './components/list/workouts/workouts-list-comp
 import workoutFormComponent from './components/forms/workout/workout-form-component.js'
 import workoutComponent from './components/pages/workout/workout-component.js'
 import workoutExerciseFormComponent from './components/forms/workout-exercise/workout-exercise-form-component.js'
+import calendarComponent from './components/dashboard/calendar/calendar-component.js'
+import loadingComponent from './components/shared/loading/loading-component.js'
 
 const { createApp } = Vue
 
@@ -72,6 +74,8 @@ async function getComponents() {
         { tag: 'app-exercise', component: exerciseComponent, name: 'exercise', path: 'pages/exercise' },
         { tag: 'app-workout', component: workoutComponent, name: 'workout', path: 'pages/workout' },
         { tag: 'app-day-workout', component: dayWorkoutComponent, name: 'day-workout', path: 'pages/day-workout' },
+        { tag: 'app-calendar', component: calendarComponent, name: 'calendar', path: 'dashboard/calendar' },
+        { tag: 'app-loading', component: loadingComponent, name: 'loading', path: 'shared/loading' },
     ]
 
     for (let component of components) {

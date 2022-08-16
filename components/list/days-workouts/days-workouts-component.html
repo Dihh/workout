@@ -4,11 +4,7 @@
 <script type="text/x-template" id="days-workouts-template">
 
     <div class="table">
-        <div class="loading" v-if="!daysWorkouts">
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
+        <app-loading v-if="loading"></app-loading>
         <div v-else>
             <app-dates @changeDate="changeDate"></app-dates>
             <table class="table table-striped">

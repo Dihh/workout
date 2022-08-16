@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             workouts: [],
+            loading: true
         }
     },
     mounted() {
@@ -19,6 +20,7 @@ export default {
         },
         async getWorkouts() {
             this.workouts = await workoutTable.select()
+            this.loading = false
         },
     }
 }

@@ -1,9 +1,5 @@
 <script type="text/x-template" id="day-workout-form-template">
-    <div class="loading" v-if="loading">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
+    <app-loading v-if="loading"></app-loading>
     <div v-else>
         <div class="row navs">
             <div class="col-12">

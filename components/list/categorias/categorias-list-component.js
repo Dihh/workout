@@ -6,6 +6,7 @@ export default {
     data() {
         return {
             categories: null,
+            loading: true
         }
     },
     mounted() {
@@ -19,6 +20,7 @@ export default {
         },
         async getCategories() {
             this.categories = await categoryTable.select()
+            this.loading = false;
         },
     }
 }
