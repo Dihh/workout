@@ -5,10 +5,14 @@
   --primary: rgb(135, 0, 169);
 }
 
+body, html, #app{
+  height: -webkit-fill-available;
+}
+
 .app{
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 }
 
 #head{
