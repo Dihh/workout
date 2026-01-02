@@ -16,7 +16,7 @@ export const workoutTable = {
     },
     selectWorkoutExercises: (id) => {
         return new Promise((resolve) => {
-            const transaction = database.db.transaction(["workouts_exercises", "exercises"])
+            const transaction = database.db.transaction(["workouts_exercises", "exercises", "categories"])
             const objectStore = transaction.objectStore("workouts_exercises")
             const index = objectStore.index("workout_id");
             const request = index.getAll(id);
