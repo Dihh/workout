@@ -1,47 +1,54 @@
-import { db } from './index.js'
+import { database } from './index.js'
+
+export const STORENAME = "exercises"
 
 export const exerciseTable = {
-    select: () => {
+    select: (transaction = database.db.transaction(STORENAME)) => {
         return new Promise((resolve) => {
-            db.transaction(t => {
-                t.executeSql(`SELECT a.*, b.name as category_name 
-                FROM exercises a 
-                JOIN categories b on a.category_id == b.id`, [], (t, result) => { resolve([...result.rows]) })
-            })
+            const objectStore = transaction.objectStore(STORENAME)
+            const request = objectStore.getAll();
+            request.onsuccess = (event) => {
+                resolve(event.target.result)
+            }
         })
     },
-    select_id: (id) => {
+    select_id: (id, transaction = database.db.transaction(STORENAME)) => {
         return new Promise((resolve) => {
-            db.transaction(t => {
-                t.executeSql(`SELECT a.*, b.name as category_name 
-                FROM exercises a 
-                JOIN categories b on a.category_id == b.id 
-                WHERE a.id = ?`, [id], (t, result) => { resolve(result.rows[0]) })
-            })
+            const objectStore = transaction.objectStore(STORENAME)
+            const request = objectStore.get(id);
+            request.onsuccess = (event) => {
+                resolve(event.target.result)
+            }
         })
     },
     insert: (exercise) => {
         return new Promise((resolve) => {
-            db.transaction(t => {
-                t.executeSql(`INSERT INTO exercises (id, name, category_id) VALUES (?, ?, ?)`, [exercise.id, exercise.name, exercise.category_id])
-                resolve()
-            })
+            const transaction = database.db.transaction(STORENAME,"readwrite")
+            const objectStore = transaction.objectStore(STORENAME)
+            const request = objectStore.add({...exercise});
+            request.onsuccess = (event) => {
+                resolve(event.target.result)
+            }
         })
     },
     update: (exercise) => {
         return new Promise((resolve) => {
-            db.transaction(t => {
-                t.executeSql(`UPDATE exercises SET name = ?, category_id = ? WHERE id = ?`, [exercise.name, exercise.category_id, exercise.id])
-                resolve()
-            })
+            const transaction = database.db.transaction(STORENAME,"readwrite")
+            const objectStore = transaction.objectStore(STORENAME)
+            const request = objectStore.put({...exercise});
+            request.onsuccess = (event) => {
+                resolve(event.target.result)
+            }
         })
     },
     delete: (id) => {
         return new Promise((resolve) => {
-            db.transaction(t => {
-                t.executeSql(`DELETE FROM exercises WHERE id = ?`, [id])
-                resolve()
-            })
+            const transaction = database.db.transaction(STORENAME,"readwrite")
+            const objectStore = transaction.objectStore(STORENAME)
+            const request = objectStore.delete(id);
+            request.onsuccess = (event) => {
+                resolve(event.target.result)
+            }
         })
     },
 }

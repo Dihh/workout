@@ -37,8 +37,13 @@ export default {
             const firstDayMonthDay = new Date(`${diaArr.join("-")} 00:00:000`)
             const firstDayWeekDay = firstDayMonthDay.getDay()
             this.firstDay = new Date(firstDayMonthDay.setDate(firstDayMonthDay.getDate() - firstDayWeekDay))
-            const nextMont = parseInt(diaArr[1]) + 1
-            diaArr[1] = nextMont
+            let nextMont = (parseInt(diaArr[1]) + 1)
+            if (nextMont > 12){
+                diaArr[0] = parseInt(this.year) + 1
+                diaArr[1] = 1
+            } else {
+                diaArr[1] = nextMont
+            }
             const nextMonthFirstDay = new Date(`${diaArr.join("-")} 00:00:000`)
             const lasttDay = new Date(nextMonthFirstDay.setDate(nextMonthFirstDay.getDate() - 1))
             const lastDayWeekDay = lasttDay.getDay()
@@ -46,7 +51,9 @@ export default {
         },
         async getDashboard() {
             this.getDates()
-            await this.getWorkouts(this.firstDay.toISOString().split("T")[0], this.finalDay.toISOString().split("T")[0])
+            const initialDate = this.firstDay.toISOString().split("T")[0]
+            const finalData = this.finalDay.toISOString().split("T")[0]
+            await this.getWorkouts(initialDate, finalData)
             this.getCalendar()
             this.getChart()
         },

@@ -1,76 +1,119 @@
 const migrations = [
     {
-        version: 0,
-        migration: (db) => {
-            db.transaction(t => { t.executeSql('CREATE TABLE categories (id TEXT, name TEXT)') })
-            db.transaction(t => { t.executeSql('CREATE TABLE exercises (id TEXT, name TEXT, category_id TEXT)') })
-            db.transaction(t => { t.executeSql('CREATE TABLE workouts (id TEXT, date DATE, weight NUMBER, exercise_id TEXT)') })
-            localStorage.migrationVersion = 0
-        }
-    },
-    {
         version: 1,
-        migration: (db) => {
-            db.transaction(t => {
-                t.executeSql('ALTER TABLE workouts RENAME TO days_workouts', [], (t, r) => {
-                    localStorage.migrationVersion = 1
-                }, (t, e) => {
-                    console.log(e)
-                })
+        migration: async (db, transaction) => {
+            const categories = db.createObjectStore("categories", {
+                keyPath: "id"
             })
+            categories.createIndex("name", "name", { unique: false })
+
+            const exercises = db.createObjectStore("exercises", {
+                keyPath: "id"
+            })
+            exercises.createIndex("name", "name", { unique: false })
+            exercises.createIndex("category_id", "category_id", { unique: false })
+
+            const workouts = db.createObjectStore("workouts", {
+                keyPath: "id"
+            })
+            workouts.createIndex("date", "date", { unique: false })
+            workouts.createIndex("weight", "weight", { unique: false })
+            workouts.createIndex("exercise_id", "exercise_id", { unique: false })
+            workouts.createIndex("date-exercise_id", ["date", "exercise_id"], { unique: false })
         }
     },
     {
         version: 2,
-        migration: (db) => {
-            db.transaction(t => {
-                t.executeSql('ALTER TABLE days_workouts ADD COLUMN executed BOOLEAN', [], (t, r) => {
-                    localStorage.migrationVersion = 2
-                }, (t, e) => {
-                    console.log(e)
-                })
-            })
-            db.transaction(t => {
-                t.executeSql('UPDATE days_workouts SET executed = true', [], (t, r) => {
-                    localStorage.migrationVersion = 2
-                }, (t, e) => {
-                    console.log(e)
-                })
-            })
+        migration: async (db, transaction) => {
+            await renameTable(db, transaction, "workouts", "days_workouts")
         }
     },
     {
         version: 3,
-        migration: (db) => {
-            db.transaction(t => {
-                t.executeSql('CREATE TABLE workouts (id TEXT, name TEXT)', [], (t, r) => {
-                    localStorage.migrationVersion = 3
-                }, (t, e) => {
-                    console.log(e)
-                })
+        migration: async (db, transaction) => {
+            await addTableColumn(db, transaction, "days_workouts", {
+                "name": "executed",
+                "index": "executed",
+                "metadata": { unique: false },
+                "default": "true"
             })
         }
     },
     {
         version: 4,
-        migration: (db) => {
-            db.transaction(t => {
-                t.executeSql('CREATE TABLE workouts_exercises (id TEXT, workout_id TEXT, exercise_id TEXT)', [], (t, r) => {
-                    localStorage.migrationVersion = 4
-                }, (t, e) => {
-                    console.log(e)
-                })
+        migration: async (db, transaction) => {
+            const workouts = db.createObjectStore("workouts", {
+                keyPath: "id"
             })
+            workouts.createIndex("name", "name", { unique: false })
+        }
+    },
+    {
+        version: 5,
+        migration: async (db, transaction) => {
+            const workouts = db.createObjectStore("workouts_exercises", {
+                keyPath: "id"
+            })
+            workouts.createIndex("workout_id", "workout_id", { unique: false })
+            workouts.createIndex("exercise_id", "exercise_id", { unique: false })
         }
     }
 ]
 
-export function runMigrations(db) {
-    if (!localStorage.migrationVersion) {
-        migrations[0].migration(db)
+function renameTable(db, transaction, oldTableName, newTableName) {
+    return new Promise((resolve, reject) => {
+        const objectStore = db.createObjectStore(newTableName, { keyPath: 'id' });
+        if (db.objectStoreNames.contains(oldTableName)) {
+            const oldStore = transaction.objectStore(oldTableName);
+            const indexNames = oldStore.indexNames;
+            Array.from(indexNames).forEach(name => {
+                const index = oldStore.index(name);
+                objectStore.createIndex(index.name, index.keyPath, { unique: index.unique, multiEntry:  index.multiEntry})
+            })
+            oldStore.openCursor().onsuccess = function (event) {
+                const cursor = event.target.result;
+                if (cursor) {
+                    objectStore.add(cursor.value);
+                    cursor.continue();
+                } else {
+                    db.deleteObjectStore(oldTableName);
+                    resolve()
+                }
+            };
+        } else {
+            resolve()
+        }
+    })
+}
+
+function addTableColumn(db, transaction, table, column) {
+    return new Promise((resolve, reject) => {
+        if (db.objectStoreNames.contains(table)) {
+            const objectStore = transaction.objectStore(table);
+            if (!objectStore.indexNames.contains(column.index)) {
+                objectStore.createIndex(column.name, column.index, column.metadata)
+                objectStore.openCursor().onsuccess = function (event) {
+                    const cursor = event.target.result;
+                    if (cursor) {
+                        cursor.value[column.index] = column.default
+                        objectStore.put(cursor.value);
+                        cursor.continue();
+                    } else {
+                        resolve()
+                    }
+                };
+            } else {
+                resolve()
+            }
+        } else {
+            resolve()
+        }
+    })
+}
+
+export async function runMigrations(db, transaction, version) {
+    const pendingMigrations = migrations.filter(migration => migration.version > version)
+    for (let migration of pendingMigrations) {
+        await migration.migration(db, transaction)
     }
-    const pendingMigrations = migrations.filter(migration => migration.version > parseInt(localStorage.migrationVersion))
-    pendingMigrations.forEach(migration => {
-        migration.migration(db)
-    });
 }
