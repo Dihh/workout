@@ -3,6 +3,7 @@ import { categoryTable } from '../../../models/indexedDB/categories.js'
 import { exerciseTable } from '../../../models/indexedDB/exercises.js'
 import { dayWorkoutTable } from '../../../models/indexedDB/days-workouts.js'
 import { workoutTable } from '../../../models/indexedDB/workouts.js'
+import { CategoryController } from '../../../controllers/category.js'
 
 export default {
     template: `#day-workout-form-template`,
@@ -21,7 +22,8 @@ export default {
             exercises: [],
             workouts: [],
             category_id: null,
-            workout_id: null
+            workout_id: null,
+            categoryController: new CategoryController()
         }
     },
     beforeMount() {
@@ -61,7 +63,7 @@ export default {
         async createDayWorkout() {
             this.loading = true
             this.dayWorkout.id = uuidv4()
-            await dayWorkoutTable.insert(this.dayWorkout)
+            await dayWorkoutTable.insert({...this.dayWorkout})
             const link = `page=days-workouts`
             this.$emit("changeRoute", link)
         },
@@ -75,7 +77,7 @@ export default {
             const getDayWorkoutPromise = this.id ? dayWorkoutTable.select_id(this.id) : Promise.resolve(this.dayWorkout)
             const [dayWorkout, categories, exercises, workouts] = await Promise.all([
                 getDayWorkoutPromise,
-                categoryTable.select(),
+                this.categoryController.select(),
                 exerciseTable.select(),
                 workoutTable.select()
             ])

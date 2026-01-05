@@ -17,7 +17,6 @@ export const exerciseTable = {
                 const cursor = event.target.result;
                 if (cursor) {
                     const execise = cursor.value
-                    console.log({execise})
                     const category = await categoryTable.select_id(execise.category_id, database, transaction)
                     execises.push(
                         {

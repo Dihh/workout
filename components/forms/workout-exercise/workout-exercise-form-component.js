@@ -2,6 +2,7 @@ import { getParam, uuidv4 } from '../../../main.js'
 import { categoryTable } from '../../../models/indexedDB/categories.js'
 import { exerciseTable } from '../../../models/indexedDB/exercises.js'
 import { workoutExerciseTable } from '../../../models/indexedDB/workouts_exercises.js'
+import { CategoryController } from '../../../controllers/category.js'
 
 export default {
     template: `#workout-exercise-form-template`,
@@ -16,7 +17,8 @@ export default {
             },
             categories: [],
             systemExercises: [],
-            exercises: []
+            exercises: [],
+            categoryController: new CategoryController()
         }
     },
     beforeMount() {
@@ -33,7 +35,7 @@ export default {
         },
         async getData() {
             const [categories, exercises] = await Promise.all([
-                categoryTable.select(),
+                this.categoryController.select(),
                 exerciseTable.select()
             ])
             this.systemExercises = exercises

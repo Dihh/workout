@@ -16,6 +16,15 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="icon" href="images/icon.png" type="image/png">
         <link rel="manifest" href="manifest.json">
+    <style>
+        .version{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: .5rem;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,6 +41,9 @@
             <app-footer id="footer" @changeRoute="changeRoute" :page="page"></app-footer>
         </div>
     </script>
+    <div class="version">
+        v0.0.1
+    </div>
 
 </body>
 
