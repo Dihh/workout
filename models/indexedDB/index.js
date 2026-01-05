@@ -1,8 +1,6 @@
 import { runMigrations } from "./migrations.js"
 import { categoryTable } from "./categories.js"
 
-export const connection = window.indexedDB.open('data', 5)
-
 export class Database {
     connection;
     db;
@@ -59,3 +57,4 @@ export class Database {
 }
 
 export const database = new Database()
+database.connect()

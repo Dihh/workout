@@ -8,7 +8,9 @@ export const categoryTable = {
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.getAll();
             request.onsuccess = (event) => {
-                resolve(event.target.result)
+                const categories = event.target.result
+                const sortedCategories = [...categories].sort((a,b) => a.name.localeCompare(b.name))
+                resolve(sortedCategories)
             }
         })
     },
