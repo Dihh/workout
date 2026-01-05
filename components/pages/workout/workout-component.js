@@ -1,6 +1,6 @@
 import { getParam } from '../../../main.js'
-import { workoutTable } from '../../../models/workouts.js'
-import { workoutExerciseTable } from '../../../models/workouts_exercises.js'
+import { workoutTable } from '../../../models/indexedDB/workouts.js'
+import { workoutExerciseTable } from '../../../models/indexedDB/workouts_exercises.js'
 
 export default {
     template: `#workout-template`,

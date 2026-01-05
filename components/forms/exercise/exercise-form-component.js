@@ -1,6 +1,6 @@
 import { getParam, uuidv4 } from '../../../main.js'
-import { categoryTable } from '../../../models/categories.js'
-import { exerciseTable } from '../../../models/exercises.js'
+import { categoryTable } from '../../../models/indexedDB/categories.js'
+import { exerciseTable } from '../../../models/indexedDB/exercises.js'
 
 export default {
     template: `#exercise-form-template`,

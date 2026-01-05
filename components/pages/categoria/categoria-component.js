@@ -1,5 +1,6 @@
 import { getParam } from '../../../main.js'
-import { categoryTable } from '../../../models/categories.js'
+import { CategoryController } from '../../../controllers/category.js'
+
 
 export default {
     template: `#categoria-template`,
@@ -7,7 +8,8 @@ export default {
         return {
             category: null,
             id: '',
-            loading: true
+            loading: true,
+            categoryController: new CategoryController()
         }
     },
     beforeMount() {
@@ -16,7 +18,7 @@ export default {
     },
     methods: {
         async getCategory(id) {
-            this.category = await categoryTable.select_id(id)
+            this.category = await this.categoryController.select_id(id)
             this.loading = false
         },
         edit() {
@@ -25,7 +27,7 @@ export default {
         },
         async remove() {
             this.loading = true
-            await categoryTable.delete(this.id)
+            await this.categoryController.delete(this.id)
             const link = `page=categorias`
             this.$emit("changeRoute", link)
         },

@@ -1,10 +1,10 @@
-import { database } from './index.js'
 export const STORENAME = 'categories';
 
 export const categoryTable = {
-    select: () => {
-        return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME)
+    select: (store) => {
+        return new Promise(async (resolve, reject) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.getAll();
             request.onsuccess = (event) => {
@@ -12,8 +12,12 @@ export const categoryTable = {
             }
         })
     },
-    select_id: (id, transaction = database.db.transaction(STORENAME)) => {
-        return new Promise((resolve) => {
+    select_id: (id, store, transaction = null) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
+            if(transaction == null){
+                transaction = store.db.transaction(STORENAME)
+            }
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.get(id);
             request.onsuccess = (event) => {
@@ -21,9 +25,10 @@ export const categoryTable = {
             }
         })
     },
-    insert: (category) => {
-        return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME,"readwrite")
+    insert: (category, store) => {
+        return new Promise(async (resolve, reject) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME,"readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.add({...category});
             request.onsuccess = (event) => {
@@ -31,9 +36,10 @@ export const categoryTable = {
             }
         })
     },
-    update: (category) => {
-        return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME,"readwrite")
+    update: (category, store) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME,"readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.put({...category});
             request.onsuccess = (event) => {
@@ -41,9 +47,10 @@ export const categoryTable = {
             }
         })
     },
-    delete: (id) => {
-        return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME,"readwrite")
+    delete: (id, store) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME,"readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.delete(id);
             request.onsuccess = (event) => {

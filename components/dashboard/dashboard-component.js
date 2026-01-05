@@ -1,4 +1,4 @@
-import { dayWorkoutTable } from '../../models/days-workouts.js'
+import { dayWorkoutTable } from '../../models/indexedDB/days-workouts.js'
 import { months } from '../../dates-utils.js'
 
 let elementChart = null

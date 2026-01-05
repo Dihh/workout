@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Jasmine Tests</title>
+
+  <!-- CSS do Jasmine -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jasmine-core@5.1.1/lib/jasmine-core/jasmine.css">
+
+  <!-- Jasmine Core -->
+  <script src="https://cdn.jsdelivr.net/npm/jasmine-core@5.1.1/lib/jasmine-core/jasmine.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jasmine-core@5.1.1/lib/jasmine-core/jasmine-html.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jasmine-core@5.1.1/lib/jasmine-core/boot0.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jasmine-core@5.1.1/lib/jasmine-core/boot1.js"></script>
+
+  <!-- Código da aplicação -->
+
+  <!-- Specs -->
+  <script type="module">
+    import { Database } from '../../models/indexedDB/index.js'
+
+    const db = new Database("Test")
+    const event = await db.delete()
+
+  </script>
+</head>
+
+<body>
+  <script src="./models/index.spec.js" type="module"></script>
+  <script src="./models/categories.spec.js" type="module"></script>
+</body>
+
+</html>

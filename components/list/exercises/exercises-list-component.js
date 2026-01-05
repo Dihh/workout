@@ -1,4 +1,4 @@
-import { exerciseTable } from '../../../models/exercises.js';
+import { exerciseTable } from '../../../models/indexedDB/exercises.js';
 
 export default {
     template: `#exercises-list-template`,

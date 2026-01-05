@@ -1,5 +1,5 @@
 import { getParam, uuidv4 } from '../../../main.js'
-import { workoutTable } from '../../../models/workouts.js'
+import { workoutTable } from '../../../models/indexedDB/workouts.js'
 
 export default {
     template: `#workout-form-template`,

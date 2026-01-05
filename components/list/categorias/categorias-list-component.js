@@ -1,4 +1,4 @@
-import { categoryTable } from '../../../models/categories.js'
+import { CategoryController } from '../../../controllers/category.js'
 
 export default {
     template: `#categorias-list-template`,
@@ -6,7 +6,8 @@ export default {
     data() {
         return {
             categories: null,
-            loading: true
+            loading: true,
+            categoryController: new CategoryController()
         }
     },
     mounted() {
@@ -19,7 +20,7 @@ export default {
             this.$emit("changeRoute", link)
         },
         async getCategories() {
-            this.categories = await categoryTable.select()
+            this.categories = await this.categoryController.select()
             this.loading = false;
         },
     }

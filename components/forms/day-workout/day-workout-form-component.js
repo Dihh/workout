@@ -1,8 +1,8 @@
 import { getParam, uuidv4 } from '../../../main.js'
-import { categoryTable } from '../../../models/categories.js'
-import { exerciseTable } from '../../../models/exercises.js'
-import { dayWorkoutTable } from '../../../models/days-workouts.js'
-import { workoutTable } from '../../../models/workouts.js'
+import { categoryTable } from '../../../models/indexedDB/categories.js'
+import { exerciseTable } from '../../../models/indexedDB/exercises.js'
+import { dayWorkoutTable } from '../../../models/indexedDB/days-workouts.js'
+import { workoutTable } from '../../../models/indexedDB/workouts.js'
 
 export default {
     template: `#day-workout-form-template`,

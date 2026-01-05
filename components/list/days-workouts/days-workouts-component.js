@@ -1,4 +1,4 @@
-import { dayWorkoutTable } from '../../../models/days-workouts.js';
+import { dayWorkoutTable } from '../../../models/indexedDB/days-workouts.js';
 
 export default {
     template: `#days-workouts-template`,
