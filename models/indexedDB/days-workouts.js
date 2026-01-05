@@ -6,7 +6,8 @@ export const STORENAME = "days_workouts"
 
 export const dayWorkoutTable = {
     select: () => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction([STORENAME, 'exercises', 'categories'])
             const objectStore = transaction.objectStore(STORENAME)
             const dayWorkouts = []
@@ -15,7 +16,7 @@ export const dayWorkoutTable = {
                 const cursor = event.target.result;
                 if (cursor) {
                     const execise = await exerciseTable.select_id(cursor.value.exercise_id, transaction)
-                    const category = await categoryTable.select_id(execise.category_id, transaction)
+                    const category = await categoryTable.select_id(execise.category_id, database, transaction)
                     dayWorkouts.push({
                         ...cursor.value,
                         exercise_name: execise.name,
@@ -29,7 +30,8 @@ export const dayWorkoutTable = {
         })
     },
     select_between_date: (exercise_id, final_date) => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const index = objectStore.index("date");
@@ -41,7 +43,8 @@ export const dayWorkoutTable = {
         })
     },
     select_last_weight: (exercise_id) => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const dateIndex = objectStore.index("date");
@@ -67,7 +70,8 @@ export const dayWorkoutTable = {
         })
     },
     select_id: (id) => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.get(id);

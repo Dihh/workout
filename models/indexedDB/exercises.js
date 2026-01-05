@@ -4,7 +4,11 @@ import { categoryTable } from "./categories.js"
 export const STORENAME = "exercises"
 
 export const exerciseTable = {
-    select: (transaction = database.db.transaction([STORENAME, "categories"])) => {
+    select: async (transaction = null) => {
+        if(!transaction){
+            await database.connect()
+            transaction = database.db.transaction([STORENAME, "categories"])
+        }
         return new Promise((resolve) => {
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.openCursor();
@@ -13,7 +17,8 @@ export const exerciseTable = {
                 const cursor = event.target.result;
                 if (cursor) {
                     const execise = cursor.value
-                    const category = await categoryTable.select_id(execise.category_id, transaction)
+                    console.log({execise})
+                    const category = await categoryTable.select_id(execise.category_id, database, transaction)
                     execises.push(
                         {
                             ...execise,
@@ -27,13 +32,17 @@ export const exerciseTable = {
             }
         })
     },
-    select_id: (id, transaction = database.db.transaction([STORENAME, "categories"])) => {
+    select_id: async (id, transaction = null) => {
+        if(!transaction){
+            await database.connect()
+            transaction = database.db.transaction([STORENAME, "categories"])
+        }
         return new Promise((resolve) => {
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.get(id);
             request.onsuccess = async (event) => {
                 const execise = event.target.result
-                const category = await categoryTable.select_id(execise.category_id, transaction)
+                const category = await categoryTable.select_id(execise.category_id, database, transaction)
                 resolve({
                     ...execise,
                     category_name: category.name

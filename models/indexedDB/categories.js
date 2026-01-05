@@ -14,8 +14,8 @@ export const categoryTable = {
     },
     select_id: (id, store, transaction = null) => {
         return new Promise(async (resolve) => {
-            await store.connect()
-            if(transaction == null){
+            if(!transaction){
+                await store.connect()
                 transaction = store.db.transaction(STORENAME)
             }
             const objectStore = transaction.objectStore(STORENAME)

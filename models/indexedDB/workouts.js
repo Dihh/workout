@@ -5,7 +5,8 @@ export const STORENAME = "workouts"
 
 export const workoutTable = {
     select: () => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.getAll();
@@ -15,7 +16,8 @@ export const workoutTable = {
         })
     },
     selectWorkoutExercises: (id) => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction(["workouts_exercises", "exercises", "categories"])
             const objectStore = transaction.objectStore("workouts_exercises")
             const index = objectStore.index("workout_id");
@@ -33,7 +35,8 @@ export const workoutTable = {
         })
     },
     select_id: (id) => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.get(id);
@@ -46,7 +49,7 @@ export const workoutTable = {
         return new Promise((resolve) => {
             const transaction = database.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
-            const request = objectStore.add({...workout});
+            const request = objectStore.add({ ...workout });
             request.onsuccess = (event) => {
                 resolve(event.target.result)
             }
@@ -56,7 +59,7 @@ export const workoutTable = {
         return new Promise((resolve) => {
             const transaction = database.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
-            const request = objectStore.put({...workout});
+            const request = objectStore.put({ ...workout });
             request.onsuccess = (event) => {
                 resolve(event.target.result)
             }

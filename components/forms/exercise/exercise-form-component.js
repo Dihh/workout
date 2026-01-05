@@ -1,6 +1,7 @@
 import { getParam, uuidv4 } from '../../../main.js'
 import { categoryTable } from '../../../models/indexedDB/categories.js'
 import { exerciseTable } from '../../../models/indexedDB/exercises.js'
+import { CategoryController } from '../../../controllers/category.js'
 
 export default {
     template: `#exercise-form-template`,
@@ -9,7 +10,8 @@ export default {
             loading: true,
             id: '',
             exercise: {},
-            categories: []
+            categories: [],
+            categoryController: new CategoryController()
         }
     },
     beforeMount() {
@@ -31,8 +33,8 @@ export default {
             this.$emit("changeRoute", link)
         },
         async getData() {
-            const getExercisePromise = this.id ? exerciseTable.select_id(this.id) : Promise.resolve({})
-            const [exercises, categories] = await Promise.all([getExercisePromise, categoryTable.select()])
+            const getExercisePromise = this.id ? await exerciseTable.select_id(this.id) : Promise.resolve({})
+            const [exercises, categories] = await Promise.all([getExercisePromise, this.categoryController.select()])
             this.exercise = exercises
             this.categories = categories
             this.loading = false

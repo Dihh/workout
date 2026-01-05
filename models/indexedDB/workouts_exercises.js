@@ -3,7 +3,8 @@ const STORENAME = "workouts_exercises"// import { db } from './index.js'
 
 export const workoutExerciseTable = {
     select: () => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.getAll();
@@ -13,7 +14,8 @@ export const workoutExerciseTable = {
         })
     },
     select_id: (id) => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
+            await database.connect()
             const transaction = database.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.get(id);
@@ -26,7 +28,7 @@ export const workoutExerciseTable = {
         return new Promise((resolve) => {
             const transaction = database.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
-            const request = objectStore.add({...workout_exercise});
+            const request = objectStore.add({ ...workout_exercise });
             request.onsuccess = (event) => {
                 resolve(event.target.result)
             }
@@ -34,9 +36,9 @@ export const workoutExerciseTable = {
     },
     update: (workout_exercise) => {
         return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME,"readwrite")
+            const transaction = database.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
-            const request = objectStore.put({...workout_exercise});
+            const request = objectStore.put({ ...workout_exercise });
             request.onsuccess = (event) => {
                 resolve(event.target.result)
             }
@@ -44,7 +46,7 @@ export const workoutExerciseTable = {
     },
     delete: (id) => {
         return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME,"readwrite")
+            const transaction = database.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.delete(id);
             request.onsuccess = (event) => {
