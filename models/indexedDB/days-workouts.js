@@ -15,8 +15,8 @@ export const dayWorkoutTable = {
             request.onsuccess = async (event) => {
                 const cursor = event.target.result;
                 if (cursor) {
-                    const execise = await exerciseTable.select_id(cursor.value.exercise_id, transaction)
-                    const category = await categoryTable.select_id(execise.category_id, database, transaction)
+                    const execise = await exerciseTable.select_id(database, cursor.value.exercise_id, transaction)
+                    const category = await categoryTable.select_id(database, execise.category_id, transaction)
                     dayWorkouts.push({
                         ...cursor.value,
                         exercise_name: execise.name,

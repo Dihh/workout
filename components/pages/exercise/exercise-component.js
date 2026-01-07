@@ -1,5 +1,5 @@
 import { getParam } from '../../../main.js'
-import { exerciseTable } from '../../../models/indexedDB/exercises.js'
+import { ExerciseController } from '../../../controllers/exercise.js'
 
 export default {
     template: `#exercises-template`,
@@ -7,7 +7,8 @@ export default {
         return {
             exercise: null,
             id: '',
-            loading: true
+            loading: true,
+            exerciseController: new ExerciseController()
         }
     },
     beforeMount() {
@@ -16,7 +17,7 @@ export default {
     },
     methods: {
         async getExercise() {
-            this.exercise = await exerciseTable.select_id(this.id)
+            this.exercise = await this.exerciseController.select_id(this.id)
             this.loading = false
         },
         edit() {
@@ -25,7 +26,7 @@ export default {
         },
         async remove() {
             this.loading = true
-            await exerciseTable.delete(this.id)
+            await this.exerciseController.delete(this.id)
             const link = `page=exercises`
             this.$emit("changeRoute", link)
         },

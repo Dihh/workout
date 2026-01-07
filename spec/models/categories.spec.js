@@ -19,7 +19,7 @@ describe("Categories", function() {
 
     beforeAll(async () => {
         await Promise.all(categories.map(async category => {
-            await db.category.insert(category, db)
+            await db.category.insert(db, category)
         }))
     })
 
@@ -30,12 +30,12 @@ describe("Categories", function() {
             id: uuidv4(),
             name: faker.string.alpha(10)
         }
-        const response = await db.category.insert(category, db)
+        const response = await db.category.insert(db, category)
         expect(category.id).toEqual(response)
     });
 
     it("category select_id should fetch category", async function() {
-        const response = await db.category.select_id(categories[0].id, db)
+        const response = await db.category.select_id(db, categories[0].id)
         expect(response).toEqual(categories[0])
     });
 
@@ -50,9 +50,9 @@ describe("Categories", function() {
             id: uuidv4(),
             name: faker.string.alpha(10)
         }
-        await db.category.insert(category, db)
-        await db.category.delete(category.id, db)
-        const response = await db.category.select_id(category.id, db)
+        await db.category.insert(db, category)
+        await db.category.delete(db, category.id)
+        const response = await db.category.select_id(db, category.id)
         expect(response).toEqual(undefined)
     });
 });

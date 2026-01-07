@@ -1,11 +1,13 @@
 import { runMigrations } from "./migrations.js"
-import { categoryTable } from "./categories.js"
+import { categoryTable, STORENAME as CATEGORIES } from "./categories.js"
+import { exerciseTable, STORENAME as EXERCISES } from "./exercises.js"
 
 export class Database {
     connection;
     db;
     transaction;
     DB_NAME = "data";
+    tables = [CATEGORIES, EXERCISES]
     constructor(DB_NAME = this.DB_NAME) {
         this.DB_NAME = DB_NAME;
     }
@@ -15,6 +17,7 @@ export class Database {
             this.connection = window.indexedDB.open(this.DB_NAME, 5);
             this.connection.onsuccess = (event) => {
                 this.db = event.target.result
+                this. transaction = this.db.transaction(this.tables)
                 resolve(this.connection)
             }
             this.connection.onerror = (err) => {
@@ -54,6 +57,7 @@ export class Database {
     }
 
     category = categoryTable
+    exercise = exerciseTable
 }
 
 export const database = new Database()

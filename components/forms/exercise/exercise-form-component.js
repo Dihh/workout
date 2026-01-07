@@ -1,7 +1,6 @@
 import { getParam, uuidv4 } from '../../../main.js'
-import { categoryTable } from '../../../models/indexedDB/categories.js'
-import { exerciseTable } from '../../../models/indexedDB/exercises.js'
 import { CategoryController } from '../../../controllers/category.js'
+import { ExerciseController } from '../../../controllers/exercise.js'
 
 export default {
     template: `#exercise-form-template`,
@@ -11,7 +10,8 @@ export default {
             id: '',
             exercise: {},
             categories: [],
-            categoryController: new CategoryController()
+            categoryController: new CategoryController(),
+            exerciseController: new ExerciseController(),
         }
     },
     beforeMount() {
@@ -21,19 +21,18 @@ export default {
     methods: {
         async createExercise() {
             this.loading = true
-            this.exercise.id = uuidv4()
-            await exerciseTable.insert(this.exercise)
+            await this.exerciseController.insert(this.exercise)
             const link = `page=exercise&id=${this.exercise.id}`
             this.$emit("changeRoute", link)
         },
         async updateExercise() {
             this.loading = true
-            await exerciseTable.update(this.exercise)
+            await this.exerciseController.update(this.exercise)
             const link = `page=exercise&id=${this.id}`
             this.$emit("changeRoute", link)
         },
         async getData() {
-            const getExercisePromise = this.id ? await exerciseTable.select_id(this.id) : Promise.resolve({})
+            const getExercisePromise = this.id ? await this.exerciseController.select_id(this.id) : Promise.resolve({})
             const [exercises, categories] = await Promise.all([getExercisePromise, this.categoryController.select()])
             this.exercise = exercises
             this.categories = categories

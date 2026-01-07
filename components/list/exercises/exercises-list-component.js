@@ -1,4 +1,4 @@
-import { exerciseTable } from '../../../models/indexedDB/exercises.js';
+import { ExerciseController } from '../../../controllers/exercise.js';
 
 export default {
     template: `#exercises-list-template`,
@@ -6,7 +6,8 @@ export default {
     data() {
         return {
             exercises: null,
-            loading: true
+            loading: true,
+            exerciseController: new ExerciseController()
         }
     },
     mounted() {
@@ -19,7 +20,7 @@ export default {
             this.$emit("changeRoute", link)
         },
         async getExercises() {
-            this.exercises = await exerciseTable.select()
+            this.exercises = await this.exerciseController.select()
             this.loading = false
         },
     }

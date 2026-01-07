@@ -22,7 +22,6 @@ export default {
     methods: {
         async createCategory() {
             this.loading = true
-            this.category.id = uuidv4()
             await this.categoryController.insert(this.category)
             const link = `page=categoria&id=${this.category.id}`
             this.$emit("changeRoute", link)

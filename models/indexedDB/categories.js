@@ -1,7 +1,7 @@
 export const STORENAME = 'categories';
 
 export const categoryTable = {
-    select: (store) => {
+    select: async (store) => {
         return new Promise(async (resolve, reject) => {
             await store.connect()
             const transaction = store.db.transaction(STORENAME)
@@ -9,16 +9,16 @@ export const categoryTable = {
             const request = objectStore.getAll();
             request.onsuccess = (event) => {
                 const categories = event.target.result
-                const sortedCategories = [...categories].sort((a,b) => a.name.localeCompare(b.name))
+                const sortedCategories = [...categories].sort((a, b) => a.name.localeCompare(b.name))
                 resolve(sortedCategories)
             }
         })
     },
-    select_id: (id, store, transaction = null) => {
+    select_id: async (store, id, transaction = null) => {
         return new Promise(async (resolve) => {
             if(!transaction){
                 await store.connect()
-                transaction = store.db.transaction(STORENAME)
+                transaction = store.transaction
             }
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.get(id);
@@ -27,32 +27,32 @@ export const categoryTable = {
             }
         })
     },
-    insert: (category, store) => {
+    insert: async (store, category) => {
         return new Promise(async (resolve, reject) => {
             await store.connect()
-            const transaction = store.db.transaction(STORENAME,"readwrite")
+            const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
-            const request = objectStore.add({...category});
+            const request = objectStore.add({ ...category });
             request.onsuccess = (event) => {
                 resolve(event.target.result)
             }
         })
     },
-    update: (category, store) => {
+    update: async (store, category) => {
         return new Promise(async (resolve) => {
             await store.connect()
-            const transaction = store.db.transaction(STORENAME,"readwrite")
+            const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
-            const request = objectStore.put({...category});
+            const request = objectStore.put({ ...category });
             request.onsuccess = (event) => {
                 resolve(event.target.result)
             }
         })
     },
-    delete: (id, store) => {
+    delete: async (store, id) => {
         return new Promise(async (resolve) => {
             await store.connect()
-            const transaction = store.db.transaction(STORENAME,"readwrite")
+            const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.delete(id);
             request.onsuccess = (event) => {

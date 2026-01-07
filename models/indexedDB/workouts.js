@@ -24,7 +24,7 @@ export const workoutTable = {
             const request = index.getAll(id);
             request.onsuccess = async (event) => {
                 const data = await Promise.all(event.target.result.map(async workouts_exercise => {
-                    const execise = await exerciseTable.select_id(workouts_exercise.exercise_id, transaction)
+                    const execise = await exerciseTable.select_id(database, workouts_exercise.exercise_id, transaction)
                     return {
                         ...workouts_exercise,
                         name: execise.name
