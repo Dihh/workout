@@ -1,5 +1,5 @@
 import { Controller } from "./controller.js"
-import { uuidv4 } from '../../../main.js'
+import { uuidv4 } from '../main.js'
 
 export class ExerciseController extends Controller {
 
