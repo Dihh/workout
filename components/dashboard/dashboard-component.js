@@ -1,5 +1,5 @@
 import { months } from '../../dates-utils.js'
-import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
+import { DayWorkoutsController } from '../../controllers/day-workouts.js';
 
 let elementChart = null
 
