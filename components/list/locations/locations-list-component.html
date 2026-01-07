@@ -1,0 +1,23 @@
+<script type="text/x-template" id="locations-list-template">
+    <div class="table">
+    <app-loading v-if="loading"></app-loading>
+    <table class="table table-striped" v-else>
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Locais</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="noselect" v-for="location, index in locations" @click="goTo('location',location.id)">
+              <th scope="row">{{index + 1}}</th>
+              <td>{{location.name}}</td>
+            </tr>
+
+          </tbody>
+    </table>
+</div>
+    <div class="add-button" @click="goTo('location-form')">
+        +
+    </div>
+</script>

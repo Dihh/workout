@@ -32,7 +32,7 @@
 <script type="text/x-template" id="footer-template">
     <div class="container">
     <div class="row">
-        <div class="menu-item col-2 offset-1 noselect" :class="{ active: page=='dashboard' }" @click="goTo('dashboard')">
+        <div class="menu-item col-2 noselect" :class="{ active: page=='dashboard' }" @click="goTo('dashboard')">
             <i class="fa-solid fa-chart-line menu-icon"></i><div class="menu-text">Dashboard</div>
         </div>
         <div class="menu-item col-2 noselect" :class="{ active: page=='days-workouts' }" @click="goTo('days-workouts')">
@@ -46,6 +46,9 @@
         </div>
         <div class="menu-item col-2 noselect" :class="{ active: page=='categorias' }" @click="goTo('categorias')">
             <i class="fa-solid fa-layer-group menu-icon"></i><div class="menu-text">Categorias</div>
+        </div>
+        <div class="menu-item col-2 noselect" :class="{ active: page=='config' }" @click="goTo('config')">
+            <i class="fa-solid fa-cogs menu-icon"></i><div class="menu-text">Configurações</div>
         </div>
     </div>
 </div>

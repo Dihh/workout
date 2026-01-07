@@ -20,6 +20,10 @@ import workoutComponent from './components/pages/workout/workout-component.js'
 import workoutExerciseFormComponent from './components/forms/workout-exercise/workout-exercise-form-component.js'
 import calendarComponent from './components/dashboard/calendar/calendar-component.js'
 import loadingComponent from './components/shared/loading/loading-component.js'
+import configComponet from "./components/pages/config/config-component.js"
+import locationsListComponet from "./components/list/locations/locations-list-component.js"
+import locationFormComponet from "./components/forms/location/location-form-component.js"
+import locationPageComponet from "./components/pages/location/location-page-component.js"
 
 const { createApp } = Vue
 
@@ -76,6 +80,10 @@ async function getComponents() {
         { tag: 'app-day-workout', component: dayWorkoutComponent, name: 'day-workout', path: 'pages/day-workout' },
         { tag: 'app-calendar', component: calendarComponent, name: 'calendar', path: 'dashboard/calendar' },
         { tag: 'app-loading', component: loadingComponent, name: 'loading', path: 'shared/loading' },
+        { tag: 'app-config', component: configComponet, name: 'config', path: 'pages/config' },
+        { tag: 'app-locations-list', component: locationsListComponet, name: 'locations-list', path: 'list/locations' },
+        { tag: 'app-location-form', component: locationFormComponet, name: 'location-form', path: 'forms/location' },
+        { tag: 'app-location-page', component: locationPageComponet, name: 'location-page', path: 'pages/location' },
     ]
 
     for (let component of components) {

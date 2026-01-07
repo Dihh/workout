@@ -15,5 +15,9 @@
         <app-workout  @changeRoute="changeRoute" v-if="page=='workout'"></app-workout>
         <app-day-workout  @changeRoute="changeRoute" v-if="page=='day-workout'"></app-day-workout>
         <app-api-key-form  @changeRoute="changeRoute" v-if="page=='api-key-form'" @apiKey="setApiKey"></app-api-key-form>
+        <app-config @changeRoute="changeRoute" v-if="page=='config'" ></app-config>
+        <app-locations-list @changeRoute="changeRoute" v-if="page=='locations-list'" ></app-locations-list>
+        <app-location-form @changeRoute="changeRoute" v-if="page=='location-form'" ></app-location-form>
+        <app-location-page @changeRoute="changeRoute" v-if="page=='location'" ></app-location-page>
     </div>
 </script>

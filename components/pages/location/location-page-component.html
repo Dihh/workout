@@ -1,0 +1,22 @@
+<script type="text/x-template" id="location-template">
+    <app-loading v-if="loading"></app-loading>
+    <div v-else>
+        <div class="container">
+            <div class="row">
+                <div class="col-8"><h3>{{location.name}}</h3></div>
+                <div class="col-4 text-right">
+                    <div class="row">
+                        <div class="col-4 button-icon-div" @click="edit()">
+                            <i class="fa-solid fa-pen button-icon"></i>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-4 button-icon-div" @click="remove()">
+                            <i class="fa-solid fa-trash button-icon"></i>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

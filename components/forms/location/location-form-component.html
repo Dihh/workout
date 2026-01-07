@@ -1,0 +1,12 @@
+<script type="text/x-template" id="location-form-template">
+    <app-loading v-if="loading"></app-loading>
+    <form action="" v-else @submit="submit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome:</label>
+            <input v-model="location.name" type="text" class="form-control" id="name" required>
+        </div>
+        <div class="form-buttons">
+            <button class="btn btn-success">Enviar</button>
+        </div>
+    </form>
+</script>
