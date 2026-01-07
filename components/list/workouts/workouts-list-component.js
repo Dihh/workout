@@ -1,4 +1,4 @@
-import { workoutTable } from "../../../models/indexedDB/workouts.js"
+import { WorkoutController } from '../../../controllers/workout.js';
 
 export default {
     template: `#workouts-list-template`,
@@ -6,7 +6,8 @@ export default {
     data() {
         return {
             workouts: [],
-            loading: true
+            loading: true,
+            workoutController: new WorkoutController()
         }
     },
     mounted() {
@@ -19,7 +20,7 @@ export default {
             this.$emit("changeRoute", link)
         },
         async getWorkouts() {
-            this.workouts = await workoutTable.select()
+            this.workouts = await this.workoutController.select()
             this.loading = false
         },
     }

@@ -1,9 +1,9 @@
 export const STORENAME = "exercises"
 
 export const exerciseTable = {
-    select: async (store) => {
-        await store.connect()
-        return new Promise((resolve) => {
+    select: (store) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
             const objectStore = store.transaction.objectStore(STORENAME)
             const request = objectStore.openCursor();
             const execises = []
@@ -26,12 +26,12 @@ export const exerciseTable = {
             }
         })
     },
-    select_id: async (store, id, transaction = null) => {
-        if(!transaction){
-            await store.connect()
-            transaction = store.transaction
-        }
-        return new Promise((resolve) => {
+    select_id: (store, id, transaction = null) => {
+        return new Promise(async (resolve) => {
+            if(!transaction){
+                await store.connect()
+                transaction = store.transaction
+            }
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.get(id);
             request.onsuccess = async (event) => {
@@ -48,9 +48,9 @@ export const exerciseTable = {
             }
         })
     },
-    insert: async (store, exercise) => {
-        await store.connect()
-        return new Promise((resolve) => {
+    insert: (store, exercise) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
             const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.add({ ...exercise });
@@ -59,9 +59,9 @@ export const exerciseTable = {
             }
         })
     },
-    update: async (store, exercise) => {
-        await store.connect()
-        return new Promise((resolve) => {
+    update: (store, exercise) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
             const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.put({ ...exercise });
@@ -70,9 +70,9 @@ export const exerciseTable = {
             }
         })
     },
-    delete: async (store, id) => {
-        await store.connect()
-        return new Promise((resolve) => {
+    delete: (store, id) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
             const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.delete(id);

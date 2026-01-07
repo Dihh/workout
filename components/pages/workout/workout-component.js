@@ -1,5 +1,5 @@
 import { getParam } from '../../../main.js'
-import { workoutTable } from '../../../models/indexedDB/workouts.js'
+import { WorkoutController } from '../../../controllers/workout.js';
 import { workoutExerciseTable } from '../../../models/indexedDB/workouts_exercises.js'
 
 export default {
@@ -10,7 +10,8 @@ export default {
             workout: null,
             exercises: [],
             id: '',
-            loading: true
+            loading: true,
+            workoutController: new WorkoutController()
         }
     },
     beforeMount() {
@@ -20,11 +21,11 @@ export default {
     },
     methods: {
         async getWorkout() {
-            this.workout = await workoutTable.select_id(this.id)
+            this.workout = await this.workoutController.select_id(this.id)
             this.loading = false
         },
         async getExercises() {
-            this.exercises = await workoutTable.selectWorkoutExercises(this.id)
+            this.exercises = await this.workoutController.selectWorkoutExercises(this.id)
             this.loading = false
         },
         edit() {
@@ -38,7 +39,7 @@ export default {
         },
         async remove() {
             this.loading = true
-            await workoutTable.delete(this.id)
+            await this.workoutController.delete(this.id)
             await Promise.all(this.exercises.map(exercise => {
                 return workoutExerciseTable.delete(exercise.id)
             }))

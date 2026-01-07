@@ -1,8 +1,8 @@
 import { getParam, uuidv4 } from '../../../main.js'
 import { dayWorkoutTable } from '../../../models/indexedDB/days-workouts.js'
-import { workoutTable } from '../../../models/indexedDB/workouts.js'
 import { CategoryController } from '../../../controllers/category.js'
 import { ExerciseController } from '../../../controllers/exercise.js'
+import { WorkoutController } from '../../../controllers/workout.js';
 
 export default {
     template: `#day-workout-form-template`,
@@ -23,7 +23,8 @@ export default {
             category_id: null,
             workout_id: null,
             categoryController: new CategoryController(),
-            exerciseController: new ExerciseController()
+            exerciseController: new ExerciseController(),
+            workoutController: new WorkoutController()
         }
     },
     beforeMount() {
@@ -45,7 +46,7 @@ export default {
         },
         async createDayByWorkouts() {
             this.loading = true
-            const workoutExercises = await workoutTable.selectWorkoutExercises(this.workout_id)
+            const workoutExercises = await this.workoutController.selectWorkoutExercises(this.workout_id)
             await Promise.all(workoutExercises.map(async workoutExercise => {
                 const lastWeight = await dayWorkoutTable.select_last_weight(workoutExercise.exercise_id)
                 const dayWorkout = {
@@ -79,7 +80,7 @@ export default {
             const dayWorkout = await getDayWorkoutPromise
             const categories = await this.categoryController.select()
             const exercises = await this.exerciseController.select()
-            const workouts = await workoutTable.select()
+            const workouts = await this.workoutController.select()
             this.systemExercises = exercises
             this.categories = categories
             this.exercises = []
