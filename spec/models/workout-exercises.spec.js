@@ -1,7 +1,5 @@
 import { Database } from '../../models/indexedDB/index.js'
 import { faker } from 'https://cdn.jsdelivr.net/npm/@faker-js/faker@9.5.0/+esm';
-import { uuidv4 } from '../../main.js'
-
 
 describe("Workout Exercises", function () {
 

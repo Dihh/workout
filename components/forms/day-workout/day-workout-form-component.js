@@ -1,8 +1,8 @@
-import { getParam, uuidv4 } from '../../../main.js'
-import { dayWorkoutTable } from '../../../models/indexedDB/days-workouts.js'
+import { getParam } from '../../../main.js'
 import { CategoryController } from '../../../controllers/category.js'
 import { ExerciseController } from '../../../controllers/exercise.js'
 import { WorkoutController } from '../../../controllers/workout.js';
+import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
 
 export default {
     template: `#day-workout-form-template`,
@@ -24,7 +24,8 @@ export default {
             workout_id: null,
             categoryController: new CategoryController(),
             exerciseController: new ExerciseController(),
-            workoutController: new WorkoutController()
+            workoutController: new WorkoutController(),
+            dayWorkoutsController: new DayWorkoutsController(),
         }
     },
     beforeMount() {
@@ -41,42 +42,40 @@ export default {
             this.form = getParam('form') || 'workout'
         },
         async setLastWeight() {
-            const lastWeight = await dayWorkoutTable.select_last_weight(this.dayWorkout.exercise_id)
+            const lastWeight = await this.dayWorkoutsController.select_last_weight(this.dayWorkout.exercise_id)
             this.dayWorkout.weight = lastWeight?.weight || 0
         },
         async createDayByWorkouts() {
             this.loading = true
             const workoutExercises = await this.workoutController.selectWorkoutExercises(this.workout_id)
             await Promise.all(workoutExercises.map(async workoutExercise => {
-                const lastWeight = await dayWorkoutTable.select_last_weight(workoutExercise.exercise_id)
+                const lastWeight = await this.dayWorkoutsController.select_last_weight(workoutExercise.exercise_id)
                 const dayWorkout = {
-                    id: uuidv4(),
                     date: this.dayWorkout.date,
                     exercise_id: workoutExercise.exercise_id,
                     weight: lastWeight?.weight || 0,
                     executed: 0
                 }
-                return dayWorkoutTable.insert(dayWorkout)
+                return this.dayWorkoutsController.insert(dayWorkout)
             }))
             const link = `page=days-workouts`
             this.$emit("changeRoute", link)
         },
         async createDayWorkout() {
             this.loading = true
-            this.dayWorkout.id = uuidv4()
-            await dayWorkoutTable.insert({...this.dayWorkout})
+            await this.dayWorkoutsController.insert({...this.dayWorkout})
             const link = `page=days-workouts`
             this.$emit("changeRoute", link)
         },
         async updateDayWorkout() {
             this.loading = true
-            await dayWorkoutTable.update(this.dayWorkout)
+            await this.dayWorkoutsController.update(this.dayWorkout)
             const link = `page=days-workouts`
             this.$emit("changeRoute", link)
         },
         async getData() {
             this.loading = true
-            const getDayWorkoutPromise = this.id ? dayWorkoutTable.select_id(this.id) : Promise.resolve(this.dayWorkout)
+            const getDayWorkoutPromise = this.id ? this.dayWorkoutsController.select_id(this.id) : Promise.resolve(this.dayWorkout)
             const dayWorkout = await getDayWorkoutPromise
             const categories = await this.categoryController.select()
             const exercises = await this.exerciseController.select()

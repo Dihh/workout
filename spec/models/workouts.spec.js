@@ -1,7 +1,5 @@
 import { Database } from '../../models/indexedDB/index.js'
 import { faker } from 'https://cdn.jsdelivr.net/npm/@faker-js/faker@9.5.0/+esm';
-import { uuidv4 } from '../../main.js'
-
 
 describe("Workouts", function() {
 
@@ -27,7 +25,7 @@ describe("Workouts", function() {
 
     it("workout insert should create workout", async function() {
         const workout = {
-            id: uuidv4(),
+            id: faker.string.uuid(),
             name: faker.string.alpha(10),
         }
         const response = await db.workout.insert(db, workout)
@@ -47,7 +45,7 @@ describe("Workouts", function() {
 
     it("workout delete should delete workout", async function() {
         const workout = {
-            id: uuidv4(),
+            id: faker.string.uuid(),
             name: faker.string.alpha(10)
         }
         await db.workout.insert(db, workout)

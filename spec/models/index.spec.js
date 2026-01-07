@@ -1,6 +1,5 @@
 import { Database } from '../../models/indexedDB/index.js'
 
-
 describe("Index", function() {
     it("Should create database", async function() {
         const db = new Database("Test")

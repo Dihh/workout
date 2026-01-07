@@ -1,7 +1,5 @@
 import { Database } from '../../models/indexedDB/index.js'
 import { faker } from 'https://cdn.jsdelivr.net/npm/@faker-js/faker@9.5.0/+esm';
-import { uuidv4 } from '../../main.js'
-
 
 describe("Categories", function() {
 
@@ -27,7 +25,7 @@ describe("Categories", function() {
 
     it("category insert should create category", async function() {
         const category = {
-            id: uuidv4(),
+            id: faker.string.uuid(),
             name: faker.string.alpha(10)
         }
         const response = await db.category.insert(db, category)
@@ -47,7 +45,7 @@ describe("Categories", function() {
 
     it("category delete should delete category", async function() {
         const category = {
-            id: uuidv4(),
+            id: faker.string.uuid(),
             name: faker.string.alpha(10)
         }
         await db.category.insert(db, category)

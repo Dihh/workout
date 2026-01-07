@@ -1,5 +1,5 @@
-import { dayWorkoutTable } from '../../models/indexedDB/days-workouts.js'
 import { months } from '../../dates-utils.js'
+import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
 
 let elementChart = null
 
@@ -15,7 +15,8 @@ export default {
             calendarData: [],
             month: (new Date()).getMonth() + 1,
             year: (new Date()).getFullYear(),
-            monthsName: ''
+            monthsName: '',
+            dayWorkoutsController: new DayWorkoutsController(),
         }
     },
     mounted() {
@@ -25,7 +26,7 @@ export default {
     },
     methods: {
         async getWorkouts(initial_date, final_date) {
-            this.workouts = await dayWorkoutTable.select_between_date(initial_date, final_date)
+            this.workouts = await this.dayWorkoutsController.select_between_date(initial_date, final_date)
         },
         getDates() {
             this.monthsName = months[this.month]

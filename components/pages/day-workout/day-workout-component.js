@@ -1,5 +1,5 @@
 import { getParam } from '../../../main.js'
-import { dayWorkoutTable } from '../../../models/indexedDB/days-workouts.js'
+import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
 
 export default {
     template: `#day-workout-template`,
@@ -7,7 +7,8 @@ export default {
         return {
             dayWorkout: null,
             id: '',
-            loading: true
+            loading: true,
+            dayWorkoutsController: new DayWorkoutsController(),
         }
     },
     beforeMount() {
@@ -16,7 +17,7 @@ export default {
     },
     methods: {
         async getDayWorkout() {
-            this.dayWorkout = await dayWorkoutTable.select_id(this.id)
+            this.dayWorkout = await this.dayWorkoutsController.select_id(this.id)
             this.loading = false
         },
         edit() {
@@ -25,7 +26,7 @@ export default {
         },
         async remove() {
             this.loading = true
-            await dayWorkoutTable.delete(this.id)
+            await this.dayWorkoutsController.delete(this.id)
             const link = `page=days-workouts`
             this.$emit("changeRoute", link)
         },

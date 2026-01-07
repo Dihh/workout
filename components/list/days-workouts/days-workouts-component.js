@@ -1,4 +1,4 @@
-import { dayWorkoutTable } from '../../../models/indexedDB/days-workouts.js';
+import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
 
 export default {
     template: `#days-workouts-template`,
@@ -8,7 +8,8 @@ export default {
             systemDaysWorkouts: [],
             daysWorkouts: null,
             date: '',
-            loading: true
+            loading: true,
+            dayWorkoutsController: new DayWorkoutsController(),
         }
     },
     mounted() {
@@ -25,7 +26,7 @@ export default {
             this.$emit("changeRoute", link)
         },
         async getDaysWorkouts() {
-            this.systemDaysWorkouts = await dayWorkoutTable.select()
+            this.systemDaysWorkouts = await this.dayWorkoutsController.select()
             this.daysWorkouts = this.systemDaysWorkouts.filter(dayWorkout => dayWorkout.date == this.date)
             this.loading = false
         },
@@ -35,15 +36,15 @@ export default {
         },
         weightUp(dayWorkout) {
             dayWorkout.weight++
-            dayWorkoutTable.update({...dayWorkout})
+            this.dayWorkoutsController.update({...dayWorkout})
         },
         weightDown(dayWorkout) {
             dayWorkout.weight--
-            dayWorkoutTable.update({...dayWorkout})
+            this.dayWorkoutsController.update({...dayWorkout})
         },
         update(dayWorkout) {
             dayWorkout.executed = !dayWorkout.executed ? 1 : 0
-            dayWorkoutTable.update({...dayWorkout})
+            this.dayWorkoutsController.update({...dayWorkout})
         }
     }
 }

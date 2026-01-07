@@ -3,13 +3,14 @@ import { categoryTable, STORENAME as CATEGORIES } from "./categories.js"
 import { exerciseTable, STORENAME as EXERCISES } from "./exercises.js"
 import { workoutTable, STORENAME as WORKOUTS } from "./workouts.js"
 import { workoutExerciseTable, STORENAME as WORKOUTS_EXERCISES } from "./workouts_exercises.js"
+import { dayWorkoutTable, STORENAME as DAY_WORKOUTS } from "./days-workouts.js"
 
 export class Database {
     connection;
     db;
     transaction;
     DB_NAME = "data";
-    tables = [CATEGORIES, EXERCISES, WORKOUTS, WORKOUTS_EXERCISES]
+    tables = [CATEGORIES, EXERCISES, WORKOUTS, WORKOUTS_EXERCISES, DAY_WORKOUTS]
     constructor(DB_NAME = this.DB_NAME) {
         this.DB_NAME = DB_NAME;
     }
@@ -62,6 +63,7 @@ export class Database {
     exercise = exerciseTable
     workout = workoutTable
     workoutExercise = workoutExerciseTable
+    dayWorkout = dayWorkoutTable
 
 }
 
