@@ -1,7 +1,7 @@
-import { getParam, uuidv4 } from '../../../main.js'
-import { workoutExerciseTable } from '../../../models/indexedDB/workouts_exercises.js'
+import { getParam } from '../../../main.js'
 import { CategoryController } from '../../../controllers/category.js'
 import { ExerciseController } from '../../../controllers/exercise.js'
+import { WorkoutExerciseController } from '../../../controllers/workout-exercise.js'
 
 export default {
     template: `#workout-exercise-form-template`,
@@ -19,6 +19,7 @@ export default {
             exercises: [],
             categoryController: new CategoryController(),
             exerciseController: new ExerciseController(),
+            workoutExerciseController: new WorkoutExerciseController(),
         }
     },
     beforeMount() {
@@ -28,8 +29,7 @@ export default {
     methods: {
         async addWorkoutExercise() {
             this.loading = true
-            this.workoutExercise.id = uuidv4()
-            await workoutExerciseTable.insert(this.workoutExercise)
+            await this.workoutExerciseController.insert(this.workoutExercise)
             const link = `page=workout&id=${this.workoutExercise.workout_id}`
             this.$emit("changeRoute", link)
         },

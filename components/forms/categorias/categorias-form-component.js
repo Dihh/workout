@@ -1,4 +1,4 @@
-import { getParam, uuidv4 } from '../../../main.js'
+import { getParam } from '../../../main.js'
 import { CategoryController } from '../../../controllers/category.js'
 
 export default {

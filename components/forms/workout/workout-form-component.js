@@ -1,4 +1,4 @@
-import { getParam, uuidv4 } from '../../../main.js'
+import { getParam } from '../../../main.js'
 import { WorkoutController } from '../../../controllers/workout.js';
 
 export default {

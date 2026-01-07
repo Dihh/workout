@@ -27,7 +27,8 @@ export const workoutTable = {
                         name: exercise.name
                     }
                 }))
-                resolve(data)
+                const sortedData = [...data].sort((a, b) => a.name.localeCompare(b.name))
+                resolve(sortedData)
             }
         })
     },

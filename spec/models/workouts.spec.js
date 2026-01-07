@@ -56,8 +56,49 @@ describe("Workouts", function() {
         expect(response).toEqual(undefined)
     });
 
-    xit("workout selectWorkoutExercises should fetch workout exercises", async function() {
+    it("workout selectWorkoutExercises should fetch workout exercises", async function() {
+        const categories = [
+            {
+                id:  faker.string.uuid(),
+                name: faker.string.alpha(10)
+            }
+        ]
+        const exercises = [
+            {
+                id:  faker.string.uuid(),
+                name: faker.string.alpha(10),
+                category_id: categories[0].id,
+            },
+            {
+                id:  faker.string.uuid(),
+                name: faker.string.alpha(10),
+                category_id: categories[0].id,
+            }
+        ]
+        const workoutExercises = [
+            {
+                id:  faker.string.uuid(),
+                exercise_id: exercises[0].id,
+                workout_id: workouts[0].id,
+                name: exercises[0].name
+            },
+            {
+                id:  faker.string.uuid(),
+                exercise_id: exercises[1].id,
+                workout_id: workouts[0].id,
+                name: exercises[1].name
+            },
+        ].sort((a,b) => a.name.localeCompare(b.name))
+        await Promise.all(categories.map(async category => {
+            await db.category.insert(db, category)
+        }))
+        await Promise.all(exercises.map(async exercise => {
+            await db.exercise.insert(db, exercise)
+        }))
+        await Promise.all(workoutExercises.map(async workoutExercise => {
+            await db.workoutExercise.insert(db, workoutExercise)
+        }))
         const response = await db.workout.selectWorkoutExercises(db, workouts[0].id)
-        expect(response).toEqual(workouts[0])
+        expect(response).toEqual(workoutExercises)
     });
 });

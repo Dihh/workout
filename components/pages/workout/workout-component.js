@@ -1,6 +1,6 @@
 import { getParam } from '../../../main.js'
 import { WorkoutController } from '../../../controllers/workout.js';
-import { workoutExerciseTable } from '../../../models/indexedDB/workouts_exercises.js'
+import { WorkoutExerciseController } from '../../../controllers/workout-exercise.js'
 
 export default {
     template: `#workout-template`,
@@ -11,7 +11,8 @@ export default {
             exercises: [],
             id: '',
             loading: true,
-            workoutController: new WorkoutController()
+            workoutController: new WorkoutController(),
+            workoutExerciseController: new WorkoutExerciseController(),
         }
     },
     beforeMount() {
@@ -41,7 +42,7 @@ export default {
             this.loading = true
             await this.workoutController.delete(this.id)
             await Promise.all(this.exercises.map(exercise => {
-                return workoutExerciseTable.delete(exercise.id)
+                return this.workoutExerciseController.delete(exercise.id)
             }))
             const link = `page=workouts`
             this.$emit("changeRoute", link)
@@ -49,7 +50,7 @@ export default {
         remove_exercise(id) {
             if (confirm("Confirmar?")) {
                 this.exercises = this.exercises.filter(exercise => exercise.id != id)
-                workoutExerciseTable.delete(id)
+                this.workoutExerciseController.delete(id)
             }
         }
     }

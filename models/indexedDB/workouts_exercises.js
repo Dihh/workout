@@ -1,32 +1,32 @@
-import { database } from './index.js'
-const STORENAME = "workouts_exercises"// import { db } from './index.js'
+export const STORENAME = "workouts_exercises"
 
 export const workoutExerciseTable = {
-    select: () => {
+    select: (store) => {
         return new Promise(async (resolve) => {
-            await database.connect()
-            const transaction = database.db.transaction(STORENAME)
-            const objectStore = transaction.objectStore(STORENAME)
+            await store.connect()
+            const objectStore = store.transaction.objectStore(STORENAME)
             const request = objectStore.getAll();
             request.onsuccess = (event) => {
-                resolve(event.target.result)
+                const workoutExercises = event.target.result
+                const sortedWorkoutExercises = [...workoutExercises].sort((a,b) => a.id.localeCompare(b.id))
+                resolve(sortedWorkoutExercises)
             }
         })
     },
-    select_id: (id) => {
+    select_id: (store, id) => {
         return new Promise(async (resolve) => {
-            await database.connect()
-            const transaction = database.db.transaction(STORENAME)
-            const objectStore = transaction.objectStore(STORENAME)
+            await store.connect()
+            const objectStore = store.transaction.objectStore(STORENAME)
             const request = objectStore.get(id);
             request.onsuccess = (event) => {
                 resolve(event.target.result)
             }
         })
     },
-    insert: (workout_exercise) => {
-        return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME, "readwrite")
+    insert: (store, workout_exercise) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.add({ ...workout_exercise });
             request.onsuccess = (event) => {
@@ -34,9 +34,10 @@ export const workoutExerciseTable = {
             }
         })
     },
-    update: (workout_exercise) => {
-        return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME, "readwrite")
+    update: (store, workout_exercise) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.put({ ...workout_exercise });
             request.onsuccess = (event) => {
@@ -44,9 +45,10 @@ export const workoutExerciseTable = {
             }
         })
     },
-    delete: (id) => {
-        return new Promise((resolve) => {
-            const transaction = database.db.transaction(STORENAME, "readwrite")
+    delete: (store, id) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME, "readwrite")
             const objectStore = transaction.objectStore(STORENAME)
             const request = objectStore.delete(id);
             request.onsuccess = (event) => {
