@@ -25,8 +25,10 @@ self.addEventListener('activate', e =>{
 })
 
 self.addEventListener('fetch', async e =>{
+    console.log("version4")
     const req = e.request
     const url = new URL(req.url)
+    
 
     if(url.origin === location.origin){
         e.respondWith(cacheFirst(req))
