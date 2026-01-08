@@ -25,7 +25,7 @@ self.addEventListener('activate', e =>{
 })
 
 self.addEventListener('fetch', async e =>{
-    console.log("version4")
+    return
     const req = e.request
     const url = new URL(req.url)
     

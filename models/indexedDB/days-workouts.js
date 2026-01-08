@@ -26,13 +26,13 @@ export const dayWorkoutTable = {
             }
         })
     },
-    select_between_date: (store, exercise_id, final_date) => {
+    select_between_date: (store, initial_date, final_date) => {
         return new Promise(async (resolve) => {
             await store.connect()
             const transaction = store.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
             const index = objectStore.index("date");
-            const range = IDBKeyRange.bound(exercise_id, final_date, false, false);
+            const range = IDBKeyRange.bound(initial_date, final_date, false, false);
             const request = index.getAll(range);
             request.onsuccess = (event) => {
                 resolve(event.target.result)
@@ -44,13 +44,14 @@ export const dayWorkoutTable = {
             await store.connect()
             const transaction = store.db.transaction(STORENAME)
             const objectStore = transaction.objectStore(STORENAME)
-            const dateIndex = objectStore.index("date");
-            const dateRequest = dateIndex.openCursor(undefined, "prev");
+            const dateIndex = objectStore.index("exercise_id");
+            const range = IDBKeyRange.only(exercise_id);
+            const dateRequest = dateIndex.getAll(range);
             dateRequest.onsuccess = function (event) {
                 const dateCursor = event.target.result;
                 let date = (new Date())
-                if (dateCursor){
-                    date = dateCursor.value.date
+                if (dateCursor.length){
+                    date = dateCursor.sort((a, b) => a.date.localeCompare(b.date))[0].date
                 }
                 const index = objectStore.index("date-exercise_id");
                 const request = index.openCursor([date, exercise_id], "prev");

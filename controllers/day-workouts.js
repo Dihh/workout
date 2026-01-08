@@ -13,8 +13,8 @@ export class DayWorkoutsController extends Controller {
     async select_id(id) {
         return await this.store.dayWorkout.select_id(this.store, id)
     }
-    async select_between_date(exercise_id, final_date){
-        return await this.store.dayWorkout.select_between_date(this.store, exercise_id, final_date)
+    async select_between_date(initial_date, final_date){
+        return await this.store.dayWorkout.select_between_date(this.store, initial_date, final_date)
     }
     async select_last_weight(exercise_id){
         return await this.store.dayWorkout.select_last_weight(this.store, exercise_id)
