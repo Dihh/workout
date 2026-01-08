@@ -76,7 +76,7 @@ body{
 .card{
   height: 75px;
   width: 75px;
-  background: #333;
+  background: #555;
   border-radius: 5px;
   margin-left: 10px;
   justify-content: center;
@@ -233,4 +233,12 @@ td{
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.date-today{
+  border: solid 3px red;
+}
+
+.date-selected{
+  background-color: #000000;
 }

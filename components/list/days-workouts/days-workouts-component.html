@@ -6,7 +6,7 @@
     <div class="table">
         <app-loading v-if="loading"></app-loading>
         <div v-else>
-            <app-dates @changeDate="changeDate"></app-dates>
+            <app-dates @changeDate="changeDate" :date="date" :key="date"></app-dates>
             <table class="table table-striped">
                 <thead>
                     <tr>
