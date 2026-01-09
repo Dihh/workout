@@ -8,18 +8,19 @@ export default {
         }
     },
     beforeMount() {
-        console.log(this.date)
         const tenElements = Array.from(Array(10).keys())
         this.dates = tenElements.map(el => {
             const today = this.date ? new Date(this.date) : new Date()
             const days = today.setDate(today.getDate() + (el - 5))
-            const elementDate = new Date(days)
+            const timezoneOffset = new Date().getTimezoneOffset()
+            const timezoneOffsetMilis = timezoneOffset * 60 * 1000
+            const elementDate = new Date(days + timezoneOffsetMilis)
             const stringDate = elementDate.toISOString().split("T")[0]
             const cardClass = []
-            if(stringDate == (new Date()).toISOString().split("T")[0]){
-                cardClass.push("date-today" )
+            if (stringDate == (new Date()).toISOString().split("T")[0]) {
+                cardClass.push("date-today")
             }
-            if (stringDate == this.date){
+            if (stringDate == this.date) {
                 cardClass.push("date-selected")
             }
             return {
