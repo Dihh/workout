@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#8700a9",
-    "description": "Workout-e web app",
+    "description": "Track your workouts, exercises and weight progression straight from your phone.",
     "icons": [
         {
             "src": "images/icon.png",
