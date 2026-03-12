@@ -19,6 +19,13 @@ export default {
         this._chartExec = null
         this.getDayWorkout()
     },
+    computed: {
+        formattedDate() {
+            if (!this.dayWorkout?.date) return ''
+            const [y, m, d] = this.dayWorkout.date.split('-')
+            return new Date(y, m - 1, d).toLocaleDateString()
+        }
+    },
     beforeUnmount() {
         this._chartWeight?.destroy()
         this._chartExec?.destroy()
@@ -139,6 +146,9 @@ export default {
                     }
                 }
             })
+        },
+        goToExercise() {
+            this.$emit("changeRoute", `page=exercise&id=${this.dayWorkout.exercise_id}`)
         },
         edit() {
             this.$emit("changeRoute", `page=day-workout-form&id=${this.id}&form=exercise`)
