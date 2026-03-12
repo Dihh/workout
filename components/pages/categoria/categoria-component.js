@@ -51,7 +51,8 @@ export default {
                     .map(r => r.date)
             )
 
-            const labels = last30.map(d => d.slice(5).replace('-', '/'))
+            const fmtDate = iso => { const [y, m, d] = iso.split('-'); return new Date(+y, +m - 1, +d).toLocaleDateString(undefined, { month: '2-digit', day: '2-digit' }) }
+            const labels = last30.map(fmtDate)
             const data = last30.map(day =>
                 [...daysWithTraining].filter(d => d <= day).length
             )

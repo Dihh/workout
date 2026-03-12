@@ -58,16 +58,18 @@ export default {
                 if (!weightByDay[r.date] || r.weight > weightByDay[r.date])
                     weightByDay[r.date] = r.weight
             })
+            const fmtDate = iso => { const [y, m, d] = iso.split('-'); return new Date(+y, +m - 1, +d).toLocaleDateString(undefined, { month: '2-digit', day: '2-digit' }) }
+
             const weightLabels = []
             const weightData = []
             last30.forEach(day => {
                 if (weightByDay[day] !== undefined) {
-                    weightLabels.push(day.slice(5).replace('-', '/'))
+                    weightLabels.push(fmtDate(day))
                     weightData.push(weightByDay[day])
                 }
             })
 
-            const execLabels = last30.map(d => d.slice(5).replace('-', '/'))
+            const execLabels = last30.map(fmtDate)
             const execData = last30.map(day =>
                 records.filter(r => r.date >= last30[0] && r.date <= day).length
             )
