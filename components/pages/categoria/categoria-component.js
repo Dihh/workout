@@ -1,5 +1,6 @@
 import { getParam } from '../../../main.js'
 import { CategoryController } from '../../../controllers/category.js'
+import { ExerciseController } from '../../../controllers/exercise.js'
 
 
 export default {
@@ -7,9 +8,11 @@ export default {
     data() {
         return {
             category: null,
+            exercises: [],
             id: '',
             loading: true,
-            categoryController: new CategoryController()
+            categoryController: new CategoryController(),
+            exerciseController: new ExerciseController()
         }
     },
     beforeMount() {
@@ -19,6 +22,7 @@ export default {
     methods: {
         async getCategory(id) {
             this.category = await this.categoryController.select_id(id)
+            this.exercises = await this.exerciseController.select_by_category(id)
             this.loading = false
         },
         edit() {

@@ -13,6 +13,9 @@ export class ExerciseController extends Controller {
     async select_id(id) {
         return await this.store.exercise.select_id(this.store, id)
     }
+    async select_by_category(category_id) {
+        return await this.store.exercise.select_by_category_id(this.store, category_id)
+    }
     async insert(exercise) {
         exercise.id = uuidv4()
         return await this.store.exercise.insert(this.store, exercise)

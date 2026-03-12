@@ -48,6 +48,19 @@ export const exerciseTable = {
             }
         })
     },
+    select_by_category_id: (store, category_id) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME)
+            const objectStore = transaction.objectStore(STORENAME)
+            const index = objectStore.index("category_id")
+            const request = index.getAll(category_id)
+            request.onsuccess = (event) => {
+                const exercises = event.target.result
+                resolve([...exercises].sort((a, b) => a.name.localeCompare(b.name)))
+            }
+        })
+    },
     insert: (store, exercise) => {
         return new Promise(async (resolve) => {
             await store.connect()

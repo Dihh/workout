@@ -12,5 +12,15 @@
         </div>
       </div>
     </div>
+
+    <div class="list-items" v-if="exercises.length">
+      <div class="list-item noselect" v-for="exercise in exercises" @click="$emit('changeRoute', `page=exercise&id=${exercise.id}`)">
+        <div class="list-item-name">{{exercise.name}}</div>
+        <i class="fa-solid fa-chevron-right list-item-arrow"></i>
+      </div>
+    </div>
+    <div v-else style="color: #aaa; font-size: 14px; text-align: center; padding: 32px 0;">
+      Nenhum exercício nesta categoria.
+    </div>
   </div>
 </script>
