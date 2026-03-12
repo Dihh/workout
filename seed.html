@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed — Workout-e</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #f4f4f6; padding: 24px; font-family: system-ui, sans-serif; }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { color: #888; font-size: 13px; margin-bottom: 24px; }
+    #log { background: #1a1a1a; color: #ccc; font-family: monospace; font-size: 13px;
+           border-radius: 10px; padding: 16px; min-height: 200px; white-space: pre-wrap;
+           margin-top: 20px; }
+    .ok  { color: #4ade80; }
+    .err { color: #f87171; }
+    .info { color: #60a5fa; }
+  </style>
+</head>
+<body>
+  <h1>🌱 Seed — Workout-e</h1>
+  <p class="subtitle">Popula o IndexedDB com dados de teste. Não apaga dados existentes.</p>
+
+  <div class="d-flex gap-2">
+    <button class="btn btn-success" onclick="runSeed()">Rodar seed</button>
+    <button class="btn btn-outline-danger" onclick="clearAll()">Limpar banco</button>
+    <a class="btn btn-outline-secondary" href="index.html">Abrir app</a>
+  </div>
+
+  <div id="log">Aguardando...</div>
+
+  <script type="module">
+    import { Database } from './models/indexedDB/index.js'
+
+    function uuid() {
+      return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16))
+    }
+
+    function log(msg, type = '') {
+      const el = document.getElementById('log')
+      el.innerHTML += `<span class="${type}">${msg}</span>\n`
+      el.scrollTop = el.scrollHeight
+    }
+
+    // ── Seed data ──────────────────────────────────────────────────────────
+
+    const CATEGORIES = [
+      { name: 'Peito' },
+      { name: 'Costas' },
+      { name: 'Ombro' },
+      { name: 'Bíceps' },
+      { name: 'Tríceps' },
+      { name: 'Pernas' },
+      { name: 'Abdômen' },
+    ]
+
+    const EXERCISES_BY_CATEGORY = {
+      'Peito':   ['Supino reto', 'Supino inclinado', 'Crucifixo', 'Peck deck'],
+      'Costas':  ['Puxada frente', 'Remada curvada', 'Remada unilateral', 'Pull-over'],
+      'Ombro':   ['Desenvolvimento militar', 'Elevação lateral', 'Elevação frontal'],
+      'Bíceps':  ['Rosca direta', 'Rosca alternada', 'Rosca martelo'],
+      'Tríceps': ['Tríceps corda', 'Tríceps testa', 'Mergulho'],
+      'Pernas':  ['Agachamento', 'Leg press', 'Extensão de pernas', 'Flexão de pernas', 'Panturrilha'],
+      'Abdômen': ['Crunch', 'Prancha', 'Abdominal remador'],
+    }
+
+    const WORKOUTS = [
+      { name: 'Treino A — Peito e Tríceps' },
+      { name: 'Treino B — Costas e Bíceps' },
+      { name: 'Treino C — Pernas e Ombro' },
+    ]
+
+    // exercises que entram em cada treino (por nome)
+    const WORKOUT_EXERCISES = {
+      'Treino A — Peito e Tríceps': ['Supino reto', 'Supino inclinado', 'Crucifixo', 'Tríceps corda', 'Tríceps testa'],
+      'Treino B — Costas e Bíceps': ['Puxada frente', 'Remada curvada', 'Remada unilateral', 'Rosca direta', 'Rosca alternada'],
+      'Treino C — Pernas e Ombro':  ['Agachamento', 'Leg press', 'Extensão de pernas', 'Desenvolvimento militar', 'Elevação lateral'],
+    }
+
+    // gera dias de treino nos últimos 30 dias
+    function pastDays(n) {
+      const days = []
+      const today = new Date()
+      for (let i = n; i >= 0; i--) {
+        const d = new Date(today)
+        d.setDate(today.getDate() - i)
+        days.push(d.toISOString().slice(0, 10))
+      }
+      return days
+    }
+
+    // ── Runner ─────────────────────────────────────────────────────────────
+
+    async function insert(db, storeName, record) {
+      await db.connect()
+      return new Promise((resolve, reject) => {
+        const tx = db.db.transaction(storeName, 'readwrite')
+        const store = tx.objectStore(storeName)
+        const req = store.add(record)
+        req.onsuccess = () => resolve(req.result)
+        req.onerror  = () => reject(req.error)
+      })
+    }
+
+    async function clearStore(db, storeName) {
+      await db.connect()
+      return new Promise((resolve, reject) => {
+        const tx = db.db.transaction(storeName, 'readwrite')
+        const store = tx.objectStore(storeName)
+        const req = store.clear()
+        req.onsuccess = () => resolve()
+        req.onerror  = () => reject(req.error)
+      })
+    }
+
+    window.clearAll = async function () {
+      const db = new Database()
+      await db.connect()
+      const stores = ['days_workouts', 'workouts_exercises', 'workouts', 'exercises', 'categories']
+      document.getElementById('log').innerHTML = ''
+      log('Limpando banco...', 'info')
+      for (const s of stores) {
+        await clearStore(db, s)
+        log(`  ✓ ${s} limpo`, 'ok')
+      }
+      log('Banco limpo!', 'ok')
+    }
+
+    window.runSeed = async function () {
+      document.getElementById('log').innerHTML = ''
+      const db = new Database()
+      await db.connect()
+
+      // ── Categorias ──────────────────────────────────────────────
+      log('Inserindo categorias...', 'info')
+      const catMap = {}   // name → id
+      for (const cat of CATEGORIES) {
+        const id = uuid()
+        catMap[cat.name] = id
+        try {
+          await insert(db, 'categories', { id, name: cat.name })
+          log(`  ✓ ${cat.name}`, 'ok')
+        } catch (e) {
+          log(`  ⚠ ${cat.name} (já existe ou erro: ${e.message})`, 'err')
+        }
+      }
+
+      // ── Exercícios ──────────────────────────────────────────────
+      log('\nInserindo exercícios...', 'info')
+      const exMap = {}   // name → id
+      for (const [catName, exercises] of Object.entries(EXERCISES_BY_CATEGORY)) {
+        const category_id = catMap[catName]
+        for (const name of exercises) {
+          const id = uuid()
+          exMap[name] = id
+          try {
+            await insert(db, 'exercises', { id, name, category_id })
+            log(`  ✓ ${name} (${catName})`, 'ok')
+          } catch (e) {
+            log(`  ⚠ ${name} (${e.message})`, 'err')
+          }
+        }
+      }
+
+      // ── Treinos ─────────────────────────────────────────────────
+      log('\nInserindo treinos...', 'info')
+      const workoutMap = {}   // name → id
+      for (const w of WORKOUTS) {
+        const id = uuid()
+        workoutMap[w.name] = id
+        try {
+          await insert(db, 'workouts', { id, name: w.name })
+          log(`  ✓ ${w.name}`, 'ok')
+        } catch (e) {
+          log(`  ⚠ ${w.name} (${e.message})`, 'err')
+        }
+      }
+
+      // ── Exercícios dos treinos ───────────────────────────────────
+      log('\nLinkando exercícios aos treinos...', 'info')
+      for (const [workoutName, exercises] of Object.entries(WORKOUT_EXERCISES)) {
+        const workout_id = workoutMap[workoutName]
+        for (const exName of exercises) {
+          const exercise_id = exMap[exName]
+          try {
+            await insert(db, 'workouts_exercises', { id: uuid(), workout_id, exercise_id })
+            log(`  ✓ ${workoutName} ← ${exName}`, 'ok')
+          } catch (e) {
+            log(`  ⚠ ${exName} (${e.message})`, 'err')
+          }
+        }
+      }
+
+      // ── Dias de treino (últimos 28 dias, seg/qua/sex) ───────────
+      log('\nInserindo dias de treino...', 'info')
+      const treinos = [
+        { workoutName: 'Treino A — Peito e Tríceps', exercises: WORKOUT_EXERCISES['Treino A — Peito e Tríceps'] },
+        { workoutName: 'Treino B — Costas e Bíceps', exercises: WORKOUT_EXERCISES['Treino B — Costas e Bíceps'] },
+        { workoutName: 'Treino C — Pernas e Ombro',  exercises: WORKOUT_EXERCISES['Treino C — Pernas e Ombro'] },
+      ]
+      const days = pastDays(28)
+      let treinoIdx = 0
+      for (const date of days) {
+        const dow = new Date(date + 'T12:00:00').getDay()   // 0=dom,1=seg,...
+        if (![1, 3, 5].includes(dow)) continue              // só seg, qua, sex
+        const treino = treinos[treinoIdx % 3]
+        treinoIdx++
+        for (const exName of treino.exercises) {
+          const exercise_id = exMap[exName]
+          const weight = Math.floor(Math.random() * 6) * 5 + 20   // 20–45 kg
+          try {
+            await insert(db, 'days_workouts', {
+              id: uuid(),
+              date,
+              exercise_id,
+              weight,
+              executed: 'true'
+            })
+          } catch (e) {
+            log(`  ⚠ ${date} ${exName} (${e.message})`, 'err')
+          }
+        }
+        log(`  ✓ ${date} — ${treino.workoutName}`, 'ok')
+      }
+
+      log('\n✅ Seed concluído!', 'ok')
+    }
+  </script>
+</body>
+</html>
