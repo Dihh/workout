@@ -39,6 +39,18 @@ export const dayWorkoutTable = {
             }
         })
     },
+    select_by_exercise_id: (store, exercise_id) => {
+        return new Promise(async (resolve) => {
+            await store.connect()
+            const transaction = store.db.transaction(STORENAME)
+            const objectStore = transaction.objectStore(STORENAME)
+            const index = objectStore.index("exercise_id")
+            const request = index.getAll(IDBKeyRange.only(exercise_id))
+            request.onsuccess = (event) => {
+                resolve(event.target.result)
+            }
+        })
+    },
     select_last_weight: (store, exercise_id) => {
         return new Promise(async (resolve) => {
             await store.connect()
