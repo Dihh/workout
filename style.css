@@ -378,6 +378,24 @@ form {
   background: rgba(100, 25, 135, 0.18);
 }
 
+.remove-unexecuted-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.08);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.remove-unexecuted-btn:active {
+  background: rgba(192, 57, 43, 0.18);
+}
+
 /* ── Workout day items ──────────────────────── */
 
 .workout-items {

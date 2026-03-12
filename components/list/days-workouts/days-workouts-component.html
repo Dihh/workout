@@ -4,9 +4,12 @@
     <div v-else>
       <app-dates @changeDate="changeDate" :date="date" :key="date"></app-dates>
 
-      <div v-if="daysWorkouts.length" style="display: flex; justify-content: flex-start; margin-bottom: 10px;">
+      <div v-if="daysWorkouts.length" style="display: flex; gap: 8px; margin-bottom: 10px;">
         <div class="mark-all-btn noselect" @click="markAllExecuted()">
           <i class="fa-solid fa-check-double"></i> Marcar todos
+        </div>
+        <div class="remove-unexecuted-btn noselect" @click="removeUnexecuted()" v-if="daysWorkouts.some(dw => !dw.executed)">
+          <i class="fa-solid fa-trash"></i> Remover não executados
         </div>
       </div>
 

@@ -71,6 +71,13 @@ export default {
                 dayWorkout.executed = 1
                 this.dayWorkoutsController.update({...dayWorkout})
             })
+        },
+        async removeUnexecuted() {
+            if (!confirm('Remover todos os exercícios não executados?')) return
+            const unexecuted = this.daysWorkouts.filter(dw => !dw.executed)
+            await Promise.all(unexecuted.map(dw => this.dayWorkoutsController.delete(dw.id)))
+            this.systemDaysWorkouts = this.systemDaysWorkouts.filter(dw => !unexecuted.find(u => u.id === dw.id))
+            this.daysWorkouts = this.filterByDate(this.date)
         }
     }
 }
