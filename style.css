@@ -1,244 +1,505 @@
 :root {
   --bg-white: #fff;
-  --shadow-bottom: 0px 1px 3px #aaa;
-  --shadow-top: 0px -1px 3px #aaa;
-  --primary: rgb(135, 0, 169);
+  --shadow-bottom: 0px 2px 8px rgba(0,0,0,0.10);
+  --shadow-top: 0px -2px 8px rgba(0,0,0,0.10);
+  --primary: #8700A9;
+  --primary-dark: #641987;
+  --primary-darker: #491573;
+  --text-dark: #1a1a1a;
+  --text-mid: #555;
+  --text-light: #999;
+  --border: #ebebeb;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --footer-height: 62px;
+  --head-height: 50px;
+  --bg-page: #f4f4f6;
 }
 
-body, html, #app{
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, html, #app {
   height: -webkit-fill-available;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
 }
 
-.app{
+.app {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background: var(--bg-page);
 }
 
-#head{
-  flex: 1;
+#head {
+  height: var(--head-height);
+  min-height: var(--head-height);
+  flex-shrink: 0;
   background: var(--primary);
-  box-shadow: var(--shadow-bottom)
+  box-shadow: var(--shadow-bottom);
 }
 
-#index{
-  flex: 18;
-  overflow-x: auto;
-}
-
-#footer{
+#index {
   flex: 1;
-  box-shadow: var(--shadow-top)
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
+  position: relative;
 }
 
-#footer div{
-  padding-top: 6px;
+#footer {
+  height: var(--footer-height);
+  min-height: var(--footer-height);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-top);
+  background: #fff;
 }
 
-body{
-  color: #333;
+body {
+  color: var(--text-dark);
+  font-size: 15px;
 }
 
-.text-right{
+.text-right {
   text-align: right;
 }
 
 .bg-light {
   background-color: var(--bs-white) !important;
-  box-shadow: var(--shadow-bottom)
+  box-shadow: var(--shadow-bottom);
 }
 
 .nav-link {
   color: var(--primary);
 }
 
-#index{
-  padding: 20px;
-  position: relative;
-}
-
-.index{
+.index {
   height: 100%;
 }
 
+/* ── Dates carousel ─────────────────────────── */
 
-#dashboard, #treinos, #exercicios{
-  color: #fff;
-  font-weight: bold;
-  background: #ccc;
-  height: 100%;
-}
-
-#footer .container{
-  margin-top: 10px;
-}
-
-.card{
-  height: 75px;
-  width: 75px;
-  background: #555;
-  border-radius: 5px;
-  margin-left: 10px;
-  justify-content: center;
-  align-items: center;
-}
-
-.dates > div{
-  display: flex;
-  flex-wrap: nowrap;
-  flex-basis: auto;
-  width: fit-content;
-}
-
-.dates{
+.dates {
   color: #fff;
   overflow-x: auto;
   width: 100vw;
   position: relative;
-  left: -20px;
+  left: -16px;
+  margin-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
-.dates .card{
-  font-size: 80%
+.dates::-webkit-scrollbar {
+  display: none;
 }
 
-.form-buttons{
-  background: #fff;
-  height: 50px;
-  width: 40vw;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+.dates > div {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-basis: auto;
+  width: fit-content;
+  padding: 6px 0 6px 8px;
+  gap: 0;
 }
 
-.form-buttons button{
-  width: 100%;
-  height: 100%;
+.card {
+  height: 70px;
+  width: 68px;
+  background: var(--primary-dark);
+  border-radius: var(--radius-sm);
+  margin-right: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
-form{
-  padding-bottom: 50px;
+/* ── Forms ──────────────────────────────────── */
+
+form {
+  padding-bottom: 80px;
   position: relative;
   min-height: 100%;
 }
 
-.form-buttons button {
-    width: 100%;
-    height: 100%;
+.form-buttons {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: var(--bg-page);
+  padding: 10px 0 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
 }
 
-.add-button{
-  background: #641987;
+.form-buttons button {
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+}
+
+/* ── FAB add button ─────────────────────────── */
+
+.add-button {
+  background: var(--primary-dark);
   color: #fff;
   font-weight: bold;
-  font-size: 190%;
-  width: 60px;
-  height: 60px;
+  font-size: 28px;
+  width: 54px;
+  height: 54px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   position: fixed;
-  right: 20px;
-  bottom: 10vh;
+  right: 18px;
+  bottom: calc(var(--footer-height) + 14px);
+  box-shadow: 0 4px 16px rgba(100, 25, 135, 0.45);
+  z-index: 100;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
-.table{
+.add-button:active {
+  transform: scale(0.92);
+  box-shadow: 0 2px 8px rgba(100, 25, 135, 0.35);
+}
+
+/* ── Generic list padding ───────────────────── */
+
+.table {
   padding-bottom: 80px;
 }
 
-.loading{
+/* ── Loading ────────────────────────────────── */
+
+.loading {
   text-align: center;
-  color: #641987;
+  color: var(--primary-dark);
+  padding: 48px 0;
+  font-size: 15px;
 }
 
-.button-icon-div{
+/* ── Page action buttons (edit/delete) ──────── */
+
+.button-icon-div {
   color: #fff;
-  background: #641987;
-  padding: 10px;
-  border-radius: 5px;
+  background: var(--primary-dark);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
   box-shadow: var(--shadow-bottom);
   text-align: center;
+  cursor: pointer;
+  transition: background 0.15s;
 }
 
-.button-icon{
-  font-size: 100%;
+.button-icon-div:active {
+  background: var(--primary-darker);
 }
 
-.day{
-  border: solid 1px #eee;
-  padding: 5px;
+.button-icon {
+  font-size: 16px;
 }
 
-.calendar{
+/* ── Calendar ───────────────────────────────── */
+
+.calendar {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   position: relative;
-  font-size: 80%;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 12px 10px 10px;
+  box-shadow: var(--shadow-bottom);
 }
 
-.workout{
-  background: #00ff1330;
+.calendar-month-name {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 6px 0 10px;
+  letter-spacing: 0.3px;
 }
 
-.calendar-button{
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+  border: solid 1px #f0f0f0;
+  padding: 5px 2px;
+  font-size: 12px;
+}
+
+.day-header {
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--text-mid);
+  background: #f8f8f8;
+  border: none;
+  padding-bottom: 8px;
+}
+
+.workout {
+  background: #dff5e3;
+  color: #1a7a2e;
+  font-weight: 700;
+}
+
+.calendar-button {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 10px 14px;
   top: 0;
   bottom: 0;
-  background: #eeeeee44;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1;
+  color: var(--text-mid);
+  font-size: 18px;
 }
 
-.calendar-button.next{
+.calendar-button.next {
   left: 0;
 }
 
-.calendar-button.before{
+.calendar-button.before {
   right: 0;
 }
 
-td{
-  vertical-align: middle
+/* ── Card list items ────────────────────────── */
+
+.list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 80px;
 }
 
-.navs{
-  margin-bottom: 15px;
+.list-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-bottom);
+  cursor: pointer;
+  transition: background 0.12s;
 }
+
+.list-item:active {
+  background: #f5f0fa;
+}
+
+.list-item-name {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.list-item-sub {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+.list-item-arrow {
+  color: #ccc;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+/* ── Workout day items ──────────────────────── */
+
+.workout-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 80px;
+}
+
+.workout-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  box-shadow: var(--shadow-bottom);
+  gap: 12px;
+}
+
+.workout-check {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: var(--primary-dark);
+  cursor: pointer;
+}
+
+.workout-item-body {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.workout-item-name {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.workout-item-cat {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+.workout-item-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.workout-item-weight {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  min-width: 40px;
+  text-align: center;
+}
+
+.weight-btn {
+  color: var(--text-mid);
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.weight-btn:active {
+  color: var(--primary-dark);
+}
+
+/* ── Tabs/navs ──────────────────────────────── */
+
+td {
+  vertical-align: middle;
+}
+
+.navs {
+  margin-bottom: 16px;
+}
+
+/* ── Bootstrap overrides ────────────────────── */
 
 .btn-success {
-    --bs-btn-color: #fff;
-    --bs-btn-bg: #641987;
-    --bs-btn-border-color: #5f1987;
-    --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #491573;
-    --bs-btn-hover-border-color: #40146c;
-    --bs-btn-focus-shadow-rgb: 60,153,110;
-    --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #3a146c;
-    --bs-btn-active-border-color: #301365;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #fff;
-    --bs-btn-disabled-bg: #4c1987;
-    --bs-btn-disabled-border-color: #431987;
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #641987;
+  --bs-btn-border-color: #5f1987;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #491573;
+  --bs-btn-hover-border-color: #40146c;
+  --bs-btn-focus-shadow-rgb: 60,153,110;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #3a146c;
+  --bs-btn-active-border-color: #301365;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #4c1987;
+  --bs-btn-disabled-border-color: #431987;
 }
+
+/* ── Detail pages ───────────────────────────── */
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.detail-title {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 700;
+  min-width: 0;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.detail-info {
+  background: #fff;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-bottom);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.detail-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  min-width: 80px;
+}
+
+.detail-value {
+  font-size: 15px;
+  color: var(--text-dark);
+}
+
+/* ── Utilities ──────────────────────────────── */
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.date-today{
-  border: solid 3px red;
+.date-today {
+  border: 2px solid var(--primary) !important;
+  border-radius: 4px;
+  font-weight: 700;
 }
 
-.date-selected{
-  background-color: #000000;
+.date-selected {
+  background-color: var(--primary);
+  color: #fff !important;
+  border-radius: 4px;
+  font-weight: 700;
 }

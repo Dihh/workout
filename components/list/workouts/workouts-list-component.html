@@ -1,23 +1,12 @@
 <script type="text/x-template" id="workouts-list-template">
-  <div class="table">
+  <div>
     <app-loading v-if="loading"></app-loading>
-    <table class="table table-striped" v-else>
-        <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Workout</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="noselect" v-for="workout, index in workouts" @click="goTo('workout',workout.id)">
-              <th scope="row">{{index + 1}}</th>
-              <td>{{workout.name}}</td>
-            </tr>
-
-          </tbody>
-    </table>
+    <div class="list-items" v-else>
+      <div class="list-item noselect" v-for="workout in workouts" @click="goTo('workout', workout.id)">
+        <div class="list-item-name">{{workout.name}}</div>
+        <i class="fa-solid fa-chevron-right list-item-arrow"></i>
+      </div>
+    </div>
   </div>
-  <div class="add-button" @click="goTo('workout-form')">
-      +
-  </div>
+  <div class="add-button" @click="goTo('workout-form')">+</div>
 </script>

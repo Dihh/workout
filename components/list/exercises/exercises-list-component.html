@@ -1,25 +1,15 @@
 <script type="text/x-template" id="exercises-list-template">
-    <div class="table">
-      <app-loading v-if="loading"></app-loading>
-      <table class="table table-striped" v-else>
-          <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Exercícios</th>
-                <th scope="col">Categoria</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="noselect" v-for="exercise, index in exercises" @click="goTo('exercise',exercise.id)">
-                <th scope="row">{{index + 1}}</th>
-                <td>{{exercise.name}}</td>
-                <td>{{exercise.category_name}}</td>
-              </tr>
-
-            </tbody>
-      </table>
+  <div>
+    <app-loading v-if="loading"></app-loading>
+    <div class="list-items" v-else>
+      <div class="list-item noselect" v-for="exercise in exercises" @click="goTo('exercise', exercise.id)">
+        <div class="list-item-body">
+          <div class="list-item-name">{{exercise.name}}</div>
+          <div class="list-item-sub">{{exercise.category_name}}</div>
+        </div>
+        <i class="fa-solid fa-chevron-right list-item-arrow"></i>
+      </div>
     </div>
-    <div class="add-button" @click="goTo('exercise-form')">
-        +
-    </div>
+  </div>
+  <div class="add-button" @click="goTo('exercise-form')">+</div>
 </script>

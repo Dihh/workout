@@ -1,55 +1,87 @@
 <style>
-    .footer {
-        background: #fff;
-        box-shadow: var(--shadow-top);
-    }
+  .footer {
+    background: #fff;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+  }
 
-    .menu-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
+  .footer-nav {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+  }
 
-    .menu-text {
-        font-size: 50%;
-        margin-top: 5px;
-    }
+  .menu-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 6px 0 4px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.15s;
+  }
 
-    .menu-icon {
-        font-size: 100%;
+  .menu-item.active {
+    color: var(--primary);
+  }
 
-    }
+  .menu-item.active::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 25%;
+    right: 25%;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 0 0 2px 2px;
+  }
 
-    .menu-item.active {
-        color: var(--primary);
-    }
+  .menu-item {
+    color: #aaa;
+  }
 
-    .menu-item {
-        color: #666;
-    }
+  .menu-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .menu-text {
+    font-size: 10px;
+    margin-top: 4px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+  }
 </style>
 <script type="text/x-template" id="footer-template">
-    <div class="container">
-    <div class="row">
-        <div class="menu-item col-2 noselect" :class="{ active: page=='dashboard' }" @click="goTo('dashboard')">
-            <i class="fa-solid fa-chart-line menu-icon"></i><div class="menu-text">Dashboard</div>
-        </div>
-        <div class="menu-item col-2 noselect" :class="{ active: page=='days-workouts' }" @click="goTo('days-workouts')">
-            <i class="fa-solid fa-calendar-day menu-icon"></i><div class="menu-text">Dias</div>
-        </div>
-        <div class="menu-item col-2 noselect" :class="{ active: page=='workouts' }" @click="goTo('workouts')">
-            <i class="fa-solid fa-person-running menu-icon"></i><div class="menu-text">Treinos</div>
-        </div>
-        <div class="menu-item col-2 noselect" :class="{ active: page=='exercises' }" @click="goTo('exercises')">
-            <i class="fa-solid fa-dumbbell menu-icon"></i><div class="menu-text">Exercícios</div>
-        </div>
-        <div class="menu-item col-2 noselect" :class="{ active: page=='categorias' }" @click="goTo('categorias')">
-            <i class="fa-solid fa-layer-group menu-icon"></i><div class="menu-text">Categorias</div>
-        </div>
-        <div class="menu-item col-2 noselect" :class="{ active: page=='config' }" @click="goTo('config')">
-            <i class="fa-solid fa-cogs menu-icon"></i><div class="menu-text">Configurações</div>
-        </div>
+  <div class="footer noselect">
+    <div class="footer-nav">
+      <div class="menu-item" :class="{ active: page=='dashboard' }" @click="goTo('dashboard')">
+        <i class="fa-solid fa-chart-line menu-icon"></i>
+        <div class="menu-text">Dashboard</div>
+      </div>
+      <div class="menu-item" :class="{ active: page=='days-workouts' }" @click="goTo('days-workouts')">
+        <i class="fa-solid fa-calendar-day menu-icon"></i>
+        <div class="menu-text">Dias</div>
+      </div>
+      <div class="menu-item" :class="{ active: page=='workouts' }" @click="goTo('workouts')">
+        <i class="fa-solid fa-person-running menu-icon"></i>
+        <div class="menu-text">Treinos</div>
+      </div>
+      <div class="menu-item" :class="{ active: page=='exercises' }" @click="goTo('exercises')">
+        <i class="fa-solid fa-dumbbell menu-icon"></i>
+        <div class="menu-text">Exercícios</div>
+      </div>
+      <div class="menu-item" :class="{ active: page=='categorias' }" @click="goTo('categorias')">
+        <i class="fa-solid fa-layer-group menu-icon"></i>
+        <div class="menu-text">Categorias</div>
+      </div>
+      <div class="menu-item" :class="{ active: page=='config' }" @click="goTo('config')">
+        <i class="fa-solid fa-gear menu-icon"></i>
+        <div class="menu-text">Config</div>
+      </div>
     </div>
-</div>
+  </div>
 </script>

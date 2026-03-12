@@ -1,35 +1,23 @@
-<style>
-
-</style>
 <script type="text/x-template" id="days-workouts-template">
-
-    <div class="table">
-        <app-loading v-if="loading"></app-loading>
-        <div v-else>
-            <app-dates @changeDate="changeDate" :date="date" :key="date"></app-dates>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th scope="col">Exercício</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">Peso</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="noselect" v-for="dayWorkout, index in daysWorkouts" >
-                        <td><input v-bind:checked="dayWorkout.executed" type="checkbox" @change="update(dayWorkout)"></td>
-                        <td @click="goTo('day-workout',dayWorkout.id)">{{dayWorkout.exercise_name}}</td>
-                        <td>{{dayWorkout.category_name}}</td>
-                        <td>{{dayWorkout.weight}}</td>
-                        <td><div @click="weightUp(dayWorkout)"><i class="fa-solid fa-sort-up"></i></div><div @click="weightDown(dayWorkout)"><i class="fa-solid fa-sort-down"></i></div></td>
-                    </tr>
-                </tbody>
-            </table>
+  <div>
+    <app-loading v-if="loading"></app-loading>
+    <div v-else>
+      <app-dates @changeDate="changeDate" :date="date" :key="date"></app-dates>
+      <div class="workout-items">
+        <div class="workout-item noselect" v-for="dayWorkout in daysWorkouts">
+          <input class="workout-check" v-bind:checked="dayWorkout.executed" type="checkbox" @change="update(dayWorkout)">
+          <div class="workout-item-body" @click="goTo('day-workout', dayWorkout.id)">
+            <div class="workout-item-name">{{dayWorkout.exercise_name}}</div>
+            <div class="workout-item-cat">{{dayWorkout.category_name}}</div>
+          </div>
+          <div class="workout-item-controls">
+            <div class="weight-btn" @click="weightUp(dayWorkout)"><i class="fa-solid fa-chevron-up"></i></div>
+            <div class="workout-item-weight">{{dayWorkout.weight}}</div>
+            <div class="weight-btn" @click="weightDown(dayWorkout)"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
         </div>
       </div>
-      <div class="add-button" @click="goTo('day-workout-form')">
-          +
-      </div>
+    </div>
+  </div>
+  <div class="add-button" @click="goTo('day-workout-form')">+</div>
 </script>
