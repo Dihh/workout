@@ -9,6 +9,14 @@ export default {
         return {
             dates: [],
             _expanding: false,
+            todayStr: new Date(Date.UTC(
+                new Date().getFullYear(), new Date().getMonth(), new Date().getDate()
+            )).toISOString().split('T')[0],
+        }
+    },
+    computed: {
+        isNotToday() {
+            return this.date !== this.todayStr
         }
     },
     beforeMount() {
@@ -66,6 +74,13 @@ export default {
         },
         setDate(date) {
             this.$emit('changeDate', date)
+        },
+        goToToday() {
+            const today = new Date()
+            const todayStr = new Date(
+                Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+            ).toISOString().split('T')[0]
+            this.$emit('changeDate', todayStr)
         }
     }
 }

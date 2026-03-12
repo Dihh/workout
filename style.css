@@ -336,6 +336,30 @@ form {
 
 /* ── Mark all button ────────────────────────── */
 
+.today-btn {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  background: #fff;
+  border: 1.5px solid var(--primary-dark);
+  padding: 4px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+  transition: background 0.15s;
+}
+
+.today-btn:active {
+  background: rgba(100, 25, 135, 0.08);
+}
+
 .mark-all-btn {
   display: inline-flex;
   align-items: center;

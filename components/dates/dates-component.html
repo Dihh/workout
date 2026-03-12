@@ -1,12 +1,16 @@
-<style></style>
 <script type="text/x-template" id="dates-template">
+  <div style="position: relative;">
     <div class="dates noselect">
-        <div>
-            <div class="card" :class="date.cardClass" v-for="date in dates" @click="setDate(date.stringDate)">
-                <div><b>{{date.weekDay}}</b></div>
-                <div>{{date.day}}</div>
-                <div>{{date.month}}</div>
-            </div>
+      <div>
+        <div class="card" :class="date.cardClass" v-for="date in dates" @click="setDate(date.stringDate)">
+          <div><b>{{date.weekDay}}</b></div>
+          <div>{{date.day}}</div>
+          <div>{{date.month}}</div>
         </div>
+      </div>
     </div>
+    <div class="today-btn noselect" v-if="isNotToday" @click="goToToday()">
+      <i class="fa-solid fa-calendar-day"></i> Hoje
+    </div>
+  </div>
 </script>
