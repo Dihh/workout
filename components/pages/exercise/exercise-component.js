@@ -103,7 +103,7 @@ export default {
                     },
                     scales: {
                         x: { grid: { display: false }, ticks: { font: { size: 11 }, color: '#999' } },
-                        y: { grid: { color: '#f0f0f0' }, ticks: { font: { size: 11 }, color: '#999' } }
+                        y: { min: 0, grid: { color: '#f0f0f0' }, ticks: { font: { size: 11 }, color: '#999' } }
                     }
                 }
             })
