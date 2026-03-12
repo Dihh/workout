@@ -13,6 +13,14 @@
       </div>
     </div>
 
+    <div class="chart-card" style="margin-bottom: 16px;">
+      <div class="chart-header">
+        <span class="chart-title">Treinos com esta categoria</span>
+        <span class="chart-badge">últimos 30 dias</span>
+      </div>
+      <canvas id="cat-chart"></canvas>
+    </div>
+
     <div class="list-items" v-if="exercises.length">
       <div class="list-item noselect" v-for="exercise in exercises" @click="$emit('changeRoute', `page=exercise&id=${exercise.id}`)">
         <div class="list-item-name">{{exercise.name}}</div>
