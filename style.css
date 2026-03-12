@@ -529,14 +529,14 @@ td {
 }
 
 .date-today {
-  border: 2px solid var(--primary) !important;
-  border-radius: 4px;
+  background: #fff !important;
+  color: var(--primary-dark) !important;
   font-weight: 700;
+  box-shadow: 0 2px 8px rgba(100, 25, 135, 0.35);
 }
 
 .date-selected {
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
   color: #fff !important;
-  border-radius: 4px;
   font-weight: 700;
 }
