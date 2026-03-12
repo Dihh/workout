@@ -1,57 +1,51 @@
-const cacheName = 'portfolio'
+const VERSION = 'v1.0.0'
+const CACHE_NAME = `workout-e-${VERSION}`
 
-self.addEventListener('install', function(event){
+const PRECACHE = [
+    './',
+    './index.html',
+    './index.js',
+    './main.js',
+    './style.css',
+    './manifest.json',
+    './dates-utils.js',
+    'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css',
+    'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js',
+    'https://unpkg.com/vue@3',
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.0/chart.min.js',
+]
+
+// Install: pre-cache resources
+self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(cacheName).then(function (cache){
-            cache.addAll([
-                './',
-                './manifest.json',
-                './index.js',
-                './main.js',
-                './requests.js',
-                'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css',
-                'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.0/chart.min.js',
-                'https://unpkg.com/vue@3',
-                'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js',
-            ])
-        })
+        caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE))
     )
-    return self.skipWaiting()
+    self.skipWaiting()
 })
 
-self.addEventListener('activate', e =>{
+// Activate: delete all caches from previous versions
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        caches.keys().then(keys =>
+            Promise.all(
+                keys
+                    .filter(key => key.startsWith('workout-e-') && key !== CACHE_NAME)
+                    .map(key => caches.delete(key))
+            )
+        )
+    )
     self.clients.claim()
 })
 
-self.addEventListener('fetch', async e =>{
-    return
-    const req = e.request
-    const url = new URL(req.url)
-    
-
-    if(url.origin === location.origin){
-        e.respondWith(cacheFirst(req))
-    } else{
-        e.respondWith(networkAndCache(req))
-    }
+// Fetch: network first, fallback to cache
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        fetch(event.request)
+            .then(response => {
+                const clone = response.clone()
+                caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone))
+                return response
+            })
+            .catch(() => caches.match(event.request))
+    )
 })
-
-async function cacheFirst(req){
-    const cache = await caches.open(cacheName)
-    const cached = await cache.match(req)
-
-    return cached || fetch(req)
-}
-
-async function networkAndCache(req){
-    const cache = await caches.open(cacheName);
-    try{
-        const refresh = await fetch(req)
-        await cache.put(req, fresh.clone())
-        return refresh
-    } catch(e){
-        const cached = await cache.match(req);
-        return cached
-    }
-}

@@ -1,4 +1,5 @@
 {
+    "version": "1.0.0",
     "name": "Workout-e web app",
     "short_name": "Workout-e",
     "start_url": ".",
