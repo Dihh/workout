@@ -38,6 +38,13 @@ export default {
             this.categories = categories
             this.loading = false
         },
+        onPhotoChange(event) {
+            const file = event.target.files[0]
+            if (!file) return
+            const reader = new FileReader()
+            reader.onload = e => { this.exercise.photo = e.target.result }
+            reader.readAsDataURL(file)
+        },
         submit() {
             event.preventDefault()
             if (this.id) {

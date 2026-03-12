@@ -5,9 +5,17 @@
             <label for="name" class="form-label">Nome:</label>
             <input v-model="exercise.name" type="text" class="form-control" id="name" required>
         </div>
-        <select class="form-select" v-model="exercise.category_id" required>
+        <select class="form-select mb-3" v-model="exercise.category_id" required>
             <option v-for="category in categories" :value="category.id">{{category.name}}</option>
-          </select>
+        </select>
+        <div class="mb-3">
+            <label for="photo" class="form-label">Imagem:</label>
+            <input type="file" class="form-control" id="photo" accept="image/*" @change="onPhotoChange">
+            <div v-if="exercise.photo" class="mt-2 d-flex align-items-center gap-2">
+                <img :src="exercise.photo" class="rounded" style="width:50px;height:50px;object-fit:cover;">
+                <button type="button" class="btn btn-sm btn-outline-danger" @click="exercise.photo = null">Remover imagem</button>
+            </div>
+        </div>
         <div class="form-buttons">
             <button class="btn btn-success">Enviar</button>
         </div>

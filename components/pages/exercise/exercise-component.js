@@ -9,6 +9,7 @@ export default {
             exercise: null,
             id: '',
             loading: true,
+            photoExpanded: false,
             exerciseController: new ExerciseController(),
             dayWorkoutsController: new DayWorkoutsController(),
         }
