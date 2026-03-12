@@ -433,6 +433,38 @@ td {
   --bs-btn-disabled-border-color: #431987;
 }
 
+/* ── Chart card ─────────────────────────────── */
+
+.chart-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-bottom);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.chart-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  background: rgba(100, 25, 135, 0.08);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
 /* ── Detail pages ───────────────────────────── */
 
 .detail-header {

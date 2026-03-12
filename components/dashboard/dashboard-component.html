@@ -1,6 +1,10 @@
-<style>
-</style>
 <script type="text/x-template" id="dashboard-template">
-    <app-calendar @changeMonth="onchangeMonth" :workouts=workouts :calendar=calendar :monthsName=monthsName></app-calendar>
-    <div><canvas id="chart"></canvas></div>
+  <app-calendar @changeMonth="onchangeMonth" :workouts=workouts :calendar=calendar :monthsName=monthsName></app-calendar>
+  <div class="chart-card">
+    <div class="chart-header">
+      <span class="chart-title">Treinos no mês</span>
+      <span class="chart-badge">{{totalWorkouts}} dias</span>
+    </div>
+    <canvas id="chart"></canvas>
+  </div>
 </script>

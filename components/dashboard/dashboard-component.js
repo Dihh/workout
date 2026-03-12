@@ -16,6 +16,7 @@ export default {
             month: (new Date()).getMonth() + 1,
             year: (new Date()).getFullYear(),
             monthsName: '',
+            totalWorkouts: 0,
             dayWorkoutsController: new DayWorkoutsController(),
         }
     },
@@ -92,12 +93,28 @@ export default {
                 labels.push(date.day)
                 chartData.push(this.calendarData.filter(ele => ele.date < date.date && ele.workout == true).length)
             })
+            this.totalWorkouts = this.calendarData.filter(d => d.workout).length
+
+            const canvas = document.getElementById('chart')
+            const ctx = canvas.getContext('2d')
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.offsetHeight || 200)
+            gradient.addColorStop(0, 'rgba(100, 25, 135, 0.35)')
+            gradient.addColorStop(1, 'rgba(100, 25, 135, 0.00)')
+
+            const maxY = Math.max(...chartData, 5)
+
             const data = {
                 labels: labels,
                 datasets: [{
-                    label: 'Dias Malhados',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    label: 'Treinos acumulados',
+                    backgroundColor: gradient,
+                    borderColor: '#641987',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#641987',
+                    pointRadius: 3,
+                    pointHoverRadius: 5,
+                    fill: true,
+                    tension: 0.4,
                     data: chartData,
                 }]
             };
@@ -106,22 +123,38 @@ export default {
                 type: 'line',
                 data: data,
                 options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#641987',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 13 },
+                            padding: 10,
+                            callbacks: {
+                                label: ctx => ` ${ctx.parsed.y} treinos`
+                            }
+                        }
+                    },
                     scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11 }, color: '#999', maxTicksLimit: 10 }
+                        },
                         y: {
                             min: 0,
-                            max: 40
+                            max: maxY + 2,
+                            grid: { color: '#f0f0f0' },
+                            ticks: { font: { size: 11 }, color: '#999', stepSize: 1 }
                         }
                     }
                 }
             };
             if (!elementChart) {
-                elementChart = new Chart(
-                    document.getElementById('chart'),
-                    config
-                );
+                elementChart = new Chart(canvas, config);
             } else {
-                elementChart.data.labels = labels
                 elementChart.data = data
+                elementChart.options.scales.y.max = maxY + 2
                 elementChart.update()
             }
         },
