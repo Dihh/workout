@@ -45,6 +45,12 @@ export default {
         update(dayWorkout) {
             dayWorkout.executed = !dayWorkout.executed ? 1 : 0
             this.dayWorkoutsController.update({...dayWorkout})
+        },
+        markAllExecuted() {
+            this.daysWorkouts.forEach(dayWorkout => {
+                dayWorkout.executed = 1
+                this.dayWorkoutsController.update({...dayWorkout})
+            })
         }
     }
 }

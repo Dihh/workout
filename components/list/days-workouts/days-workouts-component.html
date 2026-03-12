@@ -3,6 +3,13 @@
     <app-loading v-if="loading"></app-loading>
     <div v-else>
       <app-dates @changeDate="changeDate" :date="date" :key="date"></app-dates>
+
+      <div v-if="daysWorkouts.length" style="display: flex; justify-content: flex-start; margin-bottom: 10px;">
+        <div class="mark-all-btn noselect" @click="markAllExecuted()">
+          <i class="fa-solid fa-check-double"></i> Marcar todos
+        </div>
+      </div>
+
       <div class="workout-items">
         <div class="workout-item noselect" v-for="dayWorkout in daysWorkouts">
           <input class="workout-check" v-bind:checked="dayWorkout.executed" type="checkbox" @change="update(dayWorkout)">
