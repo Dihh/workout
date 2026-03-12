@@ -25,10 +25,10 @@ export default {
             this.$emit("changeRoute", link)
         },
         async remove() {
+            if (!confirm('Deseja excluir este registro?')) return
             this.loading = true
             await this.dayWorkoutsController.delete(this.id)
-            const link = `page=days-workouts`
-            this.$emit("changeRoute", link)
+            this.$emit("changeRoute", `page=days-workouts`)
         },
     }
 }

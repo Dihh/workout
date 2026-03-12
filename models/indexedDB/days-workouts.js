@@ -82,11 +82,20 @@ export const dayWorkoutTable = {
     select_id: (store, id) => {
         return new Promise(async (resolve) => {
             await store.connect()
-            const transaction = store.db.transaction(STORENAME)
+            const transaction = store.db.transaction([STORENAME, 'exercises', 'categories'])
             const objectStore = transaction.objectStore(STORENAME)
-            const request = objectStore.get(id);
-            request.onsuccess = (event) => {
-                resolve(event.target.result)
+            const request = objectStore.get(id)
+            request.onsuccess = async (event) => {
+                const dayWorkout = event.target.result
+                if (!dayWorkout) { resolve(null); return }
+                const exercise = await store.exercise.select_id(store, dayWorkout.exercise_id, transaction)
+                const category = await store.category.select_id(store, exercise.category_id, transaction)
+                resolve({
+                    ...dayWorkout,
+                    exercise_name: exercise.name,
+                    category_name: category.name,
+                    category_id: exercise.category_id,
+                })
             }
         })
     },
