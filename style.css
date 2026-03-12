@@ -225,10 +225,16 @@ form {
   box-shadow: var(--shadow-bottom);
 }
 
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
 .calendar-month-name {
   font-size: 15px;
   font-weight: 600;
-  padding: 6px 0 10px;
   letter-spacing: 0.3px;
 }
 
@@ -259,26 +265,20 @@ form {
 }
 
 .calendar-button {
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 14px;
-  top: 0;
-  bottom: 0;
+  padding: 6px 10px;
   background: transparent;
   cursor: pointer;
-  z-index: 1;
   color: var(--text-mid);
   font-size: 18px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
 }
 
-.calendar-button.next {
-  left: 0;
-}
-
-.calendar-button.before {
-  right: 0;
+.calendar-button:active {
+  background: rgba(0,0,0,0.06);
 }
 
 /* ── Card list items ────────────────────────── */

@@ -1,13 +1,14 @@
 <script type="text/x-template" id="calendar-template">
   <div class="calendar">
-    <div class="calendar-button next noselect" @click="changeMonth(-1)">
-      <i class="fa-solid fa-angle-left"></i>
+    <div class="calendar-header">
+      <div class="calendar-button noselect" @click="changeMonth(-1)">
+        <i class="fa-solid fa-angle-left"></i>
+      </div>
+      <div class="calendar-month-name noselect">{{monthsName}}</div>
+      <div class="calendar-button noselect" @click="changeMonth(1)">
+        <i class="fa-solid fa-angle-right"></i>
+      </div>
     </div>
-    <div class="calendar-button before noselect" @click="changeMonth(1)">
-      <i class="fa-solid fa-angle-right"></i>
-    </div>
-
-    <div class="calendar-month-name noselect">{{monthsName}}</div>
 
     <div class="calendar-grid">
       <div class="noselect day day-header">D</div>
