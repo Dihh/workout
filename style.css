@@ -396,6 +396,21 @@ form {
   margin-top: 2px;
 }
 
+.workout-item-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.workout-item-stats span {
+  font-size: 11px;
+  color: var(--text-light);
+}
+
+.workout-item-stats i {
+  font-size: 10px;
+}
+
 .workout-item-controls {
   display: flex;
   flex-direction: column;

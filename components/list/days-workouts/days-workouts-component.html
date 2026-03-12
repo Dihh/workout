@@ -16,6 +16,10 @@
           <div class="workout-item-body" @click="goTo('day-workout', dayWorkout.id)">
             <div class="workout-item-name">{{dayWorkout.exercise_name}}</div>
             <div class="workout-item-cat">{{dayWorkout.category_name}}</div>
+            <div class="workout-item-stats">
+              <span><i class="fa-solid fa-clock-rotate-left"></i> {{dayWorkout.lastWeight ?? '—'}} kg</span>
+              <span><i class="fa-solid fa-trophy"></i> {{dayWorkout.maxWeight ?? '—'}} kg</span>
+            </div>
           </div>
           <div class="workout-item-controls">
             <div class="weight-btn" @click="weightUp(dayWorkout)"><i class="fa-solid fa-chevron-up"></i></div>

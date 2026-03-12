@@ -27,12 +27,26 @@ export default {
         },
         async getDaysWorkouts() {
             this.systemDaysWorkouts = await this.dayWorkoutsController.select()
-            this.daysWorkouts = this.systemDaysWorkouts.filter(dayWorkout => dayWorkout.date == this.date)
+            this.daysWorkouts = this.filterByDate(this.date)
             this.loading = false
         },
         changeDate(date) {
             this.date = date
-            this.daysWorkouts = this.systemDaysWorkouts.filter(dayWorkout => dayWorkout.date == this.date)
+            this.daysWorkouts = this.filterByDate(date)
+        },
+        filterByDate(date) {
+            return this.systemDaysWorkouts
+                .filter(dw => dw.date == date)
+                .map(dw => {
+                    const history = this.systemDaysWorkouts.filter(h => h.exercise_id == dw.exercise_id)
+                    const weights = history.map(h => Number(h.weight))
+                    const lastRecord = history.sort((a, b) => b.date.localeCompare(a.date))[0]
+                    return {
+                        ...dw,
+                        lastWeight: lastRecord ? lastRecord.weight : null,
+                        maxWeight: weights.length ? Math.max(...weights) : null,
+                    }
+                })
         },
         weightUp(dayWorkout) {
             dayWorkout.weight++
