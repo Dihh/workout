@@ -305,6 +305,11 @@ form {
   background: #f5f0fa;
 }
 
+.list-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
 .list-item-name {
   flex: 1;
   font-size: 15px;
