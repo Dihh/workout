@@ -1,11 +1,11 @@
 {
-    "name": "Workoute web app",
-    "short_name": "Workoute",
+    "name": "Workout-e web app",
+    "short_name": "Workout-e",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#8700a9",
-    "description": "Workoute web app",
+    "description": "Workout-e web app",
     "icons": [
         {
             "src": "images/icon.png",
