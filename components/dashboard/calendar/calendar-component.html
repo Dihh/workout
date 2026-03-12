@@ -19,7 +19,7 @@
       <div class="noselect day day-header">S</div>
       <div class="noselect day day-header">S</div>
       <template v-for="line in calendar">
-        <div class="noselect day" v-for="day in line" :class="{ workout: day.workout }">{{day.day}}</div>
+        <div class="noselect day" v-for="day in line" :class="{ workout: day.workout }" @click="selectDate(day.date)">{{day.day}}</div>
       </template>
     </div>
   </div>

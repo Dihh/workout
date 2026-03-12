@@ -71,7 +71,8 @@ export default {
                 const date = calendarDay.toISOString().split("T")[0]
                 calendar[index].push({
                     workout: !!this.workouts.find(workout => workout.date == date),
-                    day: date.split("-")[2]
+                    day: date.split("-")[2],
+                    date,
                 })
                 this.calendarData.push(
                     {
@@ -161,6 +162,9 @@ export default {
         onchangeMonth(value) {
             this.month += value
             this.getDashboard()
+        },
+        selectDate(date) {
+            this.$emit("changeRoute", `page=days-workouts&date=${date}`)
         },
         goTo(page) {
             this.$emit("changeRoute", page)

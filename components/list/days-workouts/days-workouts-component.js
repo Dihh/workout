@@ -1,4 +1,5 @@
 import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
+import { getParam } from '../../../main.js'
 
 export default {
     template: `#days-workouts-template`,
@@ -13,10 +14,15 @@ export default {
         }
     },
     mounted() {
-        const today = new Date()
-        this.date = (new Date(
-            Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
-        )).toISOString().split("T")[0]
+        const paramDate = getParam('date')
+        if (paramDate) {
+            this.date = paramDate
+        } else {
+            const today = new Date()
+            this.date = (new Date(
+                Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+            )).toISOString().split("T")[0]
+        }
         this.getDaysWorkouts();
     },
     methods: {

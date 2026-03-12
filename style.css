@@ -247,6 +247,11 @@ form {
   border: solid 1px #f0f0f0;
   padding: 5px 2px;
   font-size: 12px;
+  cursor: pointer;
+}
+
+.day:active {
+  background: rgba(100, 25, 135, 0.08);
 }
 
 .day-header {
