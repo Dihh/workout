@@ -63,7 +63,7 @@ export const dayWorkoutTable = {
                 const dateCursor = event.target.result;
                 let date = (new Date())
                 if (dateCursor.length){
-                    date = dateCursor.sort((a, b) => a.date.localeCompare(b.date))[0].date
+                    date = dateCursor.sort((a, b) => b.date.localeCompare(a.date))[0].date
                 }
                 const index = objectStore.index("date-exercise_id");
                 const request = index.openCursor([date, exercise_id], "prev");
