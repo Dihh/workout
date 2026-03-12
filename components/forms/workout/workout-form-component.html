@@ -5,6 +5,13 @@
             <label for="name" class="form-label">Nome:</label>
             <input v-model="workout.name" type="text" class="form-control" id="name" required>
         </div>
+        <div class="mb-3">
+            <label class="form-label">Local:</label>
+            <select class="form-select" v-model="workout.location_id">
+                <option :value="null">Sem local</option>
+                <option v-for="location in locations" :value="location.id">{{location.name}}</option>
+            </select>
+        </div>
         <div class="form-buttons">
             <button class="btn btn-success">Enviar</button>
         </div>

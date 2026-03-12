@@ -3,7 +3,10 @@
     <app-loading v-if="loading"></app-loading>
     <div class="list-items" v-else>
       <div class="list-item noselect" v-for="workout in workouts" @click="goTo('workout', workout.id)">
-        <div class="list-item-name">{{workout.name}}</div>
+        <div class="list-item-body">
+          <div class="list-item-name">{{workout.name}}</div>
+          <div class="list-item-sub" v-if="workout.location_id">{{locationMap[workout.location_id]}}</div>
+        </div>
         <i class="fa-solid fa-chevron-right list-item-arrow"></i>
       </div>
     </div>

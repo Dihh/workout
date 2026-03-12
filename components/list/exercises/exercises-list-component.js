@@ -1,4 +1,5 @@
 import { ExerciseController } from '../../../controllers/exercise.js';
+import { LocationController } from '../../../controllers/location.js'
 
 export default {
     template: `#exercises-list-template`,
@@ -6,8 +7,10 @@ export default {
     data() {
         return {
             exercises: null,
+            locationMap: {},
             loading: true,
-            exerciseController: new ExerciseController()
+            exerciseController: new ExerciseController(),
+            locationController: new LocationController(),
         }
     },
     mounted() {
@@ -21,6 +24,8 @@ export default {
         },
         async getExercises() {
             this.exercises = await this.exerciseController.select()
+            const locations = await this.locationController.select()
+            this.locationMap = Object.fromEntries(locations.map(l => [l.id, l.name]))
             this.loading = false
         },
     }

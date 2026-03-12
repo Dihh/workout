@@ -57,6 +57,19 @@ const migrations = [
             workouts.createIndex("workout_id", "workout_id", { unique: false })
             workouts.createIndex("exercise_id", "exercise_id", { unique: false })
         }
+    },
+    {
+        version: 6,
+        migration: async (db, transaction) => {
+            const location = db.createObjectStore("location", { keyPath: "id" })
+            location.createIndex("name", "name", { unique: false })
+            await addTableColumn(db, transaction, "exercises", {
+                name: "location_id", index: "location_id", metadata: { unique: false }, default: null
+            })
+            await addTableColumn(db, transaction, "workouts", {
+                name: "location_id", index: "location_id", metadata: { unique: false }, default: null
+            })
+        }
     }
 ]
 

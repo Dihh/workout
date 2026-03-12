@@ -1,6 +1,7 @@
 import { getParam } from '../../../main.js'
 import { WorkoutController } from '../../../controllers/workout.js';
 import { WorkoutExerciseController } from '../../../controllers/workout-exercise.js'
+import { LocationController } from '../../../controllers/location.js'
 
 export default {
     template: `#workout-template`,
@@ -9,10 +10,12 @@ export default {
         return {
             workout: null,
             exercises: [],
+            locationName: null,
             id: '',
             loading: true,
             workoutController: new WorkoutController(),
             workoutExerciseController: new WorkoutExerciseController(),
+            locationController: new LocationController(),
         }
     },
     beforeMount() {
@@ -23,6 +26,10 @@ export default {
     methods: {
         async getWorkout() {
             this.workout = await this.workoutController.select_id(this.id)
+            if (this.workout?.location_id) {
+                const location = await this.locationController.select_id(this.workout.location_id)
+                this.locationName = location?.name || null
+            }
             this.loading = false
         },
         async getExercises() {

@@ -16,7 +16,8 @@ export const dayWorkoutTable = {
                     dayWorkouts.push({
                         ...cursor.value,
                         exercise_name: exercise.name,
-                        category_name: category.name
+                        category_name: category.name,
+                        location_id: exercise.location_id || null,
                     })
                     cursor.continue();
                 } else {

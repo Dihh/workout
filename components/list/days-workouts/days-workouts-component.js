@@ -1,4 +1,5 @@
 import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
+import { LocationController } from '../../../controllers/location.js'
 import { getParam } from '../../../main.js'
 
 export default {
@@ -8,9 +9,11 @@ export default {
         return {
             systemDaysWorkouts: [],
             daysWorkouts: null,
+            locationMap: {},
             date: '',
             loading: true,
             dayWorkoutsController: new DayWorkoutsController(),
+            locationController: new LocationController(),
         }
     },
     mounted() {
@@ -33,6 +36,8 @@ export default {
         },
         async getDaysWorkouts() {
             this.systemDaysWorkouts = await this.dayWorkoutsController.select()
+            const locations = await this.locationController.select()
+            this.locationMap = Object.fromEntries(locations.map(l => [l.id, l.name]))
             this.daysWorkouts = this.filterByDate(this.date)
             this.loading = false
         },

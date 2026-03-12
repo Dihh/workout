@@ -1,5 +1,6 @@
 import { getParam } from '../../../main.js'
 import { WorkoutController } from '../../../controllers/workout.js';
+import { LocationController } from '../../../controllers/location.js'
 
 export default {
     template: `#workout-form-template`,
@@ -8,7 +9,9 @@ export default {
             loading: true,
             id: '',
             workout: {},
-            workoutController: new WorkoutController()
+            locations: [],
+            workoutController: new WorkoutController(),
+            locationController: new LocationController(),
         }
     },
     beforeMount() {
@@ -29,9 +32,8 @@ export default {
             this.$emit("changeRoute", link)
         },
         async getData() {
-            const getWorkoutPromise = this.id ? this.workoutController.select_id(this.id) : Promise.resolve({})
-            const [workout] = await Promise.all([getWorkoutPromise])
-            this.workout = workout
+            this.workout = this.id ? await this.workoutController.select_id(this.id) : {}
+            this.locations = await this.locationController.select()
             this.loading = false
         },
         submit() {

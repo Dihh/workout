@@ -4,20 +4,21 @@ import { exerciseTable, STORENAME as EXERCISES } from "./exercises.js"
 import { workoutTable, STORENAME as WORKOUTS } from "./workouts.js"
 import { workoutExerciseTable, STORENAME as WORKOUTS_EXERCISES } from "./workouts_exercises.js"
 import { dayWorkoutTable, STORENAME as DAY_WORKOUTS } from "./days-workouts.js"
+import { locationTable, STORENAME as LOCATION } from "./location.js"
 
 export class Database {
     connection;
     db;
     transaction;
     DB_NAME = "data";
-    tables = [CATEGORIES, EXERCISES, WORKOUTS, WORKOUTS_EXERCISES, DAY_WORKOUTS]
+    tables = [CATEGORIES, EXERCISES, WORKOUTS, WORKOUTS_EXERCISES, DAY_WORKOUTS, LOCATION]
     constructor(DB_NAME = this.DB_NAME) {
         this.DB_NAME = DB_NAME;
     }
-    
+
     async connect() {
         return new Promise((resolve, reject) => {
-            this.connection = window.indexedDB.open(this.DB_NAME, 5);
+            this.connection = window.indexedDB.open(this.DB_NAME, 6);
             this.connection.onsuccess = (event) => {
                 this.db = event.target.result
                 this. transaction = this.db.transaction(this.tables)
@@ -64,6 +65,7 @@ export class Database {
     workout = workoutTable
     workoutExercise = workoutExerciseTable
     dayWorkout = dayWorkoutTable
+    location = locationTable
 
 }
 

@@ -1,17 +1,20 @@
 import { getParam } from '../../../main.js'
 import { ExerciseController } from '../../../controllers/exercise.js'
 import { DayWorkoutsController } from '../../../controllers/day-workouts.js'
+import { LocationController } from '../../../controllers/location.js'
 
 export default {
     template: `#exercises-template`,
     data() {
         return {
             exercise: null,
+            locationName: null,
             id: '',
             loading: true,
             photoExpanded: false,
             exerciseController: new ExerciseController(),
             dayWorkoutsController: new DayWorkoutsController(),
+            locationController: new LocationController(),
         }
     },
     beforeMount() {
@@ -27,6 +30,10 @@ export default {
     methods: {
         async getExercise() {
             this.exercise = await this.exerciseController.select_id(this.id)
+            if (this.exercise.location_id) {
+                const location = await this.locationController.select_id(this.exercise.location_id)
+                this.locationName = location?.name || null
+            }
             this.loading = false
             await this.$nextTick()
             await this.buildCharts()

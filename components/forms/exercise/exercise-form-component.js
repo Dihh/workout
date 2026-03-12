@@ -1,6 +1,7 @@
 import { getParam } from '../../../main.js'
 import { CategoryController } from '../../../controllers/category.js'
 import { ExerciseController } from '../../../controllers/exercise.js'
+import { LocationController } from '../../../controllers/location.js'
 
 export default {
     template: `#exercise-form-template`,
@@ -10,8 +11,10 @@ export default {
             id: '',
             exercise: {},
             categories: [],
+            locations: [],
             categoryController: new CategoryController(),
             exerciseController: new ExerciseController(),
+            locationController: new LocationController(),
         }
     },
     beforeMount() {
@@ -32,10 +35,9 @@ export default {
             this.$emit("changeRoute", link)
         },
         async getData() {
-            const getExercisePromise = this.id ? await this.exerciseController.select_id(this.id) : Promise.resolve({})
-            const [exercises, categories] = await Promise.all([getExercisePromise, this.categoryController.select()])
-            this.exercise = exercises
-            this.categories = categories
+            this.exercise = this.id ? await this.exerciseController.select_id(this.id) : {}
+            this.categories = await this.categoryController.select()
+            this.locations = await this.locationController.select()
             this.loading = false
         },
         onPhotoChange(event) {

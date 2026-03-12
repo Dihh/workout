@@ -5,7 +5,7 @@
       <div class="list-item noselect" v-for="exercise in exercises" @click="goTo('exercise', exercise.id)">
         <div class="list-item-body">
           <div class="list-item-name">{{exercise.name}}</div>
-          <div class="list-item-sub">{{exercise.category_name}}</div>
+          <div class="list-item-sub">{{exercise.category_name}}<span v-if="exercise.location_id"> · {{locationMap[exercise.location_id]}}</span></div>
         </div>
         <i class="fa-solid fa-chevron-right list-item-arrow"></i>
       </div>
