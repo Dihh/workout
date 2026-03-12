@@ -71,7 +71,7 @@ export default {
             this.loading = true
             const { exercise_name, category_name, category_id, ...dayWorkout } = this.dayWorkout
             await this.dayWorkoutsController.update({...dayWorkout})
-            const link = `page=days-workouts`
+            const link = `page=days-workouts&date=${dayWorkout.date}`
             this.$emit("changeRoute", link)
         },
         async getData() {
