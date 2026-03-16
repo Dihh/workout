@@ -1,0 +1,689 @@
+97d4417388a5e3ececcb853878305081fe7b8bfc 2026-03-12 18:36:07 -0300 Diegton Rodrigues
+
+14	4	components/forms/exercise/exercise-form-component.html
+6	4	components/forms/exercise/exercise-form-component.js
+7	0	components/forms/workout/workout-form-component.html
+6	4	components/forms/workout/workout-form-component.js
+1	1	components/list/days-workouts/days-workouts-component.html
+5	0	components/list/days-workouts/days-workouts-component.js
+1	1	components/list/exercises/exercises-list-component.html
+6	1	components/list/exercises/exercises-list-component.js
+4	1	components/list/workouts/workouts-list-component.html
+6	1	components/list/workouts/workouts-list-component.js
+4	0	components/pages/exercise/exercise-component.html
+7	0	components/pages/exercise/exercise-component.js
+6	0	components/pages/workout/workout-component.html
+7	0	components/pages/workout/workout-component.js
+5	5	controllers/location.js
+2	1	models/indexedDB/days-workouts.js
+5	3	models/indexedDB/index.js
+13	0	models/indexedDB/migrations.js
+efdc135e0bfb0c948fc689d3f054d29e26fc3319 2026-03-12 18:18:37 -0300 Diegton Rodrigues
+
+10	2	components/forms/exercise/exercise-form-component.html
+7	0	components/forms/exercise/exercise-form-component.js
+5	0	components/pages/exercise/exercise-component.html
+1	0	components/pages/exercise/exercise-component.js
+464ab196f9dfa15831e3fb6ae1ae2cd5e8f4b566 2026-03-12 18:10:14 -0300 Diegton Rodrigues
+
+2	1	components/pages/categoria/categoria-component.js
+4	2	components/pages/day-workout/day-workout-component.js
+4	2	components/pages/exercise/exercise-component.js
+163678ef4201e9fdb6c1fd4ac7c28fbf0447541e 2026-03-12 18:06:52 -0300 Diegton Rodrigues
+
+1	1	components/forms/day-workout/day-workout-form-component.html
+1	1	components/forms/day-workout/day-workout-form-component.js
+dc864022a90e0e61d8afa2147ddbc6a7398ba73e 2026-03-12 18:02:46 -0300 Diegton Rodrigues
+
+2	1	components/forms/day-workout/day-workout-form-component.js
+5d5cfd8ca32d8560b31516b959c624b36cfe12e3 2026-03-12 17:58:16 -0300 Diegton Rodrigues
+
+0	1	components/shared/loading/loading-component.html
+76fa6b30d7feb9aa2278c4b5eceed4a59b445fcc 2026-03-12 17:55:22 -0300 Diegton Rodrigues
+
+9	3	components/pages/day-workout/day-workout-component.html
+10	0	components/pages/day-workout/day-workout-component.js
+5483c901410752e05fe18b771d0e19519b47de21 2026-03-12 00:13:13 -0300 Diegton Rodrigues
+
+35	10	CLAUDE.md
+605986c64e25da5dac1e0b64c7412b979e0e2bff 2026-03-12 00:09:22 -0300 Diegton Rodrigues
+
+1	1	index.html
+1	0	manifest.json
+42	48	sw.js
+df1e3d01731e1f2eae74792ee3f3fe3ecabb1a52 2026-03-12 00:05:32 -0300 Diegton Rodrigues
+
+-	-	images/Screenshot_20260105_143217.png
+-	-	images/Screenshot_20260105_143324.png
+-	-	images/mobile_screenshot_dashboard.png
+-	-	images/mobile_screenshot_days.png
+-	-	images/wide_screenshot_dashboard.png
+-	-	images/wide_screenshot_days.png
+16	4	manifest.json
+d3b420535cc39686254434693b6cae4155985b61 2026-03-11 23:56:16 -0300 Diegton Rodrigues
+
+1	1	models/indexedDB/days-workouts.js
+3de03e7cbcf78bd02ebc124122dce31695bf3e30 2026-03-11 23:49:35 -0300 Diegton Rodrigues
+
+8	0	components/pages/categoria/categoria-component.html
+75	7	components/pages/categoria/categoria-component.js
+f6903890ef5977342559b93d64bd76194f3205cb 2026-03-11 23:43:13 -0300 Diegton Rodrigues
+
+28	1	components/pages/day-workout/day-workout-component.html
+123	4	components/pages/day-workout/day-workout-component.js
+8c7fe52b5bb60ed40e378d8609948619144140ae 2026-03-11 23:39:19 -0300 Diegton Rodrigues
+
+4	1	components/list/days-workouts/days-workouts-component.html
+7	0	components/list/days-workouts/days-workouts-component.js
+18	0	style.css
+2792eee56971133aa59abb22c558911ade4c080d 2026-03-11 23:36:20 -0300 Diegton Rodrigues
+
+12	8	components/dates/dates-component.html
+15	0	components/dates/dates-component.js
+24	0	style.css
+2e7f57ebafb0d477d336bcd77f36df7905fd48b5 2026-03-11 23:28:20 -0300 Diegton Rodrigues
+
+1	1	components/dashboard/calendar/calendar-component.html
+4	1	components/dashboard/calendar/calendar-component.js
+1	1	components/dashboard/dashboard-component.html
+5	1	components/dashboard/dashboard-component.js
+10	4	components/list/days-workouts/days-workouts-component.js
+5	0	style.css
+e37303dc360b3dbc69e98ad89fec64a3d7160a95 2026-03-11 23:23:15 -0300 Diegton Rodrigues
+
+8	7	components/dashboard/calendar/calendar-component.html
+12	12	style.css
+bc7fb07b2ccc42824095e3cdcf0dc5892dc3925e 2026-03-11 23:21:13 -0300 Diegton Rodrigues
+
+2	2	components/pages/day-workout/day-workout-component.js
+13	4	models/indexedDB/days-workouts.js
+43c1c6280e7e8bbf6ed11ab68bccd05a3e6f469b 2026-03-11 23:12:22 -0300 Diegton Rodrigues
+
+4	0	components/list/days-workouts/days-workouts-component.html
+16	2	components/list/days-workouts/days-workouts-component.js
+15	0	style.css
+275060c5ff6d7e5287cb6600459b4cf5b54948c6 2026-03-11 23:07:53 -0300 Diegton Rodrigues
+
+7	0	components/list/days-workouts/days-workouts-component.html
+6	0	components/list/days-workouts/days-workouts-component.js
+20	0	style.css
+b9bc8830694e9108ce41b7fcfcc376aba1aa23ba 2026-03-11 23:04:29 -0300 Diegton Rodrigues
+
+1	1	components/pages/exercise/exercise-component.js
+6c4d65f716fa649f6fb4bb5bbf431adc9e04cdc4 2026-03-11 23:02:33 -0300 Diegton Rodrigues
+
+18	1	components/pages/exercise/exercise-component.html
+128	5	components/pages/exercise/exercise-component.js
+3	0	controllers/day-workouts.js
+12	0	models/indexedDB/days-workouts.js
+9cff33919bd8954af22f3666b32f9d932b145789 2026-03-11 22:56:16 -0300 Diegton Rodrigues
+
+51	23	components/dates/dates-component.js
+5cfa794d952f38fa74563a295cbcdb524b474eea 2026-03-11 22:49:47 -0300 Diegton Rodrigues
+
+1	1	dates-utils.js
+4fc7bd1c0f5363d6e48e8fa2669f773f62e75e29 2026-03-11 22:49:22 -0300 Diegton Rodrigues
+
+4	4	style.css
+1281063dfbdd6a113fe552e3901263584644c198 2026-03-11 22:45:40 -0300 Diegton Rodrigues
+
+2	2	style.css
+31fce99de7b43bd1c15af87ba248265bea8dcefa 2026-03-11 22:43:32 -0300 Diegton Rodrigues
+
+9	5	components/dashboard/dashboard-component.html
+42	9	components/dashboard/dashboard-component.js
+32	0	style.css
+01394e53c6a4715ce6516c1582408cf3e353f1e1 2026-03-11 22:41:23 -0300 Diegton Rodrigues
+
+5	0	style.css
+bc6b269ea3a2a1e3384e2f9b2e987468542c9404 2026-03-11 22:38:56 -0300 Diegton Rodrigues
+
+10	0	components/pages/categoria/categoria-component.html
+5	1	components/pages/categoria/categoria-component.js
+3	0	controllers/exercise.js
+13	0	models/indexedDB/exercises.js
+6274ab2070a55c7d100ff098cbccf0b0ee7c50ec 2026-03-11 22:33:39 -0300 Diegton Rodrigues
+
+231	0	seed.html
+abe867d2f69827a3644f51957840588127ab3a75 2026-03-11 22:29:11 -0300 Diegton Rodrigues
+
+1	1	manifest.json
+c79365b880b26a510aa28856d133cddb75748c48 2026-03-11 22:28:05 -0300 Diegton Rodrigues
+
+1	1	components/head/head-component.html
+1	1	index.html
+3	3	manifest.json
+5e99dea8703138b5b665da1e41b0b77d12be0654 2026-03-11 22:23:32 -0300 Diegton Rodrigues
+
+23	22	components/dashboard/calendar/calendar-component.html
+77	45	components/footer/footer-component.html
+23	11	components/head/head-component.html
+9	20	components/list/categorias/categorias-list-component.html
+20	32	components/list/days-workouts/days-workouts-component.html
+13	23	components/list/exercises/exercises-list-component.html
+9	20	components/list/locations/locations-list-component.html
+9	20	components/list/workouts/workouts-list-component.html
+13	19	components/pages/categoria/categoria-component.html
+7	20	components/pages/config/config-component.html
+26	28	components/pages/day-workout/day-workout-component.html
+19	24	components/pages/exercise/exercise-component.html
+21	42	components/pages/workout/workout-component.html
+392	131	style.css
+15026c032933c1c4e6e747a299abb71b5ea377cf 2026-03-11 22:11:45 -0300 Diegton Rodrigues
+
+55	0	CLAUDE.md
+21340505f50dd57f2bffa085c5bd907202f27928 2026-01-09 18:40:16 -0300 Diegton Rodrigues
+
+6	5	components/dates/dates-component.js
+556d31bacbcc94e130ff7bd921db4f4560942670 2026-01-08 14:25:42 -0300 Diegton Rodrigues
+
+1	1	components/dates/dates-component.html
+14	3	components/dates/dates-component.js
+1	1	components/list/days-workouts/days-workouts-component.html
+9	1	style.css
+002f99b31292a39a5e9e02e4167944e91293a587 2026-01-08 13:44:05 -0300 Diegton Rodrigues
+
+2	2	controllers/day-workouts.js
+7	6	models/indexedDB/days-workouts.js
+1	1	sw.js
+8b7ec385200a028eab1d570f44ca389920c60508 2026-01-08 12:16:15 -0300 Diegton Rodrigues
+
+2	0	sw.js
+146fe654f05770c7b551cf0b7e4f37687e351ff9 2026-01-07 16:12:53 -0300 Diegton Rodrigues
+
+1	1	controllers/category.js
+1	1	controllers/day-workouts.js
+1	1	controllers/exercise.js
+1	1	controllers/location.js
+1	1	controllers/workout-exercise.js
+1	1	controllers/workout.js
+e657dba6fe4c8138e410d8c3e1bf21c1f02835c1 2026-01-07 16:05:16 -0300 Diegton Rodrigues
+
+1	1	components/dashboard/dashboard-component.js
+3146b72633d43028ea7f3b754b3f9959cecb4c6c 2026-01-07 15:56:51 -0300 Diegton Rodrigues
+
+4	1	components/footer/footer-component.html
+12	0	components/forms/location/location-form-component.html
+48	0	components/forms/location/location-form-component.js
+4	0	components/index/index-component.html
+23	0	components/list/locations/locations-list-component.html
+27	0	components/list/locations/locations-list-component.js
+22	0	components/pages/config/config-component.html
+15	0	components/pages/config/config-component.js
+22	0	components/pages/location/location-page-component.html
+35	0	components/pages/location/location-page-component.js
+26	0	controllers/location.js
+8	0	index.js
+63	0	models/indexedDB/location.js
+fa8d46467a22b9db75b8f5e76012c6684a22fd89 2026-01-07 14:59:13 -0300 Diegton Rodrigues
+
+4	3	components/dashboard/dashboard-component.js
+10	11	components/forms/day-workout/day-workout-form-component.js
+7	6	components/list/days-workouts/days-workouts-component.js
+5	4	components/pages/day-workout/day-workout-component.js
+32	0	controllers/day-workouts.js
+23	26	models/indexedDB/days-workouts.js
+3	1	models/indexedDB/index.js
+2	4	spec/models/categories.spec.js
+82	12	spec/models/days-workouts.spec.js
+2	4	spec/models/exercises.spec.js
+0	1	spec/models/index.spec.js
+0	2	spec/models/workout-exercises.spec.js
+2	4	spec/models/workouts.spec.js
+86d32afdefd6ca82177be3d69912c63c1f7cde4a 2026-01-07 14:07:41 -0300 Diegton Rodrigues
+
+1	1	components/forms/categorias/categorias-form-component.js
+1	1	components/forms/exercise/exercise-form-component.js
+4	4	components/forms/workout-exercise/workout-exercise-form-component.js
+1	1	components/forms/workout/workout-form-component.js
+5	4	components/pages/workout/workout-component.js
+26	0	controllers/workout-exercise.js
+4	1	models/indexedDB/index.js
+2	1	models/indexedDB/workouts.js
+22	20	models/indexedDB/workouts_exercises.js
+1	0	spec/SpecRunner.html
+104	0	spec/models/workout-exercises.spec.js
+43	2	spec/models/workouts.spec.js
+b63eeb7c75451695e8701061889abc325a131531 2026-01-07 11:54:08 -0300 Diegton Rodrigues
+
+5	4	components/forms/day-workout/day-workout-form-component.js
+6	6	components/forms/workout/workout-form-component.js
+4	3	components/list/workouts/workouts-list-component.js
+6	5	components/pages/workout/workout-component.js
+3	0	controllers/workout.js
+18	18	models/indexedDB/exercises.js
+3	1	models/indexedDB/index.js
+26	27	models/indexedDB/workouts.js
+1	0	spec/SpecRunner.html
+63	0	spec/models/workouts.spec.js
+ba25fab3f3a6c84c389cec5416a9c373fae9e320 2026-01-07 11:14:57 -0300 Diegton Rodrigues
+
+0	1	components/forms/categorias/categorias-form-component.js
+8	9	components/forms/day-workout/day-workout-form-component.js
+6	7	components/forms/exercise/exercise-form-component.js
+4	4	components/forms/workout-exercise/workout-exercise-form-component.js
+4	3	components/list/exercises/exercises-list-component.js
+5	4	components/pages/exercise/exercise-component.js
+6	4	controllers/category.js
+26	0	controllers/exercise.js
+26	0	controllers/workout.js
+12	12	models/indexedDB/categories.js
+2	2	models/indexedDB/days-workouts.js
+28	26	models/indexedDB/exercises.js
+5	1	models/indexedDB/index.js
+1	1	models/indexedDB/workouts.js
+1	0	spec/SpecRunner.html
+6	6	spec/models/categories.spec.js
+73	0	spec/models/exercises.spec.js
+b729da6ddc8a189d8719e259daab139eb0f9f288 2026-01-05 15:18:37 -0300 Diegton Rodrigues
+
+3	3	manifest.json
+1	0	spec/SpecRunner.html
+28	0	spec/models/days-workouts.spec.js
+c40cdf469880986393fd57d7bf0bb4115886042f 2026-01-05 14:43:27 -0300 Diegton Rodrigues
+
+5	3	components/forms/day-workout/day-workout-form-component.js
+4	2	components/forms/workout-exercise/workout-exercise-form-component.js
+-	-	images/Screenshot_20260105_143217.png
+-	-	images/Screenshot_20260105_143324.png
+-	-	images/icon.png
+12	0	index.html
+21	7	manifest.json
+0	1	models/indexedDB/exercises.js
+49087dfcff03c1e4e1429286f119d3b3ad36f945 2026-01-05 13:52:26 -0300 Diegton Rodrigues
+
+9	0	fontawesome/css/all.min.css
+-	-	fontawesome/webfonts/fa-brands-400.woff2
+-	-	fontawesome/webfonts/fa-regular-400.woff2
+-	-	fontawesome/webfonts/fa-solid-900.woff2
+-	-	fontawesome/webfonts/fa-v4compatibility.woff2
+-	-	images/icon.png
+1	0	images/icons/layer-group-solid-full.svg
+3	3	index.html
+15	1	index.js
+16	0	manifest.json
+3	1	models/indexedDB/categories.js
+2	3	models/indexedDB/index.js
+17	6	spec/models/categories.spec.js
+55	0	sw.js
+28d29919c9dc39ac6b609f4eaf6953f875533516 2026-01-05 12:18:09 -0300 Diegton Rodrigues
+
+5	3	components/forms/exercise/exercise-form-component.js
+2	2	models/indexedDB/categories.js
+9	5	models/indexedDB/days-workouts.js
+13	4	models/indexedDB/exercises.js
+8	5	models/indexedDB/workouts.js
+8	6	models/indexedDB/workouts_exercises.js
+d40f014815c2e39a4e8d2bf1ce0ffa363c76a503 2026-01-05 11:53:17 -0300 Diegton Rodrigues
+
+1	1	components/dashboard/dashboard-component.js
+6	5	components/forms/categorias/categorias-form-component.js
+4	4	components/forms/day-workout/day-workout-form-component.js
+2	2	components/forms/exercise/exercise-form-component.js
+3	3	components/forms/workout-exercise/workout-exercise-form-component.js
+1	1	components/forms/workout/workout-form-component.js
+4	3	components/list/categorias/categorias-list-component.js
+1	1	components/list/days-workouts/days-workouts-component.js
+1	1	components/list/exercises/exercises-list-component.js
+1	1	components/list/workouts/workouts-list-component.js
+6	4	components/pages/categoria/categoria-component.js
+1	1	components/pages/day-workout/day-workout-component.js
+1	1	components/pages/exercise/exercise-component.js
+2	2	components/pages/workout/workout-component.js
+24	0	controllers/category.js
+8	0	controllers/controller.js
+0	25	models/index.js
+22	15	models/{ => indexedDB}/categories.js
+0	0	models/{ => indexedDB}/days-workouts.js
+0	0	models/{ => indexedDB}/exercises.js
+61	0	models/indexedDB/index.js
+0	0	models/{ => indexedDB}/migrations.js
+0	0	models/{ => indexedDB}/workouts.js
+0	0	models/{ => indexedDB}/workouts_exercises.js
+35	0	spec/SpecRunner.html
+47	0	spec/models/categories.spec.js
+17	0	spec/models/index.spec.js
+ef2c47f427fa83b0449f30d40cd6a4887bdaa43a 2026-01-02 18:03:06 -0300 Diegton Rodrigues
+
+32	12	models/exercises.js
+1	1	models/workouts.js
+84d90de6af69bcef885f195bd7f49422b4144d0b 2026-01-02 17:35:14 -0300 Diegton Rodrigues
+
+10	3	components/dashboard/dashboard-component.js
+3	3	components/list/days-workouts/days-workouts-component.js
+32	20	models/categories.js
+79	49	models/days-workouts.js
+33	26	models/exercises.js
+23	2	models/index.js
+95	52	models/migrations.js
+48	29	models/workouts.js
+32	23	models/workouts_exercises.js
+78a87f441e2883a77a2ae1e3ad2bfe9a0a02d32f 2022-08-20 09:53:53 -0300 Diegton Rodrigues
+
+1	1	style.css
+f0d47ef843283c0f2cbedc3df76d0824f51939f2 2022-08-20 09:48:59 -0300 Diegton Rodrigues
+
+5	1	style.css
+b6fca38af265a903263de6f17386f7f6b99c9404 2022-08-16 16:57:51 -0300 Diegton Rodrigues
+
+24	0	components/dashboard/calendar/calendar-component.html
+14	0	components/dashboard/calendar/calendar-component.js
+2	25	components/dashboard/dashboard-component.html
+30	30	components/dashboard/dashboard-component.js
+1	5	components/forms/categorias/categorias-form-component.html
+1	5	components/forms/day-workout/day-workout-form-component.html
+1	5	components/forms/exercise/exercise-form-component.html
+1	5	components/forms/workout-exercise/workout-exercise-form-component.html
+1	5	components/forms/workout/workout-form-component.html
+1	5	components/list/categorias/categorias-list-component.html
+2	0	components/list/categorias/categorias-list-component.js
+1	5	components/list/days-workouts/days-workouts-component.html
+3	1	components/list/days-workouts/days-workouts-component.js
+1	5	components/list/exercises/exercises-list-component.html
+2	0	components/list/exercises/exercises-list-component.js
+1	5	components/list/workouts/workouts-list-component.html
+2	0	components/list/workouts/workouts-list-component.js
+1	5	components/pages/categoria/categoria-component.html
+1	5	components/pages/day-workout/day-workout-component.html
+1	5	components/pages/exercise/exercise-component.html
+1	5	components/pages/workout/workout-component.html
+7	0	components/shared/loading/loading-component.html
+10	0	components/shared/loading/loading-component.js
+4	0	index.js
+c6ce72de02ca39a2edf651b33deaccd5f2b8d553 2022-08-15 12:59:18 -0300 Diegton Rodrigues
+
+1	1	components/head/head-component.html
+3	1	style.css
+75b01440eb5e390b8b5b64ed26da2108f2d331a2 2022-08-15 12:53:36 -0300 Diegton Rodrigues
+
+7	2	style.css
+5674597b42b380c6570a146a352edca5956c6639 2022-08-15 11:48:41 -0300 Diegton Rodrigues
+
+5	0	components/dashboard/dashboard-component.js
+4	9	components/footer/footer-component.js
+4	2	components/forms/categorias/categorias-form-component.js
+3	3	components/forms/day-workout/day-workout-form-component.html
+22	10	components/forms/day-workout/day-workout-form-component.js
+1	1	components/forms/exercise/exercise-form-component.html
+4	2	components/forms/exercise/exercise-form-component.js
+2	1	components/forms/workout-exercise/workout-exercise-form-component.js
+4	2	components/forms/workout/workout-form-component.js
+2	2	components/head/head-component.html
+15	15	components/index/index-component.html
+7	7	components/index/index-component.js
+3	2	components/list/categorias/categorias-list-component.js
+3	2	components/list/days-workouts/days-workouts-component.js
+3	2	components/list/exercises/exercises-list-component.js
+3	2	components/list/workouts/workouts-list-component.js
+4	2	components/pages/categoria/categoria-component.js
+4	2	components/pages/day-workout/day-workout-component.js
+4	2	components/pages/exercise/exercise-component.js
+7	9	components/pages/workout/workout-component.js
+2	2	index.html
+14	1	index.js
+3	2	style.css
+412e1707d804728b99e643060575796ce4b35446 2022-08-15 08:05:23 -0300 Diegton Rodrigues
+98632b1c64510fffe244247fa4689dd413e842f0 2022-08-15 08:00:11 -0300 Diegton Rodrigues
+
+3	3	components/forms/api-key/api-key-form-component.html
+4	0	components/forms/api-key/api-key-form-component.js
+4	7	components/forms/categorias/categorias-form-component.html
+8	0	components/forms/categorias/categorias-form-component.js
+11	14	components/forms/day-workout/day-workout-form-component.html
+8	0	components/forms/day-workout/day-workout-form-component.js
+1	1	components/forms/exercise/exercise-form-component.html
+1	1	components/forms/workout-exercise/workout-exercise-form-component.html
+6f1aeb4f33487c07b997d6812523fe31b10ba0f7 2022-08-14 11:13:00 -0300 Diegton Rodrigues
+
+56	27	components/forms/day-workout/day-workout-form-component.html
+32	4	components/forms/day-workout/day-workout-form-component.js
+24	0	components/forms/workout-exercise/workout-exercise-form-component.html
+51	0	components/forms/workout-exercise/workout-exercise-form-component.js
+16	0	components/forms/workout/workout-form-component.html
+44	0	components/forms/workout/workout-form-component.js
+4	0	components/index/index-component.html
+1	1	components/list/days-workouts/days-workouts-component.html
+27	0	components/list/workouts/workouts-list-component.html
+23	0	components/list/workouts/workouts-list-component.js
+50	0	components/pages/workout/workout-component.html
+57	0	components/pages/workout/workout-component.js
+9	1	index.js
+14	1	models/days-workouts.js
+24	0	models/migrations.js
+56	0	models/workouts.js
+46	0	models/workouts_exercises.js
+7	2	style.css
+709ba8e307ed2b541a2a9de402be0d08720e6822 2022-08-13 16:30:17 -0300 Diegton Rodrigues
+
+3	3	components/list/days-workouts/days-workouts-component.html
+6	0	components/list/days-workouts/days-workouts-component.js
+1	1	models/days-workouts.js
+24	2	models/migrations.js
+6d5407ef736ce03f9025c43b353b636c1595b1be 2022-08-13 14:29:40 -0300 Diegton Rodrigues
+
+2	2	components/footer/footer-component.html
+6	4	components/forms/day-workout/day-workout-form-component.html
+10	12	components/index/index-component.html
+11	10	components/list/days-workouts/days-workouts-component.html
+6	0	components/list/days-workouts/days-workouts-component.js
+5	1	style.css
+9dba936b7bad4a5b7ed3bdc45c2ac85168781c40 2022-08-11 19:11:18 -0300 Diegton Rodrigues
+
+1	1	components/forms/day-workout/day-workout-form-component.js
+2	2	components/list/days-workouts/days-workouts-component.js
+3d1bcc09b0b77df98a784e9a2521f07d53cba6d1 2022-08-11 18:18:13 -0300 Diegton Rodrigues
+
+2	2	components/dashboard/dashboard-component.js
+9	6	components/footer/footer-component.html
+4	4	components/forms/categorias/categorias-form-component.js
+6	6	components/forms/{workout/workout-form-component.html => day-workout/day-workout-form-component.html}
+20	20	components/forms/{workout/workout-form-component.js => day-workout/day-workout-form-component.js}
+6	6	components/forms/exercise/exercise-form-component.js
+3	3	components/index/index-component.html
+2	2	components/list/categorias/categorias-list-component.js
+7	7	components/list/{workout/workout-component.html => days-workouts/days-workouts-component.html}
+9	9	components/list/{workout/workout-component.js => days-workouts/days-workouts-component.js}
+2	2	components/list/exercises/exercises-list-component.js
+3	3	components/pages/categoria/categoria-component.js
+4	4	components/pages/{workout/workout-component.html => day-workout/day-workout-component.html}
+31	0	components/pages/day-workout/day-workout-component.js
+3	3	components/pages/exercise/exercise-component.js
+0	31	components/pages/workout/workout-component.js
+6	6	index.js
+1	1	models/categories.js
+0	5	models/createTables.js
+7	9	models/{workouts.js => days-workouts.js}
+1	1	models/exercises.js
+2	2	models/index.js
+30	0	models/migrations.js
+fe3c6f86d77598a2c986c1e354c577087c49777a 2022-08-11 16:03:35 -0300 Diegton Rodrigues
+
+5	1	components/forms/workout/workout-form-component.js
+5	1	components/list/workout/workout-component.js
+f191054082bdaf290176d5413663a5486203764b 2022-08-03 21:51:25 -0300 Diegton Rodrigues
+
+25	2	components/dashboard/dashboard-component.html
+118	3	components/dashboard/dashboard-component.js
+1	1	components/dates/dates-component.html
+3	0	index.html
+23	4	models/workouts.js
+35	0	style.css
+9b78bd51f7352c50434b42122e47510e2edb7540 2022-07-28 20:54:06 -0300 Diegton Rodrigues
+
+8	7	components/forms/categorias/categorias-form-component.js
+5	8	components/forms/exercise/exercise-form-component.html
+18	8	components/forms/exercise/exercise-form-component.js
+11	8	components/forms/workout/workout-form-component.js
+2	2	components/list/categorias/categorias-list-component.js
+1	1	components/list/exercises/exercises-list-component.html
+2	2	components/list/exercises/exercises-list-component.js
+2	2	components/list/workout/workout-component.html
+2	2	components/list/workout/workout-component.js
+3	3	components/pages/categoria/categoria-component.js
+1	1	components/pages/exercise/exercise-component.html
+3	3	components/pages/exercise/exercise-component.js
+2	2	components/pages/workout/workout-component.html
+3	3	components/pages/workout/workout-component.js
+6	0	main.js
+36	31	models/categories.js
+5	0	models/createTables.js
+41	29	models/exercises.js
+4	0	models/index.js
+43	32	models/workouts.js
+54c6a4ee57447c481ff29ecb585bd78eb96107ca 2022-07-28 16:26:46 -0300 Diegton Rodrigues
+
+2	1	components/dates/dates-component.html
+12	3	components/dates/dates-component.js
+1	1	components/footer/footer-component.html
+3	3	components/forms/categorias/categorias-form-component.js
+4	4	components/forms/exercise/exercise-form-component.js
+33	0	components/forms/workout/workout-form-component.html
+53	0	components/forms/workout/workout-form-component.js
+3	1	components/index/index-component.html
+1	1	components/list/categorias/categorias-list-component.html
+2	3	components/list/categorias/categorias-list-component.js
+21	21	components/list/exercises/exercises-list-component.html
+2	3	components/list/exercises/exercises-list-component.js
+38	0	components/list/workout/workout-component.html
+30	0	components/list/workout/workout-component.js
+2	2	components/pages/categoria/categoria-component.js
+1	1	components/pages/exercise/exercise-component.html
+2	2	components/pages/exercise/exercise-component.js
+35	0	components/pages/workout/workout-component.html
+31	0	components/pages/workout/workout-component.js
+0	7	components/treinos/treinos-component.html
+0	8	components/treinos/treinos-component.js
+11	1	month-names.js => dates-utils.js
+6	2	index.js
+1	1	main.js
+37	0	models/categories.js
+35	0	models/exercises.js
+38	0	models/workouts.js
+6	61	requests.js
+4	3	style.css
+7c974dc86d82fe1b6d0d04240158d3914586bae0 2022-07-27 22:11:00 -0300 Diegton Rodrigues
+
+0	6	components/exercicios/exercicios-component.html
+0	8	components/exercicios/exercicios-component.js
+1	1	components/footer/footer-component.html
+0	1	components/footer/footer-component.js
+6	15	components/forms/categorias/categorias-form-component.js
+22	0	components/forms/exercise/exercise-form-component.html
+37	0	components/forms/exercise/exercise-form-component.js
+10	6	components/index/index-component.html
+2	3	components/list/categorias/categorias-list-component.js
+29	0	components/list/exercises/exercises-list-component.html
+24	0	components/list/exercises/exercises-list-component.js
+4	8	components/pages/categoria/categoria-component.js
+31	0	components/pages/exercise/exercise-component.html
+31	0	components/pages/exercise/exercise-component.js
+6	2	index.js
+3	2	main.js
+64	0	requests.js
+b3f7277d0a769444f2821e88e1849e46ac8cb660 2022-07-26 20:39:04 -0300 Diegton Rodrigues
+
+4	4	components/footer/footer-component.html
+4	4	components/forms/categorias/categorias-form-component.js
+1	1	components/list/categorias/categorias-list-component.html
+1	1	components/pages/categoria/categoria-component.js
+12	1	style.css
+1bd1bb2c6661e08104b4bd925601a21ed2b72b5e 2022-07-26 20:26:15 -0300 Diegton Rodrigues
+
+11	6	components/forms/categorias/categorias-form-component.html
+29	10	components/forms/categorias/categorias-form-component.js
+2	1	components/index/index-component.html
+1	4	components/list/categorias/categorias-list-component.html
+4	14	components/list/categorias/categorias-list-component.js
+26	0	components/pages/categoria/categoria-component.html
+35	0	components/pages/categoria/categoria-component.js
+2	0	index.js
+16	1	main.js
+17	1	style.css
+353763de42d36f6fa51a8061b90ba29dd34a628d 2022-07-26 18:40:44 -0300 Diegton Rodrigues
+
+11	0	components/forms/api-key/api-key-form-component.html
+14	0	components/forms/api-key/api-key-form-component.js
+2	1	components/forms/categorias/categorias-form-component.js
+3	1	components/head/head-component.js
+6	5	components/index/index-component.html
+6	1	components/index/index-component.js
+2	6	components/list/categorias/categorias-list-component.js
+1	1	index.html
+14	3	index.js
+4fcec674e8f6bb149235e0be209eac561f551088 2022-07-26 18:12:01 -0300 Diegton Rodrigues
+
+2	4	components/dashboard/dashboard-component.js
+2	4	components/dates/dates-component.js
+2	4	components/exercicios/exercicios-component.js
+4	5	components/footer/footer-component.js
+2	2	components/forms/categorias/categorias-form-component.html
+17	5	components/forms/categorias/categorias-form-component.js
+3	4	components/head/head-component.js
+5	7	components/index/index-component.html
+2	4	components/index/index-component.js
+10	50	components/list/categorias/categorias-list-component.html
+30	5	components/list/categorias/categorias-list-component.js
+1	1	components/treinos/treinos-component.html
+2	4	components/treinos/treinos-component.js
+3	3	index.html
+19	29	index.js
+1	0	main.js
+7	2	style.css
+4bd277020e7375d4dd6108bd8a279bb9548b4f3e 2022-07-24 09:53:35 -0300 Diegton Rodrigues
+
+0	6	components/categorias/categorias-component.html
+0	10	components/categorias/categorias-component.js
+0	1	components/dashboard/dashboard-component.html
+3	2	components/footer/footer-component.html
+14	0	components/forms/categorias/categorias-form-component.html
+14	0	components/forms/categorias/categorias-form-component.js
+0	7	components/head/head-component.html
+4	1	components/index/index-component.html
+70	0	components/list/categorias/categorias-list-component.html
+14	0	components/list/categorias/categorias-list-component.js
+1	0	components/treinos/treinos-component.html
+5	3	index.html
+6	4	index.js
+2	2	main.js
+92	6	style.css
+c15482b7d04d3e42eb907423f14b55a51e65cfdd 2022-07-23 17:07:22 -0300 Diegton Rodrigues
+
+1	0	components/dashboard/dashboard-component.html
+11	0	components/dates/dates-component.html
+24	0	components/dates/dates-component.js
+0	8	components/index/index-component.html
+3	0	index.js
+14	0	month-names.js
+39	4	style.css
+7a1615d394c9bdea3e2afd047bd97de307053eea 2022-07-18 20:56:27 -0300 Diegton Rodrigues
+
+6	0	components/categorias/categorias-component.html
+10	0	components/categorias/categorias-component.js
+6	0	components/dashboard/dashboard-component.html
+10	0	components/dashboard/dashboard-component.js
+6	0	components/exercicios/exercicios-component.html
+10	0	components/exercicios/exercicios-component.js
+48	0	components/footer/footer-component.html
+20	0	components/footer/footer-component.js
+11	1	components/head/head-component.html
+4	5	components/head/head-component.js
+14	2	components/index/index-component.html
+6	10	components/index/index-component.js
+6	0	components/treinos/treinos-component.html
+10	0	components/treinos/treinos-component.js
+10	0	index.html
+19	9	index.js
+22	15	style.css
+00c47801b038373ac1a237ab403d63793dcf0486 2022-07-16 08:22:08 -0300 Diegton Rodrigues
+
+1	1	index.js
+7ba6cc7f75a0f7a321ba6d520097c96bf469f3da 2022-07-16 08:14:37 -0300 Diegton Rodrigues
+
+12	0	components/head/head-component.html
+13	0	components/head/head-component.js
+4	0	components/index/index-component.html
+20	0	components/index/index-component.js
+23	0	index.html
+37	0	index.js
+3	0	main.js
+19	0	style.css
