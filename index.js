@@ -26,7 +26,7 @@ import locationFormComponet from "./components/forms/location/location-form-comp
 import locationPageComponet from "./components/pages/location/location-page-component.js"
 import loginComponent from "./components/pages/login/login-component.js"
 import { auth, onAuthStateChanged, signOutUser } from './firebase.js'
-import { database } from './models/indexedDB/index.js'
+import { migrateFromIndexedDB } from './migration.js'
 
 const { createApp } = Vue
 
@@ -46,20 +46,11 @@ const app = createApp({
             this.changeRoute()
         }
         onAuthStateChanged(auth, async (user) => {
-            try {
-                await database.close()
-                if (user) {
-                    database.DB_NAME = user.uid
-                    await database.connect()
-                    this.user = user
-                    this.changeRoute()
-                } else {
-                    this.user = null
-                }
-            } catch (e) {
-                console.error('Auth state error:', e)
-            } finally {
-                this.authReady = true
+            this.user = user || null
+            this.authReady = true
+            if (user) {
+                migrateFromIndexedDB().catch(e => console.warn('Migration:', e))
+                this.changeRoute()
             }
         })
     },

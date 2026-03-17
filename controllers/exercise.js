@@ -1,29 +1,49 @@
 import { Controller } from "./controller.js"
 import { uuidv4 } from '../main.js'
+import { userCol, userDoc, getDocs, getDoc, setDoc, updateDoc, deleteDoc, query, where, orderBy } from '../firestore.js'
 
 export class ExerciseController extends Controller {
 
-    constructor() {
-        super()
+    async select() {
+        const [exerciseSnap, categorySnap] = await Promise.all([
+            getDocs(query(userCol('exercises'), orderBy('name'))),
+            getDocs(userCol('categories'))
+        ])
+        const categories = Object.fromEntries(categorySnap.docs.map(d => [d.id, d.data().name]))
+        return exerciseSnap.docs.map(d => ({
+            id: d.id,
+            ...d.data(),
+            category_name: categories[d.data().category_id] || ''
+        }))
     }
 
-    async select() {
-        return await this.store.exercise.select(this.store)
-    }
     async select_id(id) {
-        return await this.store.exercise.select_id(this.store, id)
+        const snap = await getDoc(userDoc('exercises', id))
+        if (!snap.exists()) return null
+        const exercise = { id: snap.id, ...snap.data() }
+        if (exercise.category_id) {
+            const catSnap = await getDoc(userDoc('categories', exercise.category_id))
+            exercise.category_name = catSnap.exists() ? catSnap.data().name : ''
+        }
+        return exercise
     }
+
     async select_by_category(category_id) {
-        return await this.store.exercise.select_by_category_id(this.store, category_id)
+        const snap = await getDocs(query(userCol('exercises'), where('category_id', '==', category_id)))
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }))
     }
+
     async insert(exercise) {
         exercise.id = uuidv4()
-        return await this.store.exercise.insert(this.store, exercise)
+        await setDoc(userDoc('exercises', exercise.id), exercise)
+        return exercise.id
     }
+
     async update(exercise) {
-        return await this.store.exercise.update(this.store, exercise)
+        await updateDoc(userDoc('exercises', exercise.id), exercise)
     }
+
     async delete(id) {
-        return await this.store.exercise.delete(this.store, id)
+        await deleteDoc(userDoc('exercises', id))
     }
 }

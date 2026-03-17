@@ -1,26 +1,30 @@
 import { Controller } from "./controller.js"
 import { uuidv4 } from '../main.js'
+import { userCol, userDoc, getDocs, getDoc, setDoc, updateDoc, deleteDoc, query, orderBy } from '../firestore.js'
 
 export class CategoryController extends Controller {
 
-    constructor() {
-        super()
+    async select() {
+        const snap = await getDocs(query(userCol('categories'), orderBy('name')))
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }))
     }
 
-    async select() {
-        return await this.store.category.select(this.store)
-    }
     async select_id(id) {
-        return await this.store.category.select_id(this.store, id)
+        const snap = await getDoc(userDoc('categories', id))
+        return snap.exists() ? { id: snap.id, ...snap.data() } : null
     }
+
     async insert(category) {
         category.id = uuidv4()
-        return await this.store.category.insert(this.store, category)
+        await setDoc(userDoc('categories', category.id), category)
+        return category.id
     }
+
     async update(category) {
-        return await this.store.category.update(this.store, category)
+        await updateDoc(userDoc('categories', category.id), category)
     }
+
     async delete(id) {
-        return await this.store.category.delete(this.store, id)
+        await deleteDoc(userDoc('categories', id))
     }
 }

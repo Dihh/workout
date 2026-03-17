@@ -1,26 +1,30 @@
 import { Controller } from "./controller.js"
 import { uuidv4 } from '../main.js'
+import { userCol, userDoc, getDocs, getDoc, setDoc, updateDoc, deleteDoc, query, orderBy } from '../firestore.js'
 
 export class LocationController extends Controller {
 
-    constructor() {
-        super()
+    async select() {
+        const snap = await getDocs(query(userCol('locations'), orderBy('name')))
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }))
     }
 
-    async select() {
-        return await this.store.location.select(this.store)
-    }
     async select_id(id) {
-        return await this.store.location.select_id(this.store, id)
+        const snap = await getDoc(userDoc('locations', id))
+        return snap.exists() ? { id: snap.id, ...snap.data() } : null
     }
+
     async insert(location) {
         location.id = uuidv4()
-        return await this.store.location.insert(this.store, location)
+        await setDoc(userDoc('locations', location.id), location)
+        return location.id
     }
+
     async update(location) {
-        return await this.store.location.update(this.store, location)
+        await updateDoc(userDoc('locations', location.id), location)
     }
+
     async delete(id) {
-        return await this.store.location.delete(this.store, id)
+        await deleteDoc(userDoc('locations', id))
     }
 }

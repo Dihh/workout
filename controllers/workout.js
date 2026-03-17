@@ -1,29 +1,43 @@
 import { Controller } from "./controller.js"
 import { uuidv4 } from '../main.js'
+import { userCol, userDoc, getDocs, getDoc, setDoc, updateDoc, deleteDoc, query, where, orderBy } from '../firestore.js'
 
 export class WorkoutController extends Controller {
 
-    constructor() {
-        super()
+    async select() {
+        const snap = await getDocs(query(userCol('workouts'), orderBy('name')))
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }))
     }
 
-    async select() {
-        return await this.store.workout.select(this.store)
-    }
     async select_id(id) {
-        return await this.store.workout.select_id(this.store, id)
+        const snap = await getDoc(userDoc('workouts', id))
+        return snap.exists() ? { id: snap.id, ...snap.data() } : null
     }
+
     async selectWorkoutExercises(id) {
-        return await this.store.workout.selectWorkoutExercises(this.store, id)
+        const weSnap = await getDocs(query(userCol('workouts_exercises'), where('workout_id', '==', id)))
+        const workoutExercises = weSnap.docs.map(d => ({ id: d.id, ...d.data() }))
+        if (workoutExercises.length === 0) return []
+        const exerciseIds = [...new Set(workoutExercises.map(we => we.exercise_id))]
+        const exercises = await Promise.all(exerciseIds.map(eid => getDoc(userDoc('exercises', eid))))
+        const exerciseMap = Object.fromEntries(exercises.map(s => [s.id, s.exists() ? s.data() : {}]))
+        return workoutExercises.map(we => ({
+            ...we,
+            exercise_name: exerciseMap[we.exercise_id]?.name || ''
+        }))
     }
+
     async insert(workout) {
         workout.id = uuidv4()
-        return await this.store.workout.insert(this.store, workout)
+        await setDoc(userDoc('workouts', workout.id), workout)
+        return workout.id
     }
+
     async update(workout) {
-        return await this.store.workout.update(this.store, workout)
+        await updateDoc(userDoc('workouts', workout.id), workout)
     }
+
     async delete(id) {
-        return await this.store.workout.delete(this.store, id)
+        await deleteDoc(userDoc('workouts', id))
     }
 }
