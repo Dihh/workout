@@ -1,4 +1,7 @@
+import { signOutUser } from '../../../firebase.js'
+
 export default {
+    props: ['user'],
     template: `#config-template`,
     data() {
         return {
@@ -11,5 +14,8 @@ export default {
             let link = `page=${page}`
             this.$emit("changeRoute", link)
         },
+        async logout() {
+            await signOutUser()
+        }
     }
 }

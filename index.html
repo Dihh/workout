@@ -2,7 +2,6 @@
 <html lang="pt-br">
 
 <head>
-    <base target="_top">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout-e</title>
@@ -17,12 +16,12 @@
         <link rel="icon" href="images/icon.png" type="image/png">
         <link rel="manifest" href="manifest.json">
     <style>
-        .version{
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            font-size: .5rem;
-            color: #fff;
+        .auth-loading {
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-darker);
         }
     </style>
 </head>
@@ -36,14 +35,21 @@
 
     <script type="text/x-template" id="app-template">
         <div class="app">
-            <app-head id="head"></app-head>
-            <app-index id="index" @apiKey="setApiKey" @changeRoute="changeRoute" :API_KEY="API_KEY" :page="page"></app-index>
-            <app-footer id="footer" @changeRoute="changeRoute" :page="page"></app-footer>
+            <template v-if="!authReady">
+                <div class="auth-loading">
+                    <div class="spinner-border text-light" role="status"></div>
+                </div>
+            </template>
+            <template v-else-if="!user">
+                <app-login></app-login>
+            </template>
+            <template v-else>
+                <app-head id="head" :user="user"></app-head>
+                <app-index id="index" @apiKey="setApiKey" @changeRoute="changeRoute" @signOut="handleSignOut" :API_KEY="API_KEY" :page="page" :user="user"></app-index>
+                <app-footer id="footer" @changeRoute="changeRoute" :page="page"></app-footer>
+            </template>
         </div>
     </script>
-    <div class="version">
-        v1.0.0
-    </div>
 
 </body>
 

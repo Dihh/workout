@@ -18,10 +18,38 @@
     font-size: 20px;
     margin-right: 10px;
   }
+
+  .head-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: auto;
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+
+  .head-avatar-placeholder {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border: 2px solid rgba(255,255,255,0.5);
+  }
 </style>
 <script type="text/x-template" id="head-template">
   <div class="head-navbar">
     <i class="fa-solid fa-dumbbell head-icon"></i>
     <span class="head-title">Workout-e</span>
+    <img v-if="user && user.photoURL" :src="user.photoURL" :alt="user.displayName" class="head-avatar" referrerpolicy="no-referrer">
+    <div v-else-if="user" class="head-avatar-placeholder">
+      {{ user.displayName ? user.displayName[0].toUpperCase() : '?' }}
+    </div>
   </div>
 </script>

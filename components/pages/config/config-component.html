@@ -1,9 +1,105 @@
+<style>
+  .config-user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 16px;
+    background: var(--primary);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+  }
+
+  .config-user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.5);
+  }
+
+  .config-user-avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    border: 2px solid rgba(255,255,255,0.5);
+    flex-shrink: 0;
+  }
+
+  .config-user-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .config-user-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .config-user-email {
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .config-version {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #aaa;
+    padding: 16px 0 4px;
+  }
+
+  .btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #e53935;
+  }
+</style>
+
 <script type="text/x-template" id="config-template">
   <div class="list-items">
+    <div v-if="user" class="config-user">
+      <img v-if="user.photoURL" :src="user.photoURL" :alt="user.displayName" class="config-user-avatar" referrerpolicy="no-referrer">
+      <div v-else class="config-user-avatar-placeholder">
+        {{ user.displayName ? user.displayName[0].toUpperCase() : '?' }}
+      </div>
+      <div class="config-user-info">
+        <div class="config-user-name">{{ user.displayName }}</div>
+        <div class="config-user-email">{{ user.email }}</div>
+      </div>
+    </div>
+
     <div class="list-item noselect" @click="goTo('locations-list')">
       <i class="fa-solid fa-location-dot" style="color: var(--primary-dark); margin-right: 12px; font-size: 16px;"></i>
       <div class="list-item-name">Locais</div>
       <i class="fa-solid fa-chevron-right list-item-arrow"></i>
     </div>
+
+    <div class="list-item noselect" @click="logout">
+      <button class="btn-logout">
+        <i class="fa-solid fa-right-from-bracket" style="font-size: 16px;"></i>
+        <div class="list-item-name" style="color: #e53935;">Sair</div>
+      </button>
+    </div>
+
+    <div class="config-version">v1.0.0</div>
   </div>
 </script>

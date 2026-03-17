@@ -1,12 +1,9 @@
 export default {
-    props: ['API_KEY', 'page'],
-    emits: ['changeRoute'],
+    props: ['API_KEY', 'page', 'user'],
+    emits: ['changeRoute', 'apiKey', 'signOut'],
     template: `#index-template`,
     data() {
         return {}
-    },
-    created() {
-
     },
     methods: {
         setApiKey(API_KEY) {

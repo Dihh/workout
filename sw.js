@@ -15,6 +15,20 @@ const PRECACHE = [
     'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.0/chart.min.js',
 ]
 
+const BYPASS_HOSTS = [
+    'identitytoolkit.googleapis.com',
+    'securetoken.googleapis.com',
+    'accounts.google.com',
+    'oauth2.googleapis.com',
+    'firebaseapp.com',
+    'googleapis.com',
+]
+
+function shouldBypass(url) {
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return true
+    return BYPASS_HOSTS.some(host => url.hostname.endsWith(host))
+}
+
 // Install: pre-cache resources
 self.addEventListener('install', event => {
     event.waitUntil(
@@ -38,12 +52,19 @@ self.addEventListener('activate', event => {
 })
 
 // Fetch: network first, fallback to cache
+// Bypass Firebase/Google auth endpoints entirely
 self.addEventListener('fetch', event => {
+    const url = new URL(event.request.url)
+
+    if (shouldBypass(url)) return
+
     event.respondWith(
         fetch(event.request)
             .then(response => {
-                const clone = response.clone()
-                caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone))
+                if (event.request.method === 'GET') {
+                    const clone = response.clone()
+                    caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone))
+                }
                 return response
             })
             .catch(() => caches.match(event.request))

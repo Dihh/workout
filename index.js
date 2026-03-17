@@ -24,6 +24,9 @@ import configComponet from "./components/pages/config/config-component.js"
 import locationsListComponet from "./components/list/locations/locations-list-component.js"
 import locationFormComponet from "./components/forms/location/location-form-component.js"
 import locationPageComponet from "./components/pages/location/location-page-component.js"
+import loginComponent from "./components/pages/login/login-component.js"
+import { auth, onAuthStateChanged, signOutUser } from './firebase.js'
+import { database } from './models/indexedDB/index.js'
 
 const { createApp } = Vue
 
@@ -32,15 +35,33 @@ const app = createApp({
     data() {
         return {
             API_KEY: '',
-            page: ''
+            page: '',
+            user: null,
+            authReady: false,
         }
     },
     async mounted() {
         this.API_KEY = localStorage.API_KEY || ''
-        this.changeRoute()
         window.onpopstate = () => {
             this.changeRoute()
         }
+        onAuthStateChanged(auth, async (user) => {
+            try {
+                await database.close()
+                if (user) {
+                    database.DB_NAME = user.uid
+                    await database.connect()
+                    this.user = user
+                    this.changeRoute()
+                } else {
+                    this.user = null
+                }
+            } catch (e) {
+                console.error('Auth state error:', e)
+            } finally {
+                this.authReady = true
+            }
+        })
     },
     methods: {
         setApiKey(API_KEY) {
@@ -53,6 +74,9 @@ const app = createApp({
             const urlSearchParams = new URLSearchParams(window.location.search);
             const params = Object.fromEntries(urlSearchParams.entries());
             this.page = params.page
+        },
+        async handleSignOut() {
+            await signOutUser()
         }
     }
 })
@@ -84,6 +108,7 @@ async function getComponents() {
         { tag: 'app-locations-list', component: locationsListComponet, name: 'locations-list', path: 'list/locations' },
         { tag: 'app-location-form', component: locationFormComponet, name: 'location-form', path: 'forms/location' },
         { tag: 'app-location-page', component: locationPageComponet, name: 'location-page', path: 'pages/location' },
+        { tag: 'app-login', component: loginComponent, name: 'login', path: 'pages/login' },
     ]
 
     for (let component of components) {
@@ -95,15 +120,15 @@ async function getComponents() {
 
 getComponents()
 
-window.addEventListener('load', ()=>{
+window.addEventListener('load', () => {
     registerSW()
 })
 
-async function registerSW(){
-    if('serviceWorker' in navigator){
-        try{
+async function registerSW() {
+    if ('serviceWorker' in navigator) {
+        try {
             await navigator.serviceWorker.register('./sw.js')
-        } catch(e){
+        } catch (e) {
             alert(`SW registration failed`);
         }
     }

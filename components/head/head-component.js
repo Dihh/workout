@@ -1,13 +1,9 @@
 export default {
-    props: [],
+    props: ['user'],
     template: `#head-template`,
     data() {
         return {}
     },
     beforeMount() { },
-    methods: {
-        apiKey() {
-            location.href = '?page=api-key-form'
-        }
-    }
+    methods: {}
 }
