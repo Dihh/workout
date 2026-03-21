@@ -25,7 +25,10 @@ import locationsListComponet from "./components/list/locations/locations-list-co
 import locationFormComponet from "./components/forms/location/location-form-component.js"
 import locationPageComponet from "./components/pages/location/location-page-component.js"
 import loginComponent from "./components/pages/login/login-component.js"
+import friendsComponent from "./components/pages/friends/friends-component.js"
+import friendComponent from "./components/pages/friend/friend-component.js"
 import { auth, onAuthStateChanged, signOutUser } from './firebase.js'
+import { saveUserProfile } from './firestore.js'
 import { migrateFromIndexedDB } from './migration.js'
 
 const { createApp } = Vue
@@ -49,6 +52,7 @@ const app = createApp({
             this.user = user || null
             this.authReady = true
             if (user) {
+                saveUserProfile(user).catch(e => console.warn('saveUserProfile:', e))
                 migrateFromIndexedDB().catch(e => console.warn('Migration:', e))
                 this.changeRoute()
             }
@@ -100,6 +104,8 @@ async function getComponents() {
         { tag: 'app-location-form', component: locationFormComponet, name: 'location-form', path: 'forms/location' },
         { tag: 'app-location-page', component: locationPageComponet, name: 'location-page', path: 'pages/location' },
         { tag: 'app-login', component: loginComponent, name: 'login', path: 'pages/login' },
+        { tag: 'app-friends', component: friendsComponent, name: 'friends', path: 'pages/friends' },
+        { tag: 'app-friend', component: friendComponent, name: 'friend', path: 'pages/friend' },
     ]
 
     for (let component of components) {

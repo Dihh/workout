@@ -1,0 +1,23 @@
+<script type="text/x-template" id="friend-template">
+  <app-loading v-if="loading"></app-loading>
+  <div v-else-if="friend">
+    <div class="detail-header">
+      <div class="detail-title">{{friend.name || friend.email}}</div>
+      <div class="detail-actions">
+        <div class="button-icon-div" @click="remove">
+          <i class="fa-solid fa-trash button-icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="detail-info">
+      <div class="detail-row">
+        <span class="detail-label">Nome</span>
+        <span class="detail-value">{{friend.name || '—'}}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">E-mail</span>
+        <span class="detail-value">{{friend.email}}</span>
+      </div>
+    </div>
+  </div>
+</script>

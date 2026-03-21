@@ -19,5 +19,7 @@
         <app-locations-list @changeRoute="changeRoute" v-if="page=='locations-list'" ></app-locations-list>
         <app-location-form @changeRoute="changeRoute" v-if="page=='location-form'" ></app-location-form>
         <app-location-page @changeRoute="changeRoute" v-if="page=='location'" ></app-location-page>
+        <app-friends @changeRoute="changeRoute" v-if="page=='friends'"></app-friends>
+        <app-friend @changeRoute="changeRoute" v-if="page=='friend'"></app-friend>
     </div>
 </script>

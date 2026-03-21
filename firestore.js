@@ -32,4 +32,12 @@ export function userDoc(colName, id) {
     return doc(db, 'users', uid, colName, id)
 }
 
+export async function saveUserProfile(user) {
+    const userRef = doc(db, 'users', user.uid)
+    await setDoc(userRef, {
+        name: user.displayName || '',
+        email: user.email || '',
+    }, { merge: true })
+}
+
 export { collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, query, where, orderBy, limit, writeBatch }

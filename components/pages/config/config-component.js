@@ -16,6 +16,6 @@ export default {
         },
         async logout() {
             await signOutUser()
-        }
+        },
     }
 }
