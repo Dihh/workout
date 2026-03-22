@@ -1,3 +1,44 @@
+<style>
+  .workout-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 4px 8px;
+    margin-top: 2px;
+  }
+
+  .workout-group-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .workout-group-title i {
+    font-size: 15px;
+  }
+
+  .workout-group-remove {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px 4px;
+  }
+
+  .workout-group .workout-items {
+    margin-bottom: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .workout-group-remove:hover {
+    color: #e53935;
+  }
+</style>
+
 <script type="text/x-template" id="days-workouts-template">
   <div>
     <app-loading v-if="loading"></app-loading>
@@ -13,24 +54,37 @@
         </div>
       </div>
 
-      <div class="workout-items">
-        <div class="workout-item noselect" v-for="dayWorkout in daysWorkouts">
-          <input class="workout-check" v-bind:checked="dayWorkout.executed" type="checkbox" @change="update(dayWorkout)">
-          <div class="workout-item-body" @click="goTo('day-workout', dayWorkout.id)">
-            <div class="workout-item-name">{{dayWorkout.exercise_name}}</div>
-            <div class="workout-item-cat">{{dayWorkout.category_name}}<span v-if="dayWorkout.location_id"> · {{locationMap[dayWorkout.location_id]}}</span></div>
-            <div class="workout-item-stats">
-              <span><i class="fa-solid fa-clock-rotate-left"></i> {{dayWorkout.lastWeight ?? '—'}} kg</span>
-              <span><i class="fa-solid fa-trophy"></i> {{dayWorkout.maxWeight ?? '—'}} kg</span>
+      <div class="workout-group" v-for="group in groupedDaysWorkouts" :key="group.workout_id">
+        <div class="workout-group-header">
+          <span class="workout-group-title">
+            <i :class="group.workout_id ? 'fa-solid fa-dumbbell' : 'fa-solid fa-list'" style="margin-right: 6px;"></i>
+            {{group.workout_name || 'Avulsos'}}
+          </span>
+          <button class="workout-group-remove" @click="removeWorkoutGroup(group.workout_id)" title="Remover todos">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+
+        <div class="workout-items">
+          <div class="workout-item noselect" v-for="dayWorkout in group.items">
+            <input class="workout-check" v-bind:checked="dayWorkout.executed" type="checkbox" @change="update(dayWorkout)">
+            <div class="workout-item-body" @click="goTo('day-workout', dayWorkout.id)">
+              <div class="workout-item-name">{{dayWorkout.exercise_name}}</div>
+              <div class="workout-item-cat">{{dayWorkout.category_name}}<span v-if="dayWorkout.location_id"> · {{locationMap[dayWorkout.location_id]}}</span></div>
+              <div class="workout-item-stats">
+                <span><i class="fa-solid fa-clock-rotate-left"></i> {{dayWorkout.lastWeight ?? '—'}} kg</span>
+                <span><i class="fa-solid fa-trophy"></i> {{dayWorkout.maxWeight ?? '—'}} kg</span>
+              </div>
             </div>
-          </div>
-          <div class="workout-item-controls">
-            <div class="weight-btn" @click="weightUp(dayWorkout)"><i class="fa-solid fa-chevron-up"></i></div>
-            <div class="workout-item-weight">{{dayWorkout.weight}}</div>
-            <div class="weight-btn" @click="weightDown(dayWorkout)"><i class="fa-solid fa-chevron-down"></i></div>
+            <div class="workout-item-controls">
+              <div class="weight-btn" @click="weightUp(dayWorkout)"><i class="fa-solid fa-chevron-up"></i></div>
+              <div class="workout-item-weight">{{dayWorkout.weight}}</div>
+              <div class="weight-btn" @click="weightDown(dayWorkout)"><i class="fa-solid fa-chevron-down"></i></div>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
   <div class="add-button" @click="goTo('day-workout-form')">+</div>

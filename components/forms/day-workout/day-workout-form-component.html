@@ -46,7 +46,9 @@
             <div class="mb-3">
                 <label for="weight" class="form-label">Treinos:</label>
                 <select class="form-select" v-model="workout_id" required>
-                    <option v-for="workout in workouts" :value="workout.id">{{workout.name}}</option>
+                    <option v-for="workout in workouts" :value="workout.id">
+                        {{workout.name}}{{workout.location_name ? ' (' + workout.location_name + ')' : ''}}
+                    </option>
                 </select>
             </div>
             <div class="form-buttons">

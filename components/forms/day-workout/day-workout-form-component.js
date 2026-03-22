@@ -3,6 +3,7 @@ import { CategoryController } from '../../../controllers/category.js'
 import { ExerciseController } from '../../../controllers/exercise.js'
 import { WorkoutController } from '../../../controllers/workout.js';
 import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
+import { LocationController } from '../../../controllers/location.js';
 
 export default {
     template: `#day-workout-form-template`,
@@ -26,6 +27,7 @@ export default {
             exerciseController: new ExerciseController(),
             workoutController: new WorkoutController(),
             dayWorkoutsController: new DayWorkoutsController(),
+            locationController: new LocationController(),
         }
     },
     beforeMount() {
@@ -53,6 +55,7 @@ export default {
                 const dayWorkout = {
                     date: this.dayWorkout.date,
                     exercise_id: workoutExercise.exercise_id,
+                    workout_id: this.workout_id,
                     weight: lastWeight?.weight || 0,
                     executed: 0
                 }
@@ -78,16 +81,23 @@ export default {
             this.loading = true
             const getDayWorkoutPromise = this.id ? this.dayWorkoutsController.select_id(this.id) : Promise.resolve(this.dayWorkout)
             const dayWorkout = await getDayWorkoutPromise
-            const categories = await this.categoryController.select()
-            const exercises = await this.exerciseController.select()
-            const workouts = await this.workoutController.select()
+            const [categories, exercises, workouts, locations] = await Promise.all([
+                this.categoryController.select(),
+                this.exerciseController.select(),
+                this.workoutController.select(),
+                this.locationController.select(),
+            ])
+            const locationMap = Object.fromEntries(locations.map(l => [l.id, l.name]))
             this.systemExercises = exercises
             this.categories = categories
             this.exercises = []
             this.category_id = dayWorkout.category_id
             this.changeCategory()
             this.dayWorkout = dayWorkout
-            this.workouts = workouts
+            this.workouts = workouts.map(w => ({
+                ...w,
+                location_name: w.location_id ? locationMap[w.location_id] || null : null
+            }))
             this.loading = false
         },
         changeCategory() {

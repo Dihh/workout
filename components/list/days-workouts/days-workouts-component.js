@@ -1,5 +1,6 @@
 import { DayWorkoutsController } from '../../../controllers/day-workouts.js';
 import { LocationController } from '../../../controllers/location.js'
+import { WorkoutController } from '../../../controllers/workout.js'
 import { getParam } from '../../../main.js'
 
 export default {
@@ -9,11 +10,14 @@ export default {
         return {
             systemDaysWorkouts: [],
             daysWorkouts: null,
+            groupedDaysWorkouts: [],
             locationMap: {},
+            workoutMap: {},
             date: '',
             loading: true,
             dayWorkoutsController: new DayWorkoutsController(),
             locationController: new LocationController(),
+            workoutController: new WorkoutController(),
         }
     },
     mounted() {
@@ -35,15 +39,22 @@ export default {
             this.$emit("changeRoute", link)
         },
         async getDaysWorkouts() {
-            this.systemDaysWorkouts = await this.dayWorkoutsController.select()
-            const locations = await this.locationController.select()
+            const [daysWorkouts, locations, workouts] = await Promise.all([
+                this.dayWorkoutsController.select(),
+                this.locationController.select(),
+                this.workoutController.select(),
+            ])
+            this.systemDaysWorkouts = daysWorkouts
             this.locationMap = Object.fromEntries(locations.map(l => [l.id, l.name]))
+            this.workoutMap = Object.fromEntries(workouts.map(w => [w.id, w.name]))
             this.daysWorkouts = this.filterByDate(this.date)
+            this.groupedDaysWorkouts = this.groupByWorkout(this.daysWorkouts)
             this.loading = false
         },
         changeDate(date) {
             this.date = date
             this.daysWorkouts = this.filterByDate(date)
+            this.groupedDaysWorkouts = this.groupByWorkout(this.daysWorkouts)
         },
         filterByDate(date) {
             return this.systemDaysWorkouts
@@ -58,6 +69,19 @@ export default {
                         maxWeight: weights.length ? Math.max(...weights) : null,
                     }
                 })
+        },
+        groupByWorkout(items) {
+            const map = new Map()
+            for (const dw of items) {
+                const key = dw.workout_id || null
+                if (!map.has(key)) map.set(key, [])
+                map.get(key).push(dw)
+            }
+            return [...map.entries()].map(([workout_id, items]) => ({
+                workout_id,
+                workout_name: workout_id ? (this.workoutMap[workout_id] || 'Treino') : null,
+                items,
+            }))
         },
         weightUp(dayWorkout) {
             dayWorkout.weight++
@@ -83,6 +107,15 @@ export default {
             await Promise.all(unexecuted.map(dw => this.dayWorkoutsController.delete(dw.id)))
             this.systemDaysWorkouts = this.systemDaysWorkouts.filter(dw => !unexecuted.find(u => u.id === dw.id))
             this.daysWorkouts = this.filterByDate(this.date)
-        }
+            this.groupedDaysWorkouts = this.groupByWorkout(this.daysWorkouts)
+        },
+        async removeWorkoutGroup(workout_id) {
+            if (!confirm('Remover todos os exercícios deste grupo?')) return
+            const toRemove = this.daysWorkouts.filter(dw => (dw.workout_id || null) === workout_id)
+            await Promise.all(toRemove.map(dw => this.dayWorkoutsController.delete(dw.id)))
+            this.systemDaysWorkouts = this.systemDaysWorkouts.filter(dw => !toRemove.find(r => r.id === dw.id))
+            this.daysWorkouts = this.filterByDate(this.date)
+            this.groupedDaysWorkouts = this.groupByWorkout(this.daysWorkouts)
+        },
     }
 }
