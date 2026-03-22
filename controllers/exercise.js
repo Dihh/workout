@@ -1,6 +1,7 @@
 import { Controller } from "./controller.js"
 import { uuidv4 } from '../main.js'
-import { userCol, userDoc, getDocs, getDoc, setDoc, updateDoc, deleteDoc, query, where, orderBy } from '../firestore.js'
+import { userCol, userDoc, getDocs, getDoc, setDoc, updateDoc, deleteDoc, query, where, orderBy, writeBatch } from '../firestore.js'
+import { db } from '../firestore.js'
 
 export class ExerciseController extends Controller {
 
@@ -31,6 +32,24 @@ export class ExerciseController extends Controller {
     async select_by_category(category_id) {
         const snap = await getDocs(query(userCol('exercises'), where('category_id', '==', category_id)))
         return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+    }
+
+    async select_by_location(location_id) {
+        const snap = await getDocs(query(userCol('exercises'), where('location_id', '==', location_id)))
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+    }
+
+    async saveLocationExercises(locationId, selectedIds, previousIds) {
+        const batch = writeBatch(db)
+        const toAdd = selectedIds.filter(id => !previousIds.includes(id))
+        const toRemove = previousIds.filter(id => !selectedIds.includes(id))
+        for (const id of toAdd) {
+            batch.update(userDoc('exercises', id), { location_id: locationId })
+        }
+        for (const id of toRemove) {
+            batch.update(userDoc('exercises', id), { location_id: null })
+        }
+        await batch.commit()
     }
 
     async insert(exercise) {

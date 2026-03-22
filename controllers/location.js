@@ -24,6 +24,7 @@ export class LocationController extends Controller {
         await updateDoc(userDoc('locations', location.id), location)
     }
 
+
     async delete(id) {
         await deleteDoc(userDoc('locations', id))
     }

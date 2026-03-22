@@ -1,35 +1,56 @@
 import { getParam } from '../../../main.js'
 import { LocationController } from '../../../controllers/location.js'
-
+import { ExerciseController } from '../../../controllers/exercise.js'
 
 export default {
     template: `#location-template`,
+    emits: ['changeRoute'],
     data() {
         return {
             location: null,
             id: '',
             loading: true,
-            locationController: new LocationController()
+            saving: false,
+            allExercises: [],
+            selectedIds: [],
+            originalIds: [],
+            locationController: new LocationController(),
+            exerciseController: new ExerciseController(),
         }
     },
-    beforeMount() {
+    async beforeMount() {
         this.id = getParam('id')
-        this.getLocation(this.id)
+        const [location, allExercises, locationExercises] = await Promise.all([
+            this.locationController.select_id(this.id),
+            this.exerciseController.select(),
+            this.exerciseController.select_by_location(this.id),
+        ])
+        this.location = location
+        this.allExercises = allExercises
+        this.selectedIds = locationExercises.map(e => e.id)
+        this.originalIds = [...this.selectedIds]
+        this.loading = false
     },
     methods: {
-        async getLocation(id) {
-            this.location = await this.locationController.select_id(id)
-            this.loading = false
-        },
         edit() {
-            const link = `page=location-form&id=${this.id}`
-            this.$emit("changeRoute", link)
+            this.$emit('changeRoute', `page=location-form&id=${this.id}`)
         },
         async remove() {
+            if (!confirm('Excluir local?')) return
             this.loading = true
             await this.locationController.delete(this.id)
-            const link = `page=locations-list`
-            this.$emit("changeRoute", link)
+            this.$emit('changeRoute', 'page=locations-list')
+        },
+        toggleExercise(id) {
+            const idx = this.selectedIds.indexOf(id)
+            if (idx === -1) this.selectedIds.push(id)
+            else this.selectedIds.splice(idx, 1)
+        },
+        async saveExercises() {
+            this.saving = true
+            await this.exerciseController.saveLocationExercises(this.id, this.selectedIds, this.originalIds)
+            this.originalIds = [...this.selectedIds]
+            this.saving = false
         },
     }
 }
