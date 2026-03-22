@@ -110,8 +110,25 @@ export default {
             this.groupedDaysWorkouts = this.groupByWorkout(this.daysWorkouts)
         },
         async removeWorkoutGroup(workout_id) {
-            if (!confirm('Remover todos os exercícios deste grupo?')) return
-            const toRemove = this.daysWorkouts.filter(dw => (dw.workout_id || null) === workout_id)
+            const groupItems = this.daysWorkouts.filter(dw => (dw.workout_id || null) === workout_id)
+            const planing_id = groupItems.find(dw => dw.planing_id)?.planing_id || null
+
+            let toRemove = []
+
+            if (planing_id) {
+                const removePlaning = confirm('Estes exercícios pertencem a um planejamento, deseja remover todos os exercícios deste planejamento?')
+                if (removePlaning) {
+                    const all = await this.dayWorkoutsController.select_by_planing(planing_id)
+                    toRemove = all.filter(dw => !dw.executed)
+                } else {
+                    if (!confirm('Remover apenas os exercícios deste grupo no dia atual?')) return
+                    toRemove = groupItems
+                }
+            } else {
+                if (!confirm('Remover todos os exercícios deste treino?')) return
+                toRemove = groupItems
+            }
+
             await Promise.all(toRemove.map(dw => this.dayWorkoutsController.delete(dw.id)))
             this.systemDaysWorkouts = this.systemDaysWorkouts.filter(dw => !toRemove.find(r => r.id === dw.id))
             this.daysWorkouts = this.filterByDate(this.date)

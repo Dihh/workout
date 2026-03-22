@@ -1,0 +1,111 @@
+<style>
+  .plan-weekdays {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 8px 0 16px;
+  }
+
+  .plan-weekday {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    color: #666;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .plan-weekday.selected {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+  }
+
+  .plan-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+  }
+
+  .plan-preview {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 16px;
+    min-height: 20px;
+  }
+
+  .plan-save-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  .plan-save-btn:disabled {
+    opacity: 0.6;
+  }
+</style>
+
+<script type="text/x-template" id="workout-plan-template">
+  <div>
+    <div class="detail-header">
+      <div class="detail-title">Planejar treino</div>
+    </div>
+
+    <div style="padding: 16px;">
+      <div v-if="workout" style="font-size: 14px; color: #888; margin-bottom: 20px;">
+        <i class="fa-solid fa-dumbbell" style="margin-right: 6px; color: var(--primary-dark);"></i>{{workout.name}}
+      </div>
+
+      <div class="plan-label">Data de início</div>
+      <input
+        type="date"
+        class="form-control"
+        v-model="startDate"
+        style="margin-bottom: 20px;"
+      >
+
+      <div class="plan-label">Dias da semana</div>
+      <div class="plan-weekdays">
+        <div
+          v-for="day in weekdays"
+          :key="day.value"
+          :class="['plan-weekday', { selected: selectedWeekdays.includes(day.value) }]"
+          @click="toggleWeekday(day.value)"
+        >
+          {{day.label}}
+        </div>
+      </div>
+
+      <div class="plan-preview">
+        <template v-if="plannedDates.length">
+          <i class="fa-solid fa-calendar-check" style="margin-right: 4px;"></i>
+          {{plannedDates.length}} sessões até {{currentMonthEnd.toLocaleDateString()}}
+        </template>
+      </div>
+
+      <button
+        class="plan-save-btn"
+        @click="save"
+        :disabled="saving || !selectedWeekdays.length || !plannedDates.length"
+      >
+        {{ saving ? 'Salvando...' : 'Salvar planejamento' }}
+      </button>
+    </div>
+  </div>
+</script>

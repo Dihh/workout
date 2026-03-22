@@ -27,6 +27,7 @@ import locationPageComponet from "./components/pages/location/location-page-comp
 import loginComponent from "./components/pages/login/login-component.js"
 import friendsComponent from "./components/pages/friends/friends-component.js"
 import friendComponent from "./components/pages/friend/friend-component.js"
+import workoutPlanComponent from "./components/pages/workout-plan/workout-plan-component.js"
 import { auth, onAuthStateChanged, signOutUser } from './firebase.js'
 import { saveUserProfile } from './firestore.js'
 import { migrateFromIndexedDB } from './migration.js'
@@ -106,6 +107,7 @@ async function getComponents() {
         { tag: 'app-login', component: loginComponent, name: 'login', path: 'pages/login' },
         { tag: 'app-friends', component: friendsComponent, name: 'friends', path: 'pages/friends' },
         { tag: 'app-friend', component: friendComponent, name: 'friend', path: 'pages/friend' },
+        { tag: 'app-workout-plan', component: workoutPlanComponent, name: 'workout-plan', path: 'pages/workout-plan' },
     ]
 
     for (let component of components) {

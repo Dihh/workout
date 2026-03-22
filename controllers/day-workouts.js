@@ -34,6 +34,14 @@ export class DayWorkoutsController extends Controller {
         return snap.docs.map(d => ({ id: d.id, ...d.data() }))
     }
 
+    async select_by_planing(planing_id) {
+        const snap = await getDocs(query(
+            userCol('days_workouts'),
+            where('planing_id', '==', planing_id)
+        ))
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+    }
+
     async select_last_weight(exercise_id) {
         const records = await this.select_by_exercise(exercise_id)
         if (records.length === 0) return null
